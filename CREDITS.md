@@ -28,6 +28,10 @@ Research has not started yet — this table will fill in as work progresses.
 | "alice32-9-ultrawide" / "UltraWide And 60FPS Fix" mods | Nexus Mods creators | https://www.nexusmods.com/alicemadnessreturns/mods/53 |
 | DRM history reporting (EA Cuckoo removal) | ResetEra community | https://www.resetera.com/threads/the-relisted-steam-version-of-alice-madness-returns-recently-got-updated-to-work-without-ea-authentication-drm.548510/ |
 | PCGamingWiki (Alice: Madness Returns technical notes) | PCGamingWiki community | https://www.pcgamingwiki.com/wiki/Alice:_Madness_Returns |
+| Helix Mod: Alice: Madness Returns | Chiz, Helix Mod community | https://helixmod.blogspot.com/2012/02/alice-madness-returns-written-by-chiz.html |
+| UDK Camera Technical Guide | Epic Games | https://docs.unrealengine.com/udk/Three/CameraTechnicalGuide.html |
+| UE3:Camera (UDK) wiki page | BeyondUnreal wiki community | https://wiki.beyondunreal.com/UE3:Camera_(UDK) |
+| Epic Developer Community forums (view/projection matrix discussion) | Epic Games forum community | https://forums.unrealengine.com/t/bound-shader-view-matrix/451510 |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
