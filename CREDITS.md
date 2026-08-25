@@ -22,7 +22,12 @@ Research has not started yet — this table will fill in as work progresses.
 
 | Source / Work | Creator(s) | Link |
 |---|---|---|
-| *(none yet — project just started)* | | |
+| vorpX Alice: Madness Returns compatibility reports & Geometry VR list | vorpX (Ralf Herrmann) & forum community | https://www.vorpx.com/forums/topic/a-masterpiece-is-back-alice-madness-returns/ |
+| MadnessPatch | Wemino | https://github.com/Wemino/MadnessPatch |
+| PC Gamer coverage of MadnessPatch | PC Gamer | https://www.pcgamer.com/games/action/the-sequel-to-one-of-my-favorite-3d-platformers-always-had-a-janky-pc-port-but-a-huge-fanmade-patch-just-dropped-in-hopes-to-fix-it/ |
+| "alice32-9-ultrawide" / "UltraWide And 60FPS Fix" mods | Nexus Mods creators | https://www.nexusmods.com/alicemadnessreturns/mods/53 |
+| DRM history reporting (EA Cuckoo removal) | ResetEra community | https://www.resetera.com/threads/the-relisted-steam-version-of-alice-madness-returns-recently-got-updated-to-work-without-ea-authentication-drm.548510/ |
+| PCGamingWiki (Alice: Madness Returns technical notes) | PCGamingWiki community | https://www.pcgamingwiki.com/wiki/Alice:_Madness_Returns |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
