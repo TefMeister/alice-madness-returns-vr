@@ -32,6 +32,8 @@ Research has not started yet — this table will fill in as work progresses.
 | UDK Camera Technical Guide | Epic Games | https://docs.unrealengine.com/udk/Three/CameraTechnicalGuide.html |
 | UE3:Camera (UDK) wiki page | BeyondUnreal wiki community | https://wiki.beyondunreal.com/UE3:Camera_(UDK) |
 | Epic Developer Community forums (view/projection matrix discussion) | Epic Games forum community | https://forums.unrealengine.com/t/bound-shader-view-matrix/451510 |
+| enslaved-vr project (this portfolio's own Enslaved: Odyssey to the West VR effort) | Project owner + Claude, this portfolio | https://github.com/TefMeister/enslaved-vr-engine-research |
+| flat-to-vr-cross-engine-research (this portfolio's own cross-engine library) | Project owner + Claude, this portfolio | https://github.com/TefMeister/flat-to-vr-cross-engine-research |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
