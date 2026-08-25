@@ -10,7 +10,10 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
-| *(no topics yet — project just started)* | | | |
+| 2026-08-25 | [vorpX Geometry 3D + motion controllers — strongest precedent](topics/2026-08-25-vorpx-geometry3d-motion-controllers-strongest-precedent.md) | 🆕 new | vorpX already delivers true Geometry 3D stereo AND working motion-controller emulation for this exact game — the best VR-feasibility signal found anywhere in this portfolio so far. |
+| 2026-08-25 | [MadnessPatch — comprehensive prior art](topics/2026-08-25-madnesspatch-comprehensive-prior-art.md) | 🆕 new | An open-source community patch by a known modder (EchoPatch/MarkerPatch) already exposes the dev console (F2), disables camera smoothing (VR-critical), fixes framerate-dependent physics, and confirms PhysX — touches nearly every open dossier section at once. |
+| 2026-08-25 | [Native FOV console command confirmed](topics/2026-08-25-native-fov-console-command-confirmed.md) | 🆕 new | `FOV <10-150>` is a real, config-bindable native console command (via BaseInput.ini), confirmed by independent Nexus ultrawide mods — a low-risk starting point for early camera probing. |
+| 2026-08-25 | [DRM history: EA Cuckoo removed 2022](topics/2026-08-25-drm-history-ea-cuckoo-removed-2022.md) | 🆕 new | EA's "Cuckoo" authentication DRM (tied to the 2016 delisting saga) was removed from the relisted Steam build via a January 2022 patch — expect a clean DRM situation, similar to Prince of Persia 2008. |
 
 ## How to add a topic
 
