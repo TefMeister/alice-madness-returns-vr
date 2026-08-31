@@ -5,7 +5,7 @@ rendering and 6DOF head tracking, and ideally motion-controlled combat, built
 on the game's **Unreal Engine 3** foundation.
 
 > **Status: work in progress — nothing playable released yet, no code written
-> yet.** This repository will hold releases only; watch it if you want to know
+> yet.** This folder holds releases only; watch it if you want to know
 > the moment there is something to try.
 
 ## What this will be
@@ -18,7 +18,7 @@ reverse-engineered yet — this repository was created to get the project
 structure in place before that work begins. The real goal, as with all of our
 projects, is the knowledge gained on the way there, written down and shared so
 anyone can do the same for any game — see the
-[engine dossier](https://github.com/TefMeister/alice-madness-returns-vr-engine-research)
+[engine dossier](../engine-research/)
 and the cross-engine
 [flat-to-VR library](https://github.com/TefMeister/flat-to-vr-cross-engine-research).
 
@@ -29,19 +29,19 @@ and the cross-engine
 - A PC VR headset (target runtime to be decided — SteamVR/OpenXR, in line with
   our other projects).
 
-## The six repositories for Alice: Madness Returns VR
+## The folders for Alice: Madness Returns VR
 
-Everything for this game lives in six repositories, each with one job — so you
-always know where to look. You are in **alice-madness-returns-vr-mod**.
+Everything for this game lives in one repository, one folder per job — so you
+always know where to look. You are in **`mod/`**.
 
-| Repository | What lives here |
+| Folder | What lives here |
 | --- | --- |
-| **alice-madness-returns-vr-mod** ← you are here | The mod itself — once code exists, it lands here. |
-| [alice-madness-returns-vr-dev-archive](https://github.com/TefMeister/alice-madness-returns-vr-dev-archive) | Full development history — snapshots, probes, dead ends, raw recon. |
-| [alice-madness-returns-vr-modding-notes](https://github.com/TefMeister/alice-madness-returns-vr-modding-notes) | Readable field notes / progress ledger. |
-| [alice-madness-returns-vr-staging](https://github.com/TefMeister/alice-madness-returns-vr-staging) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
-| [alice-madness-returns-vr-engine-research](https://github.com/TefMeister/alice-madness-returns-vr-engine-research) | Distilled engine reference (dossier) + reusable VR RE playbook. |
-| [alice-madness-returns-vr-external-research](https://github.com/TefMeister/alice-madness-returns-vr-external-research) | Ongoing public-research leads, gathered separately from hands-on modding work. |
+| **`mod/`** ← you are here | The mod itself — once code exists, it lands here. |
+| [`dev-archive/`](../dev-archive/) | Full development history — snapshots, probes, dead ends, raw recon. |
+| [`modding-notes/`](../modding-notes/) | Readable field notes / progress ledger. |
+| [staging/alice-madness-returns-vr](https://github.com/TefMeister/staging/tree/main/alice-madness-returns-vr) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
+| [`engine-research/`](../engine-research/) | Distilled engine reference (dossier) + reusable VR RE playbook. |
+| [`external-research/`](../external-research/) | Ongoing public-research leads, gathered separately from hands-on modding work. |
 
 ## Credits, scope, and legality
 
