@@ -1,4 +1,4 @@
-# alice-madness-returns-vr-external-research
+# alice-madness-returns-vr — `external-research/`
 
 Ongoing **public research** findings for the Alice: Madness Returns VR mod —
 leads, prior art, and technique write-ups gathered from publicly available
@@ -12,19 +12,19 @@ modding side just reads this one when it wants to check for new leads. See
 [INDEX.md](INDEX.md) for the running list of topics (empty for now — the
 project just started).
 
-## The six repositories for Alice: Madness Returns VR
+## The folders for Alice: Madness Returns VR
 
-Everything for this game lives in six repositories, each with one job — so you
-always know where to look. You are in **alice-madness-returns-vr-external-research**.
+Everything for this game lives in one repository, one folder per job — so you
+always know where to look. You are in **`external-research/`**.
 
-| Repository | What lives here |
+| Folder | What lives here |
 | --- | --- |
-| [alice-madness-returns-vr-mod](https://github.com/TefMeister/alice-madness-returns-vr-mod) | The mod itself — once code exists, it lands here. |
-| [alice-madness-returns-vr-dev-archive](https://github.com/TefMeister/alice-madness-returns-vr-dev-archive) | Full development history — snapshots, probes, dead ends, raw recon. |
-| [alice-madness-returns-vr-modding-notes](https://github.com/TefMeister/alice-madness-returns-vr-modding-notes) | Readable field notes / progress ledger. |
-| [alice-madness-returns-vr-staging](https://github.com/TefMeister/alice-madness-returns-vr-staging) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
-| [alice-madness-returns-vr-engine-research](https://github.com/TefMeister/alice-madness-returns-vr-engine-research) | Distilled engine reference (dossier) + reusable VR RE playbook. |
-| **alice-madness-returns-vr-external-research** ← you are here | Ongoing public-research leads — read-only input to the other five, never the other way around. |
+| [`mod/`](../mod/) | The mod itself — once code exists, it lands here. |
+| [`dev-archive/`](../dev-archive/) | Full development history — snapshots, probes, dead ends, raw recon. |
+| [`modding-notes/`](../modding-notes/) | Readable field notes / progress ledger. |
+| [staging/alice-madness-returns-vr](https://github.com/TefMeister/staging/tree/main/alice-madness-returns-vr) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
+| [`engine-research/`](../engine-research/) | Distilled engine reference (dossier) + reusable VR RE playbook. |
+| **`external-research/`** ← you are here | Ongoing public-research leads — read-only input to the other five, never the other way around. |
 
 ## How this repo is used
 
