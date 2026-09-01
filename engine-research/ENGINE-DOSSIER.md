@@ -25,7 +25,7 @@
 ## 4. DRM / anti-debug & injection foothold
 - DRM (CEG/Denuvo/GOG/none); launch-time-debugger behaviour: **No DRM found — reconciled with a real, dated history (external-research, 2026-08-25), not just a lucky static result.** The original 2011 release used **"EA Cuckoo"**, an online-authentication DRM tied to EA's own activation servers. EA delisted the game entirely in September 2016 after accidentally distributing already-used Steam keys (refunding affected buyers rather than replacing keys), leaving existing owners with server-dependent DRM on a no-longer-sold title. The game was later **relisted on Steam, and a January 14, 2022 patch removed EA Cuckoo authentication DRM entirely** from that build. Our own static recon (zero Denuvo/SecuROM/StarForce/Cuckoo/link2ea strings) is fully consistent with this — **this is a "DRM was present historically, current build is clean" case, same pattern as Prince of Persia (2008), not a lucky negative result.** Worth being glad about specifically given this is EA-published (same publisher as Burnout Paradise, which still needs the EA App) — this title evidently doesn't carry that requirement anymore. Not yet tested live.
 - Attach workflow that works: not yet tested live, but no static evidence predicts a block.
-- Injection vector that works (proxy DLL name / injector / framework): **✅ LIVE-VERIFIED (2026-08-25), a from-scratch `d3d9.dll` proxy**, matching this portfolio's Psychonauts and Prince of Persia precedent. **First deploy attempt failed the game outright** — see `alice-madness-returns-vr-staging/proxy-d3d9/README.md` for the full story: `AliceMadnessReturns.exe` statically imports *two* functions from `d3d9.dll` (`Direct3DCreate9` and `D3DPERF_SetOptions`, a real D3D9 perf-marker export), not just one — a proxy exporting only `Direct3DCreate9` left Windows' loader unable to resolve the exe's import table at all, so the process exited before running any code (zero log output, "ran ~2 seconds then stopped"). Isolated via a clean control test (DLL removed → game launched fine), fixed by adding the second forwarding wrapper, redeployed — **confirmed working cleanly on the retest**: `Direct3DCreate9` called twice (SDKVersion=0x20 both times), `D3DPERF_SetOptions` called once (dwOptions=0x1), game ran for ~5 minutes of real play. **Lesson for future D3D9 proxies in this portfolio: check the exe's actual per-function import list for the target DLL, not just whether the DLL name appears in the import table** — Prince of Persia's exe only needed `Direct3DCreate9`, but that isn't guaranteed for every D3D9 title.
+- Injection vector that works (proxy DLL name / injector / framework): **✅ LIVE-VERIFIED (2026-08-25), a from-scratch `d3d9.dll` proxy**, matching this portfolio's Psychonauts and Prince of Persia precedent. **First deploy attempt failed the game outright** — see `staging/alice-madness-returns-vr/proxy-d3d9/README.md` for the full story: `AliceMadnessReturns.exe` statically imports *two* functions from `d3d9.dll` (`Direct3DCreate9` and `D3DPERF_SetOptions`, a real D3D9 perf-marker export), not just one — a proxy exporting only `Direct3DCreate9` left Windows' loader unable to resolve the exe's import table at all, so the process exited before running any code (zero log output, "ran ~2 seconds then stopped"). Isolated via a clean control test (DLL removed → game launched fine), fixed by adding the second forwarding wrapper, redeployed — **confirmed working cleanly on the retest**: `Direct3DCreate9` called twice (SDKVersion=0x20 both times), `D3DPERF_SetOptions` called once (dwOptions=0x1), game ran for ~5 minutes of real play. **Lesson for future D3D9 proxies in this portfolio: check the exe's actual per-function import list for the target DLL, not just whether the DLL name appears in the import table** — Prince of Persia's exe only needed `Direct3DCreate9`, but that isn't guaranteed for every D3D9 title.
 
 ## 5. Threading & frame structure
 - Immediate context only, or deferred contexts + command lists?:
@@ -33,6 +33,71 @@
 - One-frame walkthrough (record → replay → present):
 
 ## 6. Camera & projection delivery (the crucial section)
+
+### ✅ SETTLED STATICALLY, 2026-09-01 — the registers are read out of the game's own shipped shaders
+
+*Discovered by the `/pd` pass at 14:29 (`modding-notes/2026-09-01b-…`), which recorded it in the notes
+and on the status board but not here; folded into the dossier, with the vertex/pixel split added, by
+the later `/pd` pass (`modding-notes/2026-09-01c-…`).*
+
+**The game was never launched.** This came from `AliceGame\CookedPC\RefShaderCache-PC-D3D-SM3.upk`,
+a file that ships with the game, read with `flat-to-vr-RE-toolkit/tools/d3d9-ctab.py`. Compiled D3D9
+shaders carry a `CTAB` block naming every constant and its register, so this is plain data on disk —
+no capture, no debugger. The cache holds **45,832 constant tables (43,025 `ps_3_0`, 2,807 `vs_3_0`)**.
+
+| Constant | Target | Register | Shaders | Distinct layouts | Exceptions |
+|---|---|---|---|---|---|
+| `ViewProjectionMatrix` | `vs_3_0` | **`c0`, 4 regs (4×4)** | 2,431 | 576 | **none** |
+| `CameraPosition` | `vs_3_0` | **`c4`** | 1,989 | 473 | **none** |
+| `PreViewTranslation` | `vs_3_0` | **`c5`** | 486 | 195 | **none** |
+| `NvStereoEnabled` | `ps_3_0` | `c3` | 28,017 | 11,004 | none |
+| `ViewProjectionMatrix` | `ps_3_0` | `c4` (and `c11` ×4) | 4,126 | 1,723 | — |
+
+`[inferred-static 2026-09-01]` — every vertex shader in the shipped cache that references the
+view-projection puts it at `c0`, across 576 independent layouts, with no counter-example. 2,431 of
+the 2,807 vertex shaders (87%) carry it.
+
+**⚠️ Vertex and pixel registers are different spaces — do not merge them.** The same name sits at
+`c0` in a vertex shader and `c4` in a pixel shader. Reading the two together is what makes `c0` look
+like a minority case; split by target and the vertex side is unanimous.
+
+**And the pixel-shader copies are not a footnote: they outnumber the vertex ones (4,126 vs 2,431).**
+A per-eye offset written only at vertex `c0` would leave every one of those pixel shaders reading an
+un-offset view-projection — the shape of bug that yields correct geometry with wrong screen-space
+effects (reflections, fog, SSAO, decals). Plan for both from the start. (Related display trap: the
+CTAB tool prints *sampler* registers with a `c` prefix too, so `NvStereoFixTexture sampler c1` is
+`s1` and does **not** collide with `ScreenPositionScaleBias` at float4 `c1`.)
+
+### ⛔️ This supersedes the "c0 is probably NOT a shared view-projection" warning below
+
+That warning was inherited from `enslaved-vr`, whose early gameplay histogram showed only per-draw
+4×4 uploads and no frame-constant register. **It was withdrawn at the source on 2026-09-01**
+(`enslaved-vr/modding-notes/2026-09-01-shared-viewprojection-confirmed-at-c0.md` — Enslaved's own
+shipped `.usf` sources put the shared view-projection at `c0`). Alice now agrees from a completely
+different kind of evidence: Enslaved from shader *source*, Alice from compiled shader *reflection*.
+**Both UE3/D3D9 games independently land on `c0` = ViewProjection, `c4` = CameraPosition,
+`c5` = PreViewTranslation.** Treat the paragraph below as history, not as guidance.
+
+**What this does NOT establish:** that writing `c0` steers the picture. The register is where the
+matrix *arrives*; nothing here proves the engine does not also fold a camera term into per-object
+matrices for some passes, and the `ps_3_0` copies at `c4` mean at least some screen-space work
+re-reads it. The diagnostic that would show the *derivation* is wrong rather than a value needing
+tuning: override `c0` with a deliberate large yaw and check whether **all** opaque geometry rotates
+together. If some passes rotate and others do not, the shared-VP model is incomplete for this game.
+
+### ⭐ The native stereo path is real, and it is compiled into the shipping shaders
+
+`NvStereoEnabled` is present in **28,017 pixel shaders (65% of all of them), always at `ps_3_0` `c3`**,
+with `NvStereoFixTexture` as a companion sampler. `[inferred-static 2026-09-01]` This is much harder
+evidence than the config key `AllowNvidiaStereo3d=True` or the HelixMod author's remark: the stereo
+path is not a menu option bolted on, it is **branch logic baked into the majority of the game's
+shipped pixel shaders**. It corroborates the "this game ships real stereo-3D support" lead below and
+promotes it from a strong lead to a static fact about the shaders.
+
+**Careful about what it buys us:** this is *NVIDIA 3D Vision* support — a driver-era stereo path.
+Its presence proves per-eye rendering was designed for, and `c3` is a live switch worth probing, but
+it is not an OpenXR submission path and it does not by itself give us head tracking.
+
 - How the world transform reaches the GPU (shared VP buffer / per-draw MVP /
   other), with **shader-reflection / disassembly evidence**:
 - Exact constant-buffer slot, parameter name(s), byte offset(s), layout,
