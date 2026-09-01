@@ -34,6 +34,9 @@ Research has not started yet — this table will fill in as work progresses.
 | Epic Developer Community forums (view/projection matrix discussion) | Epic Games forum community | https://forums.unrealengine.com/t/bound-shader-view-matrix/451510 |
 | enslaved-vr project (this portfolio's own Enslaved: Odyssey to the West VR effort) | Project owner + Claude, this portfolio | https://github.com/TefMeister/enslaved-vr/tree/main/engine-research |
 | flat-to-vr-cross-engine-research (this portfolio's own cross-engine library) | Project owner + Claude, this portfolio | https://github.com/TefMeister/flat-to-vr-cross-engine-research |
+| NVIDIA 3D Vision developer documentation — "Using nvstereo.h" (the `StereoParmsTexture` channel layout and update cadence) and the Automatic background/issues pages | NVIDIA Corporation | https://archive.docs.nvidia.com/gameworks/content/technologies/desktop/nv3dva_using_nvstereoh.htm |
+| Unreal Developer Network — "Unreal Engine 3 and NVIDIA 3D Vision Direct" (`AllowNvidiaStereo3d`, fullscreen-only restriction) | Epic Games | https://docs.unrealengine.com/udk/Three/ThreeDVision.html |
+| 3Dmigoto (its published `nvstereo.h` copy is what shows the header is freely available; nothing taken from it) | bo3b and 3Dmigoto contributors | https://github.com/bo3b/3Dmigoto |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
