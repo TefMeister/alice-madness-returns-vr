@@ -1,6 +1,6 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-01 — FULL.** Inbox was empty. One new topic, and it closes the open
+**Last `/gr` pass: 2026-09-01 — CHECK-IN** (targeted: board + INDEX + the day's open question; the dossier was not read in full, so a FULL pass is still owed)**.** Inbox was empty. One new topic, and it closes the open
 question the modding side left the same day: **`NvStereoFixTexture` is NVIDIA's own
 `StereoParmsTexture`**, and NVIDIA publishes its layout — separation in `.r`, convergence in `.g`,
 and an explicit **eye sign (−1 left / +1 right) in `.b`**. No shader disassembly needed. Combined with
