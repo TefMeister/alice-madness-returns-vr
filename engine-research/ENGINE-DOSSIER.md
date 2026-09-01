@@ -57,6 +57,21 @@ no capture, no debugger. The cache holds **45,832 constant tables (43,025 `ps_3_
 view-projection puts it at `c0`, across 576 independent layouts, with no counter-example. 2,431 of
 the 2,807 vertex shaders (87%) carry it.
 
+**⭐ The useful split: VIEW constants are fixed, PER-OBJECT constants are not.** The three registers
+above never move. The per-object matrices move with the vertex factory, and a hook must not assume
+them:
+
+| Constant | Registers seen (`vs_3_0`) |
+|---|---|
+| `LocalToWorld` | `c6` (1,761 shaders), `c231` (468 — the skinned/GPU-skin factory), `c10` (228) |
+| `LocalToView` | `c10` (154), `c14` (114) |
+| `InstancedPreViewTranslation` | `c6` (46), `c10` (28) — a **separate constant** from `PreViewTranslation`, used by the instanced factory |
+
+`[inferred-static 2026-09-01]` This is why a per-eye override belongs at `c0`: it is the one place the
+camera arrives at a fixed address regardless of which factory drew the object. It also explains the
+early Enslaved histogram that started the per-object-WVP scare — `c6`/`c10`/`c231` genuinely do change
+per draw; they are just not where the camera lives.
+
 **⚠️ Vertex and pixel registers are different spaces — do not merge them.** The same name sits at
 `c0` in a vertex shader and `c4` in a pixel shader. Reading the two together is what makes `c0` look
 like a minority case; split by target and the vertex side is unanimous.
