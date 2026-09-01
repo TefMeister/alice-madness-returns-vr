@@ -96,5 +96,73 @@ confirmed against this build, not assumed from a sibling.
 **On a live session:** open the video options and look for `Stereo3D`. That is now a specific thing
 to look for in a specific screen, rather than "check for a toggle".
 
+## 5. 🎯 THE ANSWER, found the same session: the stereo is in the game's OWN SHADERS, at a register we control
+
+The section above said the next step was to find what the `Stereo3D` setting drives, and that Alice
+not shipping `.usf` sources made it hard. **It turned out not to be hard at all**, because Alice
+ships something just as good: `AliceGame/CookedPC/RefShaderCache-PC-D3D-SM3.upk` contains **45,832
+D3D9 shader constant tables (`CTAB`) with names and register indices intact** — the D3D9 equivalent
+of D3D11's RDEF reflection, readable straight off disk.
+
+`[inferred-static 2026-09-01, n=45832 tables]`
+
+### The camera registers, from Alice's own shaders — no longer inherited from a sibling
+
+```
+ViewProjectionMatrix   float4  c0  x4
+CameraPosition         float4  c4  x1
+LocalToWorld           float4  c6  x4
+LocalToView            float4 c10  x4
+```
+
+**Identical to Enslaved's mapping**, but now established for *this* build rather than assumed from
+one. §4's caveat ("must be confirmed against this build, not assumed from a sibling") is discharged.
+
+### The stereo mechanism, and why it is the best VR news in this portfolio
+
+```
+NvStereoEnabled        float4  c3   in 28,017 shaders
+NvStereoFixTexture     sampler c1   in 14,479 shaders
+```
+
+`NvStereoEnabled` sits beside `ScreenPositionScaleBias` (c1) and `MinZ_MaxZRatio` (c2) — which
+`Common.usf` in this UE3 lineage reserves as **pixel-shader** registers `PSR_*`. So **NVIDIA's
+branch added a reserved pixel-shader constant at `c3`**, and baked stereo handling into **28,017
+shaders**.
+
+That settles the question §4 left open, and settles it the good way:
+
+* **The game's own shaders do the stereo work.** This is not driver reprojection — it is 28k shaders
+  compiled with an explicit stereo path.
+* **Both inputs are ordinary D3D9 state that a proxy owns.** `NvStereoEnabled` is a pixel-shader
+  float4 (`SetPixelShaderConstantF`); `NvStereoFixTexture` is a sampler (`SetTexture`). **We can
+  supply both ourselves.**
+* **Therefore the NVIDIA driver is not required.** The usual objection — "3D Vision is discontinued,
+  so this is inert" — does not bite, because nothing forces us to obtain separation and convergence
+  *from the driver*. We can bind our own texture with our own values.
+
+**This makes Alice the strongest VR-feasibility case in the portfolio with a mechanism attached,**
+rather than on reputation. The hard part of a flat-to-VR conversion — getting the renderer to draw a
+correct second eye — may already be compiled into the shipped shaders.
+
+### What is still NOT established
+
+* **The exact contents `NvStereoFixTexture` is expected to hold.** NVIDIA's stereo texture has a
+  documented layout, but it has not been confirmed against these shaders, and getting it wrong gives
+  a plausible-looking wrong separation. **This is the next thing to pin down**, and the shader
+  bytecode in the same cache can answer it — the arithmetic that consumes the sampler is right there.
+* Whether `NvStereoEnabled` is a simple on/off or carries parameters in its other components.
+* Whether the `Stereo3D` menu option drives these, or whether they are gated separately.
+* Nothing here has been run.
+
+### Next, still no launch needed
+
+Disassemble one of the 28,017 shaders that reference `NvStereoFixTexture` and read how it uses the
+sampler and `NvStereoEnabled`. That gives the expected texture layout and the exact formula — after
+which a proxy can drive the game's own stereo path directly.
+
+Tool: `flat-to-vr-RE-toolkit/tools/d3d9-ctab.py` (`summary` / `find` / `list`), written this session
+for exactly this and applicable to every D3D9 title in the portfolio.
+
 🤖 Static analysis of shipped files only. The game was not launched, nothing was modified, and no
 game content was copied here.
