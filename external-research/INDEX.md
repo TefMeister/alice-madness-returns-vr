@@ -1,12 +1,19 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-01 — CHECK-IN** (targeted: board + INDEX + the day's open question; the dossier was not read in full, so a FULL pass is still owed)**.** Inbox was empty. One new topic, and it closes the open
-question the modding side left the same day: **`NvStereoFixTexture` is NVIDIA's own
-`StereoParmsTexture`**, and NVIDIA publishes its layout — separation in `.r`, convergence in `.g`,
-and an explicit **eye sign (−1 left / +1 right) in `.b`**. No shader disassembly needed. Combined with
-`ViewProjectionMatrix` at `c0`, the stereo plan for this build is now fully specified without a
-launch. One real tension recorded rather than smoothed over (Epic calls the integration "3D Vision
-*Direct*"; the eye-sign channel is the *Automatic* correction signature) — the plan works either way.
+**Last `/gr` pass: 2026-09-02 (estate sweep, third pass) — CHECK-IN** (one targeted follow-up on
+yesterday's open item; a FULL pass is still owed on the rest of the dossier)**.** Inbox empty. One
+new topic closing the last piece of `NvStereoFixTexture`: NVIDIA's `nvstereo.h` gives the exact size
+and format — **8×1, `D3DFMT_A32B32G32R32F`** — and, more usefully, shows the **app itself**
+writes the texture each frame via NVAPI separation/convergence queries, not the driver. A proxy
+therefore needs no driver cooperation to substitute its own values. Filed to the cross-engine
+library as a reusable NVAPI/3D-Vision technique.
+_2026-09-01 — CHECK-IN:_ inbox empty. One new topic closing the modding side's same-day open
+question: `NvStereoFixTexture` is NVIDIA's own `StereoParmsTexture`, with separation in `.r`,
+convergence in `.g`, and an explicit eye sign (−1 left / +1 right) in `.b`. No shader disassembly
+needed. Combined with `ViewProjectionMatrix` at `c0`, the stereo plan for this build was fully
+specified without a launch. One real tension recorded rather than smoothed over (Epic calls the
+integration "3D Vision *Direct*"; the eye-sign channel is the *Automatic* correction signature) —
+the plan works either way.
 
 Every research topic gathered for this project, newest first. Each row links to a self-contained
 write-up in `topics/`. Status tags:
@@ -18,6 +25,7 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
+| 2026-09-02 | [`NvStereoFixTexture`'s exact format, and who actually writes it](topics/2026-09-02-nvstereofixtexture-exact-format-and-who-writes-it.md) | 🆕 new | Closes the one gap the 2026-09-01 topic left: `StereoTexWidth`/`Height`/`Format` are **8×1, `D3DFMT_A32B32G32R32F`**, straight from NVIDIA's `nvstereo.h`. More importantly, the header shows the **application populates the texture itself each frame via NVAPI queries** — the driver only reads it — so a proxy intercepting those calls or the texture write controls every one of the 14,479 sampling shaders without fighting the driver for the resource. |
 | 2026-09-01 | [`NvStereoFixTexture`'s layout is documented — no disassembly needed](topics/2026-09-01-nvstereofixtexture-layout-is-documented-no-disassembly-needed.md) | 🆕 new | ⭐ Answers the 2026-09-01 open question from a **first-party source**: the texture is NVIDIA's `StereoParmsTexture` from `nvstereo.h`, holding *"eye-specific separation"* (`.r`), *"convergence"* (`.g`) and a *"unit vector identifying the current eye"*, **left = −1, right = +1** (`.b`); it is **app-provided** and updated once per frame at frame start, "even while the device is lost". A proxy that binds its own texture drives all 14,479 sampling shaders with no driver, no 3D Vision and no shader patching. Also: UE3 stereo is **fullscreen-only and does not work in the editor** — a real constraint on any live test. |
 | 2026-08-25 | [enslaved-vr sibling project: live UE3/D3D9 findings](topics/2026-08-25-enslaved-vr-sibling-project-ue3-d3d9-live-findings.md) | 👀 reviewed | This portfolio's own enslaved-vr project already has a live-captured UE3-on-D3D9 constant-register analysis, a proven d3d9.dll proxy blueprint (exact vtable slots), and confirmation UE3's default console key is Tilde — directly refines expectations for §4/§6/§7/§9. Factored into ENGINE-DOSSIER.md §3/§6. |
 | 2026-08-25 | [Cross-engine library: D3D9 generic-driver notes](topics/2026-08-25-cross-engine-library-d3d9-generic-driver-notes.md) | 👀 reviewed | This portfolio's own cross-engine library explains why vorpX's Geometry 3D suits D3D9 so well, and documents a dgVoodoo2→geo-11+shader-fix backup path Alice is well-positioned for given its existing HelixMod fix. Factored into ENGINE-DOSSIER.md §12. |
