@@ -34,6 +34,68 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⛔️ THE EXE'S `.text` IS ENCRYPTED AT REST — NO STATIC CODE SCAN ON THIS BINARY CAN RETURN A TRUE NEGATIVE (2026-09-02, `/pd`, no launch)
+
+**Read this before planning any static work on `AliceMadnessReturns.exe`.** `.text` measures
+**entropy 8.00** (the ceiling), the **entry point is at `01661310` inside a `.bind` wrapper section**
+(entropy 7.98) rather than in `.text`, `.text` does not disassemble, and it contains **zero `CC`
+padding runs** — impossible for a real MSVC code section. `[measured 2026-09-02]` A wrapper decrypts
+it at load. Which wrapper is not established (`SteamStub`/`Steam`/`CEG`/`valve` appear nowhere).
+
+- **Consequence:** strings, `push imm32` operands and xrefs in `.text` are all unreadable off disk.
+  A scan that finds nothing has found nothing *about the game* — the test could not have produced a
+  positive result.
+- **This retires the queued NVAPI Direct-vs-Automatic scan as a `[PD]` item.** `/gr`'s method
+  (`SetActiveEye` `0x96EEA9F8`, `SetDriverMode` `0x5E8F0BEC`, control `NvAPI_Initialize`
+  `0x0150E828`) is sound and works on Alan Wake's unencrypted exe; here it needs a **memory dump of
+  `.text` from a running process** first (`static-disasm.py --raw`, the Manhunt route). Now `[FLAT]`.
+- **It also withdraws an inference:** the 2026-09-01 "the exe has essentially no stereo strings, so
+  the integration lives in the engine layer" reasoning. The premise is an artefact of encryption.
+  `[disproved 2026-09-02]` as an inference.
+- **`.rdata`/`.data` are NOT encrypted** and stay fully readable — which is where the table below
+  came from, and why the shader-cache work is unaffected.
+- **Injection is unaffected** — the `d3d9.dll` proxy is live-verified on this build.
+- ⚠️ **§4's "no DRM" needs reading narrowly:** EA's Cuckoo really is gone, but the shipping binary is
+  **wrapped**. Correction, not contradiction.
+
+#### The NVAPI interface table is readable — and it does NOT decide Direct vs Automatic
+
+A **105-entry** table at `013d452c` (`{u32; u32; u32 interfaceId}`), ids matching NVIDIA's published
+`nvapi_interface.h`. **27 are `NvAPI_Stereo_*`** (Enable/Disable/IsEnabled, CreateHandleFromIUnknown,
+DestroyHandle, Activate/Deactivate/IsActivated, Get/Set/Increase/Decrease Separation and Convergence,
+GetEyeSeparation, Get/SetFrustumAdjustMode, ReverseStereoBlitControl, SetNotificationMessage,
+Capture{Jpeg,Png}Image, and the four configuration-profile-registry calls). **`SetActiveEye` and
+`SetDriverMode` are absent.**
+
+**⚠️ Do not read that absence as "Automatic".** The same table carries `NvAPI_VIO_*` (Quadro SDI),
+`GPU_GetECC*`, `Mosaic` and `I2CRead/Write` — functions no game calls — so it is **the linked NVAPI
+SDK's fixed table, not this game's usage.** The positive control settles it: **`NvAPI_Initialize` is
+missing from the table too**, and the game certainly calls it (`nvapi.dll` and
+`nvapi_QueryInterface` sit in readable `.rdata` at `0131ba4c`). `[inferred-static 2026-09-02]`
+Full decode: `dev-archive/recon/2026-09-02-text-is-encrypted-and-nvapi-table/`.
+
+#### Register facts re-derived 2026-09-02, with two refinements
+
+Every published number reproduces `[verified-numerically 2026-09-02]` (45,832 tables = 43,025
+`ps_3_0` + 2,807 `vs_3_0`; `ViewProjectionMatrix` `vs_3_0` `c0 ×4` in 2,431, no exceptions;
+`CameraPosition` `vs_3_0` `c4` 1,989; `PreViewTranslation` `vs_3_0` `c5` 486; `NvStereoEnabled`
+`ps_3_0` `c3` 28,017). Two things the earlier pass did not separate:
+
+- **`NvStereoFixTexture` is not only `s1`:** `s1` 14,221, **`s3` 202, `s0` 46, `s2` 10.** A proxy
+  binding a stereo texture must key off the sampler each shader declares — assuming `s1` silently
+  mis-feeds 258 shaders.
+- **`ps_3_0` `c4` is a slot with two meanings:** `ViewProjectionMatrix` `c4 ×4` in 4,122 shaders, but
+  **`WorldToViewMatrix` `c4 ×3` in 135**. Writing `ps c4` blind corrupts those 135.
+
+#### Per-eye maths: the clip-space split sidesteps the `c5` trap entirely — derived, NOT verified
+
+For `x_clip = row0·p`, `w_clip = row3·p`, NVIDIA's own formula `x' = x + S·(w − C)` is exactly
+`row0' = row0 + S·row3` then `row0'[3] -= S·C`, with `S = (f/aspect)·t/C` for a view-X eye offset `t`
+and convergence depth `C`. Because it transforms the matrix's **output**, it never touches world
+space and is **immune to `PreViewTranslation`** — the `c5` drift trap below cannot bite it.
+**`[hypothesis]` — hand algebra, NOT numerically tested.** Verify against independently built ground
+truth, testing compiled shipped code rather than a transcription, before anything is built on it.
+
 ### ✅ SETTLED STATICALLY, 2026-09-01 — the registers are read out of the game's own shipped shaders
 
 *Discovered by the `/pd` pass at 14:29 (`modding-notes/2026-09-01b-…`), which recorded it in the notes
@@ -220,7 +282,10 @@ in the driver's role.**
 - Frame-capture method; where images land:
 
 ## 11. Dead ends & false leads (save future time)
-- <what looked true but wasn't, and why>
+- **Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. Needs a runtime dump first. `[measured 2026-09-02]`
+- **Reading "no stereo strings in the exe" as "the integration lives in the engine layer"** (2026-09-01) — the premise is an artefact of that encryption. `[disproved 2026-09-02]`
+- **Reading `SetActiveEye`'s absence from the NVAPI id table as "Automatic mode"** — the table is the linked SDK's fixed list, not the game's usage; `NvAPI_Initialize` is absent from it too. `[inferred-static 2026-09-02]`
+- **Assuming `NvStereoFixTexture` is always sampler `s1`** — it is also `s3` (202), `s0` (46) and `s2` (10). `[verified-numerically 2026-09-02]`
 
 ## 12. Open risks toward the North Star
 - **Framerate-dependent physics is a real, third-party-confirmed risk (external-research, 2026-08-25, from MadnessPatch's own fix list): hair/dress physics instability, projectile hitbox inconsistency, and general simulation behavior specifically at high framerates.** VR needs a high, stable frame rate (typically 90Hz+); this UE3-era game's physics were evidently tuned assuming a much lower framerate ceiling, and MadnessPatch had to fix exactly this class of bug. Running at VR framerates may re-expose the same issues — test explicitly once running at VR-target framerates, and treat MadnessPatch's own fix approach (understand, don't copy) as a reference point.
