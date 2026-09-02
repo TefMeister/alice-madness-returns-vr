@@ -37,6 +37,11 @@ Research has not started yet — this table will fill in as work progresses.
 | NVIDIA 3D Vision developer documentation — "Using nvstereo.h" (the `StereoParmsTexture` channel layout and update cadence) and the Automatic background/issues pages | NVIDIA Corporation | https://archive.docs.nvidia.com/gameworks/content/technologies/desktop/nv3dva_using_nvstereoh.htm |
 | Unreal Developer Network — "Unreal Engine 3 and NVIDIA 3D Vision Direct" (`AllowNvidiaStereo3d`, fullscreen-only restriction) | Epic Games | https://docs.unrealengine.com/udk/Three/ThreeDVision.html |
 | 3Dmigoto (its published `nvstereo.h` copy is what shows the header is freely available; nothing taken from it) | bo3b and 3Dmigoto contributors | https://github.com/bo3b/3Dmigoto |
+| NVAPI public repository — `nvapi_interface.h` id table and `nvapi_lite_stereo.h` (Direct-mode contract) | NVIDIA Corporation | https://github.com/NVIDIA/nvapi |
+| 3D-Vision-Direct sample README (what a Direct-mode app does; nothing taken) | bo3b | https://github.com/bo3b/3D-Vision-Direct |
+| "Stereo 3d refuses to work" — what the in-game toggle does | Steam Community discussion participants | https://steamcommunity.com/app/19680/discussions/0/828925216495800901/ |
+| MadnessPatch release notes (`EnableConsole` on F2, 3.x changes) | Wemino | https://github.com/Wemino/MadnessPatch/releases |
+| "Epic Brings NVIDIA 3D Vision Support to Unreal Engine 3" (GDC 2010 press release) | NVIDIA Corporation | https://nvidianews.nvidia.com/_gallery/download_pdf/54481935f6091d2735000245/ |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
