@@ -1,0 +1,16 @@
+AliceMadnessReturns.exe  image base 00400000  entry VA 01661310
+section    VA         vsize     rawsize   entropy  note
+.text      00401000     c9f2fb    c9f400     8.00  
+.textidx   010a1000      8ccba     8ce00     6.03  
+CONST      0112e000         50       200     1.42  
+.rdata     0112f000     26aabe    26ac00     4.85  
+.data      0139a000     15f3b0     3e600     5.69  
+.shr       014fa000          4       200    -0.00  
+.rsrc      014fb000       6478      6600     6.24  
+.reloc     01502000     15ed68    15ee00     6.81  
+.bind      01661000      30b18     30b18     7.98  <= ENTRY POINT
+
+Reading: .text at 8.00 is encrypted at rest; the entry point is in .bind, a
+wrapper section. Any scan of .text off disk - strings, immediates, xrefs -
+is a guaranteed false negative. Confirmed by disassembly: .text's first bytes
+and the entry point decode as garbage, and .text holds 0 int3 padding runs.
