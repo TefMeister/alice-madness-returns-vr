@@ -67,7 +67,52 @@ it at load.
 - **Consequence:** strings, `push imm32` operands and xrefs in `.text` are all unreadable off disk.
   A scan that finds nothing has found nothing *about the game* — the test could not have produced a
   positive result.
-- **🚦 THE NVAPI Direct-vs-Automatic SCAN IS BACK TO `[PD]` (re-gated 2026-09-03).** `/gr`'s method
+> ### ✅✅ SETTLED 2026-09-03 — **THE MODE IS AUTOMATIC.** The scan ran, on an unpacked copy, with the game never launched.
+>
+> A **copy** of the exe was unpacked with Steamless v3.1.0.5, which independently identified it as
+> **SteamStub Variant 3.1 (x86)** — matching the static call above. Unpack validated before trusting
+> anything from it: `.text` entropy **8.00 → 6.71**, `CC` padding **0 → 1** run, `.bind` removed,
+> entry point moved `0x01661310` (`.bind`) → **`0x00FAEF67`** (the original OEP in `.text`), and
+> `.text` now disassembles as clean MSVC code. `[measured 2026-09-03]`
+>
+> | function | id | unpacked | **still-packed control** |
+> | --- | --- | --- | --- |
+> | `NvAPI_Initialize` | `0x0150E828` | **1** ✅ positive control | 0 |
+> | **`Stereo_SetActiveEye`** | `0x96EEA9F8` | **0** | 0 |
+> | **`Stereo_SetDriverMode`** | `0x5E8F0BEC` | **0** | 0 |
+> | `Stereo_CreateHandleFromIUnknown` | `0xAC7E37F4` | 1 | 0 |
+> | `Stereo_Activate` | `0xF6A1AD68` | 1 | 0 |
+> | `Stereo_GetSeparation` | `0x451F2134` | 1 | 0 |
+> | `Stereo_GetConvergence` | `0x4AB00934` | 1 | 0 |
+> | `Stereo_GetEyeSeparation` | `0xCE653127` | 1 | 0 |
+> | `Stereo_Enable` / `SetSeparation` / `SetSurfaceCreationMode` | — | 0 | 0 |
+>
+> **The packed column is all zero including the positive control** — that scan could not have
+> produced a positive, which is precisely the false negative the 2026-09-02 note warned about, now
+> demonstrated side by side rather than argued.
+>
+> **All six live references sit in ONE 825-byte function** (`0x00E65663`–`0x00E6599C` in the
+> unpacked image): init → create handle → activate → **read** separation, convergence and eye
+> separation. **Three getters and no setters at all** — `SetSeparation` is 0 here where Alan Wake
+> had 1, so Alice is even more purely a consumer. `[inferred-static 2026-09-03]`
+>
+> **⛔️ Consequence — the same verdict as `alan-wake-vr`, reached independently: the game never takes
+> the eyes off the driver.** It activates 3D Vision and reads back what the driver decided.
+> `NvStereoEnabled` (`ps c3`, 28,017 shaders) and `NvStereoFixTexture` (14,479) are therefore
+> **consumers of driver-published values, not producers of an eye offset**.
+>
+> ✅ **This CONFIRMS the existing plan rather than changing it** — exactly the outcome `/gr`
+> pre-committed to: *"no callers on either, with callers on Activate/getters ⇒ Automatic (same as
+> Alan Wake; the render-twice + own-texture plan is unchanged)."* And it is better news than it
+> sounds: because the game *reads* separation and convergence and feeds them to its own shaders, a
+> proxy that supplies those values itself — writing `ps c3` and binding its own stereo texture —
+> drives a stereo path the shipping shaders already implement. The discontinued NVIDIA driver is not
+> required. Evidence: `dev-archive/recon/2026-09-03-steamstub-and-matrix-layout/nvapi-direct-vs-automatic-scan.txt`.
+>
+> ⚠️ **The unpacked binary is GAME CONTENT and is deliberately not committed.** Regenerate in one
+> command when needed; work on a copy, never the shipped exe.
+
+- **🚦 The scan's history, kept because the gating lesson is the point (re-gated `[FLAT]` → `[PD]` 2026-09-03, then answered the same day).** `/gr`'s method
   (`SetActiveEye` `0x96EEA9F8`, `SetDriverMode` `0x5E8F0BEC`, control `NvAPI_Initialize`
   `0x0150E828`) is sound and works on Alan Wake's unencrypted exe. It was gated `[FLAT]` on
   2026-09-02 because the remedy looked like a runtime memory dump; **it is not — unpack a copy with
@@ -293,12 +338,15 @@ eye's sign; ship all 28,017 shaders exactly as they are. **That is NVIDIA's divi
 in the driver's role.**
 
 **⚠️ Two caveats, both unresolved:**
-1. **Which 3D Vision mode UE3 actually uses is genuinely ambiguous.** Epic's page is titled *"UE3 and
-   NVIDIA 3D Vision **Direct**"* (Direct = the application renders both eyes, the optimistic reading),
-   but an **eye-sign channel in a texture is the signature of the Automatic pattern** — an app
-   rendering in Direct mode already knows which eye it is drawing. Evidence points both ways;
-   `[reported]` / `[hypothesis]`. The plan above is unaffected either way, which is why it is still
-   worth acting on.
+1. **✅ RESOLVED 2026-09-03 — the mode is AUTOMATIC.** This was recorded as genuinely ambiguous:
+   Epic's page is titled *"UE3 and NVIDIA 3D Vision **Direct**"* (the optimistic reading), but an
+   **eye-sign channel in a texture is the signature of the Automatic pattern** — an app rendering in
+   Direct mode already knows which eye it is drawing. **The texture reading was right.** The caller
+   scan on an unpacked copy (§6) finds **zero** references to both `Stereo_SetActiveEye` and
+   `Stereo_SetDriverMode`, against live references to `Initialize`, `CreateHandleFromIUnknown`,
+   `Activate` and three getters. `[inferred-static 2026-09-03]` Epic's *page title* describes what
+   UE3 can support, not what this title shipped. **The plan above was unaffected either way, which
+   is why it was still worth acting on — and it now stands confirmed rather than merely unblocked.**
 2. **UE3 stereo is reported fullscreen-only** `[reported]` — a windowed live test could show nothing
    and be misread as the approach failing.
 
@@ -348,7 +396,7 @@ in the driver's role.**
 - Frame-capture method; where images land:
 
 ## 11. Dead ends & false leads (save future time)
-- **⚠️ PARTLY LIFTED 2026-09-03 — read the remedy, not just the warning. Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. **The wrapper is now identified as SteamStub v3.x (header magic `0xC0DEC0DF` verified in the stub's own code, §6), so the fix is to unpack a COPY with Steamless — a static step, `[PD]`, not a runtime dump.** The original text said: Needs a runtime dump first. `[measured 2026-09-02]`
+- **✅ LIFTED 2026-09-03 — this dead end is CLEARED, and the method is recorded. Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. **The wrapper is SteamStub v3.1, and unpacking a COPY with Steamless takes seconds and needs no launch — done 2026-09-03, `.text` entropy 8.00 → 6.71 and the NVAPI scan answered (§6).** Static scans of this exe ARE possible; just do them on an unpacked copy, and **always carry the `NvAPI_Initialize 0x0150E828` positive control**, because the packed file returns a clean zero for everything. The original text said: Needs a runtime dump first. `[measured 2026-09-02]`
 - **Reading "no stereo strings in the exe" as "the integration lives in the engine layer"** (2026-09-01) — the premise is an artefact of that encryption. `[disproved 2026-09-02]`
 - **Reading `SetActiveEye`'s absence from the NVAPI id table as "Automatic mode"** — the table is the linked SDK's fixed list, not the game's usage; `NvAPI_Initialize` is absent from it too. `[inferred-static 2026-09-02]`
 - **Looking for `steam_api.dll` to confirm SteamStub** — it is absent from the import table, absent from the whole install, and there is **no "steam" string anywhere in the exe**, yet the binary *is* SteamStub-wrapped (§6). The game has no Steamworks *API* integration, only the DRM wrapper. **A negative here proves nothing; use the `0xC0DEC0DF` header magic instead.** `[measured 2026-09-03]`
