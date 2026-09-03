@@ -29,7 +29,9 @@ SaveCheckpoint / LoadCheckpoint / FindCheckpointData / DeleteCheckpoints
 HasStorageDeviceBeenRemoved   GetDestructionMaxChunkCount   LaunchAlice1
 ```
 
-Alongside them sits a complete family of **standalone settings identifiers**, one per menu row:
+Alongside them sits a complete family of **22 standalone settings identifiers** — one per
+*setting*, spread across the video, audio, gameplay and controls menus, not one per row of any
+single menu. (A 23rd string shares the prefix, `ExecuteContextAction`, and is not a setting.)
 
 ```
 ExecAntiAlias      ExecGammaConfig      ExecMotionBlur       ExecScreenResolution
@@ -56,7 +58,7 @@ the exe contains the thunk name `intUAliceGameEngineexecEnableStereo3D`, which i
 names the native call thunk for a script-callable native. That part is not an inference.
 
 The **linkage** — that the menu row drives it via `ExecConfigData` — is an inference from three
-things agreeing: the `Exec*` identifier family is complete and one-per-menu-row; `ExecConfigData` is
+things agreeing: the `Exec*` identifier family is complete and one-per-setting; `ExecConfigData` is
 itself one of the 23 natives; and the Scaleform menu list matches the native list item for item. I
 have **not** decompiled `ExecConfigData`, so this is `[inferred-static 2026-09-03]`, not proven.
 

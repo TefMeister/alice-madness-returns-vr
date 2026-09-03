@@ -30,7 +30,9 @@ Interface metadata only - names and identifiers, no game code.
    SetNvPhysXLevel
    SetSoundVolume
 
-== standalone Exec* settings identifiers (23) ==
+== standalone Exec* strings (23) ==
+   NOTE: 22 of these are settings identifiers. ExecuteContextAction is not one --
+   it is "Execute"+"ContextAction" and is listed here only because it shares the prefix.
    ExecAntiAlias
    ExecAttackType
    ExecControlLayout
