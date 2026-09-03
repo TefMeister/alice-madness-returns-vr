@@ -1,0 +1,54 @@
+SteamStub v3.x evidence for AliceMadnessReturns.exe (2026-09-03, /pd, no launch)
+
+ImageBase 0x400000   EntryPoint VA 0x01661310
+
+sections:
+  .text      VA 0x00401000 vsize 0xC9F2FB   raw 0xC9F400  
+  .textidx   VA 0x010A1000 vsize 0x8CCBA    raw 0x8CE00   
+  CONST      VA 0x0112E000 vsize 0x50       raw 0x200     
+  .rdata     VA 0x0112F000 vsize 0x26AABE   raw 0x26AC00  
+  .data      VA 0x0139A000 vsize 0x15F3B0   raw 0x3E600   
+  .shr       VA 0x014FA000 vsize 0x4        raw 0x200     
+  .rsrc      VA 0x014FB000 vsize 0x6478     raw 0x6600    
+  .reloc     VA 0x01502000 vsize 0x15ED68   raw 0x15EE00  
+  .bind      VA 0x01661000 vsize 0x30B18    raw 0x30B18   
+
+SteamStub v3.x header magic 0xC0DEC0DF at file 0x113B4A0 (.bind + 0x4A0, VA 0x016614A0)
+bytes, showing the stub validating it:
+  B8 FE FF FF 89 85 D4 FC FF FF 8B 4D F8 81 79 04 DF C0 DE C0 74 0A E9 5F 1E 00 00 E9 5A 1E 00 00
+  8B 4D F8              mov ecx, [ebp-8]
+  81 79 04 DF C0 DE C0  cmp dword [ecx+4], 0xC0DEC0DF
+  74 0A                 je  ...
+
+NEGATIVE: steam_api.dll is absent from the import table, absent from the whole
+install, and no "steam" string appears anywhere in the exe. The game has no
+Steamworks API integration - only the DRM wrapper. Do not use that as a witness.
+
+imported DLLs:
+    NETAPI32.dll
+    DINPUT8.dll
+    XINPUT1_3.dll
+    d3d9.dll
+    X3DAudio1_7.dll
+    XAPOFX1_4.dll
+    vorbisfile.dll
+    WSOCK32.dll
+    dbghelp.dll
+    COMCTL32.dll
+    WINMM.dll
+    KERNEL32.dll
+    USER32.dll
+    GDI32.dll
+    COMDLG32.dll
+    ADVAPI32.dll
+    SHELL32.dll
+    ole32.dll
+    OLEAUT32.dll
+    WS2_32.dll
+    MSVCR90.dll
+    binkw32.dll
+    PhysXExtensions.dll
+    ApexFramework_x86.dll
+    POWRPROF.dll
+    IMM32.dll
+    faultrep.dll

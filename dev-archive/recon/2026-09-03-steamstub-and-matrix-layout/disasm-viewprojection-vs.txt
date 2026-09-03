@@ -1,0 +1,14 @@
+=== simplest vs_3_0 carrying ViewProjectionMatrix : 1 constants ===
+   ViewProjectionMatrix         float4   c0    x4 <<<
+
+  ; version 0xFFFE0300
+  dcl v0
+  dcl o0
+  dcl o1
+  mul    r0, c1, v0.y
+  mad    r0, c0, v0.x, r0
+  mad    r0, c2, v0.z, r0
+  mad    r0, c3, v0.w, r0
+  mov    o0, r0
+  mov    o1, r0
+  end

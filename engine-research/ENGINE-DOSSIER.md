@@ -18,12 +18,12 @@
 - Distinctive file formats / build tags / symbol naming: not yet investigated (UE3's standard `.upk`/`.u` package formats are a reasonable expectation but unconfirmed for this specific title).
 
 ## 3. Binary & memory
-- 32/64-bit, size, module base, ASLR behaviour (stable base? relocations?): **32-bit** (PE32, `coff-i386`). Standard-ish section layout (`.text`/`.textidx`/`CONST`/`.rdata`/`.data`/`.rsrc`/`.reloc`/`.bind`) — `.textidx` is a known, benign UE3-toolchain section, not a red flag (no giant opaque blob, no Denuvo/anti-tamper-shaped structure). 17.4 MB.
+- 32/64-bit, size, module base, ASLR behaviour (stable base? relocations?): **32-bit** (PE32, `coff-i386`). Standard-ish section layout (`.text`/`.textidx`/`CONST`/`.rdata`/`.data`/`.rsrc`/`.reloc`/`.bind`) — `.textidx` is a known, benign UE3-toolchain section, not a red flag (no giant opaque blob, no Denuvo/anti-tamper-shaped structure). **`.bind` is NOT a UE3 artefact: it is the SteamStub v3.x DRM stub section, and it holds the entry point** (§4, §6). 17.4 MB.
 - Renderer API (D3D11/12, DXGI, GL, Vulkan) with evidence: **Direct3D 9 confirmed** — `d3d9.dll` statically imported, literal string `Direct3DCreate9` present.
-- Developer console / cvar system present? how opened?: **Confirmed reachable (external-research, 2026-08-25): "Developer console access (F2)" is documented as an explicit feature by the MadnessPatch community patch.** Unconfirmed whether F2 works out-of-the-box on the stock game or only after the patch (worth testing both live) — many UE3 titles bind console to a key by default, so the patch may be restoring/fixing an existing binding rather than adding one from scratch.
+- Developer console / cvar system present? how opened?: **Confirmed reachable (external-research, 2026-08-25): "Developer console access (F2)" is documented as an explicit feature by the MadnessPatch community patch.** ✅ **Settled 2026-09-03 (`/gr`): F2 is PATCH-ONLY.** MadnessPatch 3.0.0+ adds `EnableConsole` "bound to F2" as its own feature `[reported, release notes]`. **On the stock game try Tilde (`~`)**, UE3's shipping default. So the old "worth testing both live" is resolved without a launch.
 
 ## 4. DRM / anti-debug & injection foothold
-- DRM (CEG/Denuvo/GOG/none); launch-time-debugger behaviour: **No DRM found — reconciled with a real, dated history (external-research, 2026-08-25), not just a lucky static result.** The original 2011 release used **"EA Cuckoo"**, an online-authentication DRM tied to EA's own activation servers. EA delisted the game entirely in September 2016 after accidentally distributing already-used Steam keys (refunding affected buyers rather than replacing keys), leaving existing owners with server-dependent DRM on a no-longer-sold title. The game was later **relisted on Steam, and a January 14, 2022 patch removed EA Cuckoo authentication DRM entirely** from that build. Our own static recon (zero Denuvo/SecuROM/StarForce/Cuckoo/link2ea strings) is fully consistent with this — **this is a "DRM was present historically, current build is clean" case, same pattern as Prince of Persia (2008), not a lucky negative result.** Worth being glad about specifically given this is EA-published (same publisher as Burnout Paradise, which still needs the EA App) — this title evidently doesn't carry that requirement anymore. Not yet tested live.
+- DRM (CEG/Denuvo/GOG/none); launch-time-debugger behaviour: **⚠️ READ NARROWLY — "no DRM" means EA's Cuckoo is gone; the shipping binary IS wrapped in Valve's own SteamStub.** Corrected 2026-09-03: `.bind` holds the entry point and `.text` is encrypted at rest, and the **SteamStub v3.x header magic `0xC0DEC0DF` is verified inside the stub's own validating `cmp`** (§6). That is a **packaging wrapper, not an anti-tamper system** like Denuvo — it does not fight a debugger, and a public open-source unpacker (Steamless) restores `.text` for static analysis without running the game. Injection is unaffected: the `d3d9.dll` proxy is live-verified on this build. `[inferred-static 2026-09-03]` The Cuckoo history below remains accurate and is unchanged. **No DRM found — reconciled with a real, dated history (external-research, 2026-08-25), not just a lucky static result.** The original 2011 release used **"EA Cuckoo"**, an online-authentication DRM tied to EA's own activation servers. EA delisted the game entirely in September 2016 after accidentally distributing already-used Steam keys (refunding affected buyers rather than replacing keys), leaving existing owners with server-dependent DRM on a no-longer-sold title. The game was later **relisted on Steam, and a January 14, 2022 patch removed EA Cuckoo authentication DRM entirely** from that build. Our own static recon (zero Denuvo/SecuROM/StarForce/Cuckoo/link2ea strings) is fully consistent with this — **this is a "DRM was present historically, current build is clean" case, same pattern as Prince of Persia (2008), not a lucky negative result.** Worth being glad about specifically given this is EA-published (same publisher as Burnout Paradise, which still needs the EA App) — this title evidently doesn't carry that requirement anymore. Not yet tested live.
 - Attach workflow that works: not yet tested live, but no static evidence predicts a block.
 - Injection vector that works (proxy DLL name / injector / framework): **✅ LIVE-VERIFIED (2026-08-25), a from-scratch `d3d9.dll` proxy**, matching this portfolio's Psychonauts and Prince of Persia precedent. **First deploy attempt failed the game outright** — see `staging/alice-madness-returns-vr/proxy-d3d9/README.md` for the full story: `AliceMadnessReturns.exe` statically imports *two* functions from `d3d9.dll` (`Direct3DCreate9` and `D3DPERF_SetOptions`, a real D3D9 perf-marker export), not just one — a proxy exporting only `Direct3DCreate9` left Windows' loader unable to resolve the exe's import table at all, so the process exited before running any code (zero log output, "ran ~2 seconds then stopped"). Isolated via a clean control test (DLL removed → game launched fine), fixed by adding the second forwarding wrapper, redeployed — **confirmed working cleanly on the retest**: `Direct3DCreate9` called twice (SDKVersion=0x20 both times), `D3DPERF_SetOptions` called once (dwOptions=0x1), game ran for ~5 minutes of real play. **Lesson for future D3D9 proxies in this portfolio: check the exe's actual per-function import list for the target DLL, not just whether the DLL name appears in the import table** — Prince of Persia's exe only needed `Direct3DCreate9`, but that isn't guaranteed for every D3D9 title.
 
@@ -40,15 +40,48 @@
 **entropy 8.00** (the ceiling), the **entry point is at `01661310` inside a `.bind` wrapper section**
 (entropy 7.98) rather than in `.text`, `.text` does not disassemble, and it contains **zero `CC`
 padding runs** — impossible for a real MSVC code section. `[measured 2026-09-02]` A wrapper decrypts
-it at load. Which wrapper is not established (`SteamStub`/`Steam`/`CEG`/`valve` appear nowhere).
+it at load.
+
+> #### ✅ THE WRAPPER IS IDENTIFIED: **SteamStub v3.x**, and unpacking is a STATIC step (2026-09-03)
+>
+> `/gr` proposed SteamStub from the section signature; this session confirmed it **in the stub's own
+> code**. The v3.x header magic **`0xC0DEC0DF`** is present at `.bind + 0x4A0` (VA `0x016614A0`), and
+> the surrounding instructions are the stub validating it:
+> `mov ecx,[ebp-8]` / `cmp dword [ecx+4], 0xC0DEC0DF` / `je …`. The entry point at `0x01661310` is a
+> textbook stub prologue (`call $+5`, push-all, `and esp,-16`). `[inferred-static 2026-09-03]`
+>
+> ⚠️ **The cheap second witness `/gr` suggested — `steam_api.dll` in the import table — FAILED, and
+> should not be re-run.** There is no `steam_api.dll` in the import table, no `steam_api.dll`
+> anywhere in the install, and **no "steam" string anywhere in the exe**. That is not evidence
+> against SteamStub: it means the game has no Steamworks *API* integration at all, only Valve's DRM
+> wrapper applied at upload — plausible for an EA-published title on Steam. The header magic is the
+> witness that actually carries the claim. `[measured 2026-09-03]`
+>
+> **Consequence: `.text` can be decrypted without running the game.** Public open-source unpackers
+> cover SteamStub v3.x — [Steamless](https://github.com/atom0s/Steamless) (this exe is PE32, in
+> range) and [Steamstub-v3-Unpacker](https://github.com/GHFear/Steamstub-v3-Unpacker). **Work on a
+> COPY; never overwrite the shipped exe**, and expect the unpacked binary **not to launch** (it still
+> wants the environment the stub set up) — that is the expected outcome, not a failed unpack.
+> `[reported 2026-09-03]`
 
 - **Consequence:** strings, `push imm32` operands and xrefs in `.text` are all unreadable off disk.
   A scan that finds nothing has found nothing *about the game* — the test could not have produced a
   positive result.
-- **This retires the queued NVAPI Direct-vs-Automatic scan as a `[PD]` item.** `/gr`'s method
+- **🚦 THE NVAPI Direct-vs-Automatic SCAN IS BACK TO `[PD]` (re-gated 2026-09-03).** `/gr`'s method
   (`SetActiveEye` `0x96EEA9F8`, `SetDriverMode` `0x5E8F0BEC`, control `NvAPI_Initialize`
-  `0x0150E828`) is sound and works on Alan Wake's unencrypted exe; here it needs a **memory dump of
-  `.text` from a running process** first (`static-disasm.py --raw`, the Manhunt route). Now `[FLAT]`.
+  `0x0150E828`) is sound and works on Alan Wake's unencrypted exe. It was gated `[FLAT]` on
+  2026-09-02 because the remedy looked like a runtime memory dump; **it is not — unpack a copy with
+  Steamless first, statically.** The runtime dump (`static-disasm.py --raw`, the Manhunt route) is
+  now only the fallback if the variant is unrecognised.
+  - **The discriminator ids are already settled and need no re-checking**: `0x96EEA9F8` →
+    `NvAPI_Stereo_SetActiveEye`, `0x5E8F0BEC` → `NvAPI_Stereo_SetDriverMode`, read out of NVIDIA's
+    published `nvapi_interface.h` three times by two session types, with two positive controls inside
+    the query. `[reported 2026-09-03, n=3 independent reads]` — first-party, from NVIDIA's own
+    published header, but a document read rather than a measurement.
+  - ⚠️ **Re-run the positive control on the unpacked file before believing any result**:
+    `NvAPI_Initialize` `0x0150E828` must be found. That control is what stopped the 2026-09-02 scan
+    being misread as a clean "Automatic", and it is what will stop a *partial* unpack being misread
+    the same way.
 - **It also withdraws an inference:** the 2026-09-01 "the exe has essentially no stereo strings, so
   the integration lives in the engine layer" reasoning. The premise is an artefact of encryption.
   `[disproved 2026-09-02]` as an inference.
@@ -87,14 +120,47 @@ Every published number reproduces `[verified-numerically 2026-09-02]` (45,832 ta
 - **`ps_3_0` `c4` is a slot with two meanings:** `ViewProjectionMatrix` `c4 ×4` in 4,122 shaders, but
   **`WorldToViewMatrix` `c4 ×3` in 135**. Writing `ps c4` blind corrupts those 135.
 
-#### Per-eye maths: the clip-space split sidesteps the `c5` trap entirely — derived, NOT verified
+#### ✅ Per-eye maths: VERIFIED 2026-09-03 — and the matrix is stored TRANSPOSED from Alan Wake's
 
-For `x_clip = row0·p`, `w_clip = row3·p`, NVIDIA's own formula `x' = x + S·(w − C)` is exactly
-`row0' = row0 + S·row3` then `row0'[3] -= S·C`, with `S = (f/aspect)·t/C` for a view-X eye offset `t`
-and convergence depth `C`. Because it transforms the matrix's **output**, it never touches world
-space and is **immune to `PreViewTranslation`** — the `c5` drift trap below cannot bite it.
-**`[hypothesis]` — hand algebra, NOT numerically tested.** Verify against independently built ground
-truth, testing compiled shipped code rather than a transcription, before anything is built on it.
+NVIDIA's `x' = x + S·(w − C)` with `S = (f/aspect)·t/C` is confirmed correct, over **54
+configurations** against ground truth built the other way (explicit asymmetric frustum + a
+physically translated eye), with the thing under test evaluated by simulating the shader's own
+accumulation. `[verified-numerically 2026-09-03, n=54 configurations]` Code:
+`staging/alice-madness-returns-vr/proxy-d3d9/src/stereo_ue3.{h,c}`.
+
+**✅ The `c5` immunity is demonstrated, not assumed.** Every case runs at `PreViewTranslation` of
+**0, 1,000 and 250,000 units** and agrees at all three — so the drift trap below genuinely cannot
+bite the clip-space form.
+
+⚠️ **BUT THE IMPLEMENTATION IS A TRANSPOSE OF `alan-wake-vr`'s, AND COPYING THAT CODE HERE PRODUCES
+GARBAGE.** Alice's `ViewProjectionMatrix` is **`D3DXPC_MATRIX_COLUMNS`** (Alan Wake's matrices are
+`MATRIX_ROWS`), established two ways: the CTAB type metadata, and the shipped bytecode, whose
+simplest vertex shader carrying it is
+
+```
+mul r0, c1, v0.y  ;  mad r0, c0, v0.x, r0  ;  mad r0, c2, v0.z, r0
+mad r0, c3, v0.w, r0  ;  mov o0, r0
+```
+
+— i.e. `clip = c0·v.x + c1·v.y + c2·v.z + c3·v.w`, the row-vector form `mul(v, M)`, with **no `dp4`
+against `c0` anywhere**. `[inferred-static 2026-09-03, two independent reads]` So **`clip.x` is the
+`.x` LANE across all four registers, not `dot(c0, v)`**, and the edit is:
+
+```
+for i in 0..3:  c[i].x += S · c[i].w        then        c3.x -= S · C
+```
+
+against Alan Wake's `c0 += S·c3` then `c0.w -= S·C`. **The wording "row0' = row0 + S·row3" used here
+before is correct as MATHEMATICS and misleading as INSTRUCTIONS** — in this layout the mathematical
+row 0 is a lane, not a register. The test suite transplants the Alan Wake implementation verbatim
+and shows it diverges (`ndc.x +0.355` vs `+0.324`) **and corrupts `clip.w`**, so the distinction is
+falsifiable rather than asserted. Six mutants, all caught, control passes.
+
+**Still open on this front:** the pixel-stage half. `ViewProjectionMatrix` is also `ps_3_0 c4 ×4` in
+4,122 shaders and needs the same treatment, but **`ps c4` is `WorldToViewMatrix` (4×3) in 135 other
+shaders**, so a blind `ps c4` write corrupts those — it needs a per-shader register map, not a fixed
+register. And `p00` recovery from the matrix assumes nothing non-rigid is baked in after the
+projection (true for Alice's `c0`; not for a fused local-to-clip).
 
 ### ✅ SETTLED STATICALLY, 2026-09-01 — the registers are read out of the game's own shipped shaders
 
@@ -272,7 +338,7 @@ in the driver's role.**
 |---|---|---|
 | `FOV <10-150>` | native UE3 field-of-view command | confirmed via two independent Nexus FOV/ultrawide mods, both `BaseInput.ini`-bound |
 | `DisableMouseSmoothing = 1` (config, `BaseInput.ini`-style) | removes mouse smoothing/negative acceleration and deadzones | per MadnessPatch — VR-critical, removes input-to-camera latency |
-| F2 (unconfirmed if stock or patch-only) | opens the developer console | per MadnessPatch's documented feature list; test both with/without the patch |
+| F2 — **PATCH-ONLY, settled 2026-09-03** | opens the developer console | MadnessPatch 3.0.0+ adds `EnableConsole` bound to F2 as its own feature `[reported]`; **not stock** |
 | Tilde `~` | UE3's stock default console key | per enslaved-vr's own shipping config — try if F2 turns out patch-only |
 | `Show <group>`, `ToggleDebugCamera`, `Stat FPS`, `Stat D3D9RHI`, `ViewMode <mode>`, `SloMo` | standard UE3 exec commands | per enslaved-vr's own testing; `ToggleDebugCamera` especially worth trying for §6/§10 (free/debug camera) |
 
@@ -282,9 +348,11 @@ in the driver's role.**
 - Frame-capture method; where images land:
 
 ## 11. Dead ends & false leads (save future time)
-- **Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. Needs a runtime dump first. `[measured 2026-09-02]`
+- **⚠️ PARTLY LIFTED 2026-09-03 — read the remedy, not just the warning. Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. **The wrapper is now identified as SteamStub v3.x (header magic `0xC0DEC0DF` verified in the stub's own code, §6), so the fix is to unpack a COPY with Steamless — a static step, `[PD]`, not a runtime dump.** The original text said: Needs a runtime dump first. `[measured 2026-09-02]`
 - **Reading "no stereo strings in the exe" as "the integration lives in the engine layer"** (2026-09-01) — the premise is an artefact of that encryption. `[disproved 2026-09-02]`
 - **Reading `SetActiveEye`'s absence from the NVAPI id table as "Automatic mode"** — the table is the linked SDK's fixed list, not the game's usage; `NvAPI_Initialize` is absent from it too. `[inferred-static 2026-09-02]`
+- **Looking for `steam_api.dll` to confirm SteamStub** — it is absent from the import table, absent from the whole install, and there is **no "steam" string anywhere in the exe**, yet the binary *is* SteamStub-wrapped (§6). The game has no Steamworks *API* integration, only the DRM wrapper. **A negative here proves nothing; use the `0xC0DEC0DF` header magic instead.** `[measured 2026-09-03]`
+- **Porting `alan-wake-vr`'s stereo edit into this project** — its matrices are `MATRIX_ROWS`, Alice's `ViewProjectionMatrix` is `MATRIX_COLUMNS`, so the two implementations are transposes. The Alan Wake form applied here mixes columns, corrupts `clip.w`, and still renders. `[verified-numerically 2026-09-03]` See §6.
 - **Assuming `NvStereoFixTexture` is always sampler `s1`** — it is also `s3` (202), `s0` (46) and `s2` (10). `[verified-numerically 2026-09-02]`
 
 ## 12. Open risks toward the North Star
