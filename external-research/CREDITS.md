@@ -18,8 +18,6 @@ ourselves.
 
 ## Prior art, tools, and research this repo draws on
 
-Research has not started yet — this table will fill in as work progresses.
-
 | Source / Work | Creator(s) | Link |
 |---|---|---|
 | vorpX Alice: Madness Returns compatibility reports & Geometry VR list | vorpX (Ralf Herrmann) & forum community | https://www.vorpx.com/forums/topic/a-masterpiece-is-back-alice-madness-returns/ |
@@ -42,6 +40,9 @@ Research has not started yet — this table will fill in as work progresses.
 | "Stereo 3d refuses to work" — what the in-game toggle does | Steam Community discussion participants | https://steamcommunity.com/app/19680/discussions/0/828925216495800901/ |
 | MadnessPatch release notes (`EnableConsole` on F2, 3.x changes) | Wemino | https://github.com/Wemino/MadnessPatch/releases |
 | "Epic Brings NVIDIA 3D Vision Support to Unreal Engine 3" (GDC 2010 press release) | NVIDIA Corporation | https://nvidianews.nvidia.com/_gallery/download_pdf/54481935f6091d2735000245/ |
+| Steamless — SteamStub DRM unpacker (supported variants, purpose, licence; nothing taken from it) | atom0s | https://github.com/atom0s/Steamless |
+| Steamstub-v3-Unpacker (v3 unpack/rebuild behaviour and options; nothing taken from it) | GHFear | https://github.com/GHFear/Steamstub-v3-Unpacker |
+| "Cube World Reversing — Unpack the game" (the `.bind` section, entry-point redirection and runtime `.text` decryption, explained on a different game) | Adam Hlt | https://adamhlt.com/cube-world-reversing-unpack-the-game/ |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
