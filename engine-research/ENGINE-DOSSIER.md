@@ -447,7 +447,7 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
   `GetCompatCompositeIndex`, `GetCurrentDeviceID`/`SetCurrentDeviceID`,
   `SaveCheckpoint`/`LoadCheckpoint`/`FindCheckpointData`/`DeleteCheckpoints`,
   `HasStorageDeviceBeenRemoved`, `GetDestructionMaxChunkCount`, `LaunchAlice1`.
-- **A complete family of settings identifiers sits beside them, one per menu row:** `ExecAntiAlias`,
+- **A complete family of 22 settings identifiers sits beside them, one per SETTING** (across the video, audio, gameplay and controls menus — not one per row of any single menu; a 23rd `Exec*` string, `ExecuteContextAction`, shares the prefix but is not a setting): `ExecAntiAlias`,
   `ExecAttackType`, `ExecControlLayout`, `ExecDifficulty`, `ExecDynamicShadows`, `ExecGamepadType`,
   `ExecGammaConfig`, `ExecGraphicsQuality`, `ExecInputAxis`, `ExecInputKey`, `ExecInvertY`,
   `ExecLowestDifficulty`, `ExecMotionBlur`, `ExecMouseSpeed`, `ExecMusicVolume`, `ExecPhysXLevel`,

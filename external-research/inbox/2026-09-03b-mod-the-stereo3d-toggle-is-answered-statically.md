@@ -12,8 +12,9 @@ From the UTF-16 string table of the Steamless-unpacked exe `[inferred-static 202
   `ExecConfigData`, alongside the rest of the settings vocabulary (`DoesSupportMSAA`,
   `GetNumOfSupportedResolutions`, `SetNvPhysXLevel`, `GetShowPostprocess`, `SetSoundVolume`, the
   key-binding trio, the checkpoint quartet).
-- **22 standalone `Exec*` settings identifiers**, exactly one per menu row, including
-  **`ExecStereo3D`**.
+- **22 standalone `Exec*` settings identifiers**, one per *setting* across the video, audio,
+  gameplay and controls menus — not one per row of a single menu — including **`ExecStereo3D`**.
+  (A 23rd string, `ExecuteContextAction`, shares the prefix and is not a setting.)
 - The Scaleform menu inside `AliceGame.u` lists the same rows in menu order.
 
 ⇒ the `Stereo3D` row is `ExecStereo3D` → `ExecConfigData` → native `EnableStereo3D`.
