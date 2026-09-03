@@ -435,6 +435,43 @@ in the driver's role.**
 | Tilde `~` | UE3's stock default console key | per enslaved-vr's own shipping config — try if F2 turns out patch-only |
 | `Show <group>`, `ToggleDebugCamera`, `Stat FPS`, `Stat D3D9RHI`, `ViewMode <mode>`, `SloMo` | standard UE3 exec commands | per enslaved-vr's own testing; `ToggleDebugCamera` especially worth trying for §6/§10 (free/debug camera) |
 
+### The game's own settings surface (NEW 2026-09-03, `/pd`, static) `[inferred-static 2026-09-03]`
+
+Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of the queued
+"what does the `Stereo3D` video-option actually do" without a launch.
+
+- **`UAliceGameEngine` exposes 23 native script functions**, and they are the settings menu's whole
+  vocabulary: `DoesSupportMSAA`, `GetNumOfSupportedResolutions`, `GetSupportedResolutions`,
+  **`EnableStereo3D`**, `SetNvPhysXLevel`, `GetShowPostprocess`, `SetSoundVolume`, `ExecConfigData`,
+  `ExecRebindKey`, `ExecResetKeyBindings`, `GetAliceKeys`/`SetAliceKeys`/`GetAliceKeyIndex`,
+  `GetCompatCompositeIndex`, `GetCurrentDeviceID`/`SetCurrentDeviceID`,
+  `SaveCheckpoint`/`LoadCheckpoint`/`FindCheckpointData`/`DeleteCheckpoints`,
+  `HasStorageDeviceBeenRemoved`, `GetDestructionMaxChunkCount`, `LaunchAlice1`.
+- **A complete family of settings identifiers sits beside them, one per menu row:** `ExecAntiAlias`,
+  `ExecAttackType`, `ExecControlLayout`, `ExecDifficulty`, `ExecDynamicShadows`, `ExecGamepadType`,
+  `ExecGammaConfig`, `ExecGraphicsQuality`, `ExecInputAxis`, `ExecInputKey`, `ExecInvertY`,
+  `ExecLowestDifficulty`, `ExecMotionBlur`, `ExecMouseSpeed`, `ExecMusicVolume`, `ExecPhysXLevel`,
+  `ExecPostprocess`, `ExecScreenResolution`, `ExecSoundEffectVolume`, **`ExecStereo3D`**,
+  `ExecSubtitles`, `ExecVoiceVolume`.
+- The Scaleform menu inside `AliceGame.u` carries the same list in menu order (`Volume | Music |
+  Voice | Subtitles | Gamma | GraphicsQuality | Resolution | AntiAlias | Stereo3D | Blur | Layout`)
+  with matching accessors, so the three sources agree item for item.
+- **⇒ The `Stereo3D` row is `ExecStereo3D`, routed through `ExecConfigData`, switching the native
+  `EnableStereo3D`.** ⚠️ Held at two different strengths: `EnableStereo3D`'s **existence** is direct
+  (the exe contains the UE3 native thunk name `intUAliceGameEngineexecEnableStereo3D`); the
+  **routing through `ExecConfigData`** is an inference from the three lists agreeing, not a
+  decompilation.
+- **The engine gate is already open:** `AllowNvidiaStereo3d` is an `Engine.Engine` config property
+  and is `True` in both `Engine/Config/BaseEngine.ini:193` (inside the vendor's own
+  `; NVCHANGE_BEGIN: Jiayuan` markers) and the user config `AliceEngine.ini:168` `[measured 2026-09-03]`.
+- ⚠️ **Not a shortcut to VR.** 3D Vision *Automatic* is a driver feature needing NVIDIA's stereo
+  stack, deprecated on current drivers and normally gated on a 3D-capable display. What is useful to
+  this project is the shader plumbing it left behind (`NvStereoEnabled`, `NvStereoFixTexture`, §6),
+  which our proxy already reuses. **Unknown:** what `EnableStereo3D` does internally — the exe
+  resolves NVAPI dynamically (`nvapi.dll`, `nvapi_QueryInterface`), but its call sites are not
+  established.
+- Evidence: `dev-archive/recon/2026-09-03-native-stereo3d-menu-path/`.
+
 ## 10. Autonomous harness recipe (this game)
 - Launch to a known scene (commands used):
 - In-process input / camera drive method that worked:

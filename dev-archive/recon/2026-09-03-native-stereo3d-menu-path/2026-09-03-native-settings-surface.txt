@@ -1,0 +1,70 @@
+Alice: the native settings surface behind the Stereo3D menu entry
+/pd, dev PC, 2026-09-03. THE GAME WAS NOT LAUNCHED.
+
+Source: UTF-16 strings in the Steamless-unpacked AliceMadnessReturns.exe
+(regenerate per dev-archive/recon/2026-09-03-steamstub-and-matrix-layout/).
+Interface metadata only - names and identifiers, no game code.
+
+== UAliceGameEngine native script functions (23) ==
+   DeleteCheckpoints
+   DoesSupportMSAA
+   EnableStereo3D
+   ExecConfigData
+   ExecRebindKey
+   ExecResetKeyBindings
+   FindCheckpointData
+   GetAliceKeyIndex
+   GetAliceKeys
+   GetCompatCompositeIndex
+   GetCurrentDeviceID
+   GetDestructionMaxChunkCount
+   GetNumOfSupportedResolutions
+   GetShowPostprocess
+   GetSupportedResolutions
+   HasStorageDeviceBeenRemoved
+   LaunchAlice1
+   LoadCheckpoint
+   SaveCheckpoint
+   SetAliceKeys
+   SetCurrentDeviceID
+   SetNvPhysXLevel
+   SetSoundVolume
+
+== standalone Exec* settings identifiers (23) ==
+   ExecAntiAlias
+   ExecAttackType
+   ExecControlLayout
+   ExecDifficulty
+   ExecDynamicShadows
+   ExecGamepadType
+   ExecGammaConfig
+   ExecGraphicsQuality
+   ExecInputAxis
+   ExecInputKey
+   ExecInvertY
+   ExecLowestDifficulty
+   ExecMotionBlur
+   ExecMouseSpeed
+   ExecMusicVolume
+   ExecPhysXLevel
+   ExecPostprocess
+   ExecScreenResolution
+   ExecSoundEffectVolume
+   ExecStereo3D
+   ExecSubtitles
+   ExecVoiceVolume
+   ExecuteContextAction
+
+== every wide string containing "Stereo" (12) ==
+   AllowNvidiaStereo3d
+   ExecStereo3D
+   NvStereoEnabled
+   NvStereoFixTexture
+   SetOutputMatrix (Stereo reverb)
+   Stereo
+   StereoBleed set to max for all sources
+   StereoFix
+   TestSounds.22Stereo_TestMusicAcoustic
+   TestSounds.44Stereo_TestMusicAcoustic
+   TestStereoBleed
+   intUAliceGameEngineexecEnableStereo3D
