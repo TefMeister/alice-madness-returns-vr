@@ -60,3 +60,24 @@ that's very plausibly the fastest route to understanding §6/§7's actual answer
 ## Sources
 
 - https://helixmod.blogspot.com/2012/02/alice-madness-returns-written-by-chiz.html
+
+## Addendum 2026-09-03 — what the menu's `Stereo3D` row is wired to (from the modding side, static)
+
+**Answered without a launch, from the unpacked exe's string table** `[inferred-static 2026-09-03]`:
+`UAliceGameEngine` exposes 23 native script functions including **`EnableStereo3D`** (the exe carries
+UE3's own native-thunk name `intUAliceGameEngineexecEnableStereo3D`, so its *existence* is direct);
+22 standalone `Exec*` settings identifiers include **`ExecStereo3D`**; and the Scaleform menu in
+`AliceGame.u` lists the same rows in menu order. So the `Stereo3D` row goes `ExecStereo3D` →
+`ExecConfigData` → native `EnableStereo3D`. The *routing* is an inference from three lists agreeing
+item-for-item, not a decompilation, and is held at that strength.
+
+The engine gate `AllowNvidiaStereo3d` is already `True` in `BaseEngine.ini` — inside the vendor's own
+`; NVCHANGE_BEGIN: Jiayuan -- Allow Stereo 3D by default` markers — and in the user's
+`AliceEngine.ini` `[measured 2026-09-03]`. Those markers date the stereo support as an
+**NVIDIA-supplied patch to UE3**, consistent with `NvStereoEnabled` appearing in 28,017 of 43,025
+pixel shaders and with the NVAPI scan returning Automatic.
+
+**Do not research** what the toggle is wired to or whether the engine gate is on — both are settled.
+What the modding side *did* ask for is whether NVIDIA 3D Vision Automatic is reachable at all on a
+current driver — see the 2026-09-03b topic. Full write-up on the modding side:
+`modding-notes/2026-09-03b-the-stereo3d-menu-entry-answered-without-a-launch.md`.

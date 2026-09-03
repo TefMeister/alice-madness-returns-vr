@@ -30,6 +30,10 @@ ourselves.
 | UDK Camera Technical Guide | Epic Games | https://docs.unrealengine.com/udk/Three/CameraTechnicalGuide.html |
 | UE3:Camera (UDK) wiki page | BeyondUnreal wiki community | https://wiki.beyondunreal.com/UE3:Camera_(UDK) |
 | Epic Developer Community forums (view/projection matrix discussion) | Epic Games forum community | https://forums.unrealengine.com/t/bound-shader-view-matrix/451510 |
+| Nvidia 3D Vision article (discontinuation facts) | Wikipedia contributors | https://en.wikipedia.org/wiki/Nvidia_3D_Vision |
+| 3D Fix Manager (driver-support history, DX9 vs DX11, Discover mode) | Pauldusler | https://helixmod.blogspot.com/2017/05/3d-fix-manager.html |
+| geo-11 replacement stereo driver | davegl1234, Helix Mod community | https://helixmod.blogspot.com/2022/06/announcing-new-geo-11-3d-driver.html |
+| HelixVision driver-compatibility notes | Bo3b | https://steamcommunity.com/app/1127310/discussions/0/1635291505036080879/ |
 | enslaved-vr project (this portfolio's own Enslaved: Odyssey to the West VR effort) | Project owner + Claude, this portfolio | https://github.com/TefMeister/enslaved-vr/tree/main/engine-research |
 | flat-to-vr-cross-engine-research (this portfolio's own cross-engine library) | Project owner + Claude, this portfolio | https://github.com/TefMeister/flat-to-vr-cross-engine-research |
 | NVIDIA 3D Vision developer documentation — "Using nvstereo.h" (the `StereoParmsTexture` channel layout and update cadence) and the Automatic background/issues pages | NVIDIA Corporation | https://archive.docs.nvidia.com/gameworks/content/technologies/desktop/nv3dva_using_nvstereoh.htm |

@@ -115,3 +115,40 @@ the camera or a D3D9 proxy.
 - https://github.com/Wemino/MadnessPatch/releases — `EnableConsole` (F2) and the 3.x changes
 - https://nvidianews.nvidia.com/_gallery/download_pdf/54481935f6091d2735000245/ — NVIDIA's 2010 GDC release (no technical detail; date 2010-03-11 and the licensee list only)
 - https://docs.unrealengine.com/udk/Three/ThreeDVision.html — still 403 to automated fetch (EN and JP); title and two facts via search only
+
+## Outcome — the scan ran on the unpacked copy, 2026-09-03: **AUTOMATIC** (folded from `inbox/`)
+
+| function | id | unpacked exe | still-packed control |
+| --- | --- | --- | --- |
+| `NvAPI_Initialize` | `0x0150E828` | **1** ✅ positive control | 0 |
+| **`Stereo_SetActiveEye`** | `0x96EEA9F8` | **0** | 0 |
+| **`Stereo_SetDriverMode`** | `0x5E8F0BEC` | **0** | 0 |
+| `Stereo_CreateHandleFromIUnknown` | `0xAC7E37F4` | 1 | 0 |
+| `Stereo_Activate` | `0xF6A1AD68` | 1 | 0 |
+| `Stereo_GetSeparation` / `GetConvergence` / `GetEyeSeparation` | — | 1 each | 0 |
+| `Enable` / `SetSeparation` / `SetSurfaceCreationMode` | — | 0 | 0 |
+
+All six live references sit in **one 825-byte function**: init → create handle → activate → *read*
+separation, convergence, eye separation. Three getters and no setters — Alice is an even purer
+consumer than Alan Wake (which had `SetSeparation`). **Verdict: Automatic**
+`[inferred-static 2026-09-03]`. The pre-committed branch *"no callers on either, with callers on
+`Activate`/getters ⇒ Automatic; render-twice + own-texture plan unchanged"* is the one that held, and
+the caller-count discriminator now has **two independent applications with consistent results**
+(Alan Wake 2026-09-01, Alice 2026-09-03).
+
+This also resolves the §6 tension this topic recorded: Epic's *"UE3 and NVIDIA 3D Vision Direct"*
+page describes what UE3 *can* support, not what this title shipped; the eye-sign channel in the
+texture was the reading that was right.
+
+**Two standing rules that came back with the result:**
+
+1. **On this exe, any zero result without the `NvAPI_Initialize` control is meaningless.** The
+   still-packed copy was scanned as a negative control alongside the unpacked one and returned zero
+   for *every* id, control included — the false negative this project already had a scar from,
+   demonstrated side by side rather than argued.
+2. The addresses live in the **unpacked** image and do not correspond to on-disk addresses in the
+   shipped, encrypted `.text`.
+
+The next static target this topic named for the Direct branch (the code between the two
+`SetActiveEye` calls) does not exist here; the per-eye write stays where the plan already puts it —
+in our own proxy, driving our own `NvStereoFixTexture`.

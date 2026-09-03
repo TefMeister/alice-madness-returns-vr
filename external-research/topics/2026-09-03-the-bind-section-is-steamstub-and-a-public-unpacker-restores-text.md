@@ -129,3 +129,29 @@ is engine-agnostic and costs seconds on any Windows game in the estate. A pointe
 that explain my empty static scan?" is a question every project can hit, and Alice is the second
 build in the estate (after Manhunt) where a packed `.text` silently turned a scan into a false
 negative.
+
+## Outcome — modding verdict, 2026-09-03 (folded from `inbox/`)
+
+**Confirmed, on stronger evidence than this topic offered.** The SteamStub v3.x header magic
+`0xC0DEC0DF` sits at `.bind + 0x4A0`, and the surrounding code is the stub *validating* it
+(`cmp dword [ecx+4], 0xC0DEC0DF`); the entry point is a textbook stub prologue.
+`[inferred-static 2026-09-03]` Steamless later reported **Variant 3.1 x86**, agreeing with the static
+identification. The user approved fetching Steamless; a **copy** was unpacked and the shipped binary
+was never touched.
+
+⚠️ **The "second witness" this topic suggested does not work here, and must not be read as a
+negative.** `steam_api.dll` is **not** in the import table, is nowhere in the install, and there is
+no `steam` string in the exe at all `[measured 2026-09-03]`. The game has no Steamworks *API*
+integration — only Valve's DRM wrapper applied at upload, plausible for an EA title with its own
+authentication stack. **The import check is therefore a positive-only witness**: its presence would
+confirm, its absence proves nothing. The header magic is the test that carries the claim. Recorded in
+dossier §11 as a dead end so no future scan reads the clean negative as "not SteamStub".
+
+**Unpack-validation checklist that worked cleanly and is reusable:** `.text` entropy 8.00 → 6.71,
+`CC` padding runs 0 → 1, `.bind` removed, entry point moved from `0x01661310` (in `.bind`) to the
+original OEP `0x00FAEF67`, and `.text` disassembling as clean MSVC. The unpacked file is game content
+and is not committed anywhere — it regenerates in one command.
+
+**What it unlocked:** the Direct-vs-Automatic scan ran the same day — see the 2026-09-02 topic's
+outcome section. F2 being MadnessPatch-only (stock: Tilde) also closed a §3/§9 "test both live" item
+with no launch.
