@@ -53,7 +53,12 @@ the second witness (Alan Wake's zero-caller result rested on it).
 | `NvAPI_Stereo_CreateConfigurationProfileRegistryKey` / `SetConfigurationProfileValue` | `0xBE7692EC` / `0x24409F48` | profile writes |
 | `NvAPI_Initialize` | `0x0150E828` | the positive control — must have callers |
 
-`[verified-static 2026-09-02, read directly from NVIDIA's public repository]`
+`[reported 2026-09-02]` — read directly from NVIDIA's public repository, so this is first-party
+and not hearsay, but it is a document read rather than something measured here. (Tag corrected
+2026-09-03: `verified-static` is not one of the eight vocabulary names, and an invented tag counts
+as untagged to every tool. Re-read a third time on 2026-09-03 with two positive controls —
+`NvAPI_Initialize` `0x0150E828` and `NvAPI_Stereo_Enable` `0x239C4545` — both correct, and the
+fetch reached the file's `#endif`, so it was not truncated.)
 
 ## The scan, and how to read it
 
