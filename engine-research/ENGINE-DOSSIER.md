@@ -201,7 +201,52 @@ row 0 is a lane, not a register. The test suite transplants the Alan Wake implem
 and shows it diverges (`ndc.x +0.355` vs `+0.324`) **and corrupts `clip.w`**, so the distinction is
 falsifiable rather than asserted. Six mutants, all caught, control passes.
 
-**Still open on this front:** the pixel-stage half. `ViewProjectionMatrix` is also `ps_3_0 c4 ×4` in
+**✅ THE PIXEL STAGE IS ANSWERED 2026-09-03 — and NOT the way it was queued.** The plan was to
+extend the matrix edit to `ps c4`. **Do not.** Two measured reasons:
+
+1. **`ps c4` is wildly overloaded** — far worse than this dossier previously warned. Occupants
+   include `UniformPixelVector_1` (14,557 shaders), `UniformPixelVector_0` (5,080),
+   `WorldIncidentLighting` (4,130), `ViewProjectionMatrix` (4,122),
+   `LightColorAndFalloffExponent` (2,843), `LightMapScale` (2,348)… **A blind `ps c4` write corrupts
+   roughly 33,000 shaders, not the 135 recorded here before.** `[inferred-static 2026-09-03]`
+2. **The shipped pixel shaders ALREADY apply the shear themselves.** From the bytecode:
+   ```
+   mad   r0.xyz, c4.xyww, v2.x, r0   ; clip = ViewProjectionMatrix * worldpos
+   ifc   c3., -c3.x                  ; if (NvStereoEnabled)
+     texld r1, c0.yzzw, s1           ;   read NvStereoFixTexture
+     add   r1.y, r0.w, -r1.y         ;   w - convergence
+     mad   r0.z, r1.x, r1.y, r0.x    ;   x + separation*(w - convergence)
+   ```
+   That is NVIDIA's `x' = x + S·(w − C)`, compiled into retail. **Shearing `ps c4` too would
+   DOUBLE-APPLY it.** `[inferred-static 2026-09-03]`
+
+**The stages are asymmetric, and that is the whole design.** `NvStereoEnabled` is in **28,017 of
+43,025 pixel shaders, always at `ps c3`, zero exceptions** — and in **0 of 2,807 vertex shaders**.
+Breakdown of the 28,017: 13,454 use it as a bare branch selector; **10,437 apply a screen-space fix**
+(same formula, on an interpolated position); **4,042 apply the clip-space fix** above; 84 have the
+matrix but no fix texture.
+
+| stage | built-in stereo? | what we do |
+| --- | --- | --- |
+| vertex (2,807) | **none** | shear `vs c0` ourselves |
+| pixel (43,025) | **yes, 28,017** | set `ps c3`, bind the fix texture — **never touch `ps c4`** |
+
+⚠️ **THE COUPLING INVARIANT:** the pixel side must get **the same S and C** as the vertex shear, and
+the flag must be non-zero whenever the matrix is sheared. Flag off ⇒ geometry moves while every
+screen-space effect stays put; different S ⇒ they disagree by a constant. Both look like "broken
+stereo" and neither is a maths error. `alice_stereo_fix_texel()` routes through the same
+`alice_stereo_shear()` so they cannot drift apart.
+
+**`NvStereoFixTexture` is bound per shader**, not at a fixed `s1`: `s1` (14,221), `s3` (202), `s0`
+(46), `s2` (10) — hence `shadermap.c`, a CTAB parser plus a pointer-keyed registry.
+**Validated against the game's own 45,832 shaders** against an independent Python pass; every bucket
+agrees, including `NvStereoEnabled` never appearing outside `ps c3` and `PreViewTranslation` never
+outside `vs c5`. `[verified-numerically 2026-09-03, n=45832 shaders]` Plus 36 configurations proving
+the two stages land in the same place, and a falsifiability check that they diverge with the flag
+off. Code and full account: `staging/alice-madness-returns-vr/proxy-d3d9/README-stereo.md`.
+
+**Still open on this front:** nothing in the shader maths. What remains is the proxy plumbing.
+The superseded note read: the pixel-stage half. `ViewProjectionMatrix` is also `ps_3_0 c4 ×4` in
 4,122 shaders and needs the same treatment, but **`ps c4` is `WorldToViewMatrix` (4×3) in 135 other
 shaders**, so a blind `ps c4` write corrupts those — it needs a per-shader register map, not a fixed
 register. And `p00` recovery from the matrix assumes nothing non-rigid is baked in after the
