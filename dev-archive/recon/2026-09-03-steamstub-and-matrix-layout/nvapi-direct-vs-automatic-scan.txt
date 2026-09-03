@@ -1,0 +1,54 @@
+NVAPI Direct-vs-Automatic scan - AliceMadnessReturns.exe
+/pd, dev PC, 2026-09-03. THE GAME WAS NOT LAUNCHED.
+
+Method: unpack a COPY with Steamless v3.1.0.5 (SteamStub Variant 3.1 x86), then
+scan the UNPACKED .text only for `push imm32` (0x68) of each NVAPI dispatch id.
+The still-packed copy is retained as a negative control.
+
+Unpack validation (before trusting any result):
+  .text entropy      8.00 -> 6.71
+  .text CC16 runs       0 -> 1
+  .bind section      present -> removed
+  entry point        0x01661310 (.bind) -> 0x00FAEF67 (.text, the original OEP)
+  .text disassembles as clean MSVC code with int3 padding
+
+  function                           id           UNPACKED   PACKED(control)
+  NvAPI_Initialize                   0x0150E828   1          0     <== POSITIVE CONTROL
+  Stereo_SetActiveEye                0x96EEA9F8   0          0     <== DIRECT-only
+  Stereo_SetDriverMode               0x5E8F0BEC   0          0     <== DIRECT-only
+  Stereo_CreateHandleFromIUnknown    0xAC7E37F4   1          0
+  Stereo_Activate                    0xF6A1AD68   1          0
+  Stereo_Enable                      0x239C4545   0          0
+  Stereo_SetSeparation               0x5C069FA3   0          0
+  Stereo_GetSeparation               0x451F2134   1          0
+  Stereo_GetConvergence              0x4AB00934   1          0
+  Stereo_GetEyeSeparation            0xCE653127   1          0
+  Stereo_SetSurfaceCreationMode      0xF5DCFCBA   0          0
+
+The packed column is all zero INCLUDING the positive control - i.e. that scan
+could not have produced a positive, which is exactly the false-negative the
+2026-09-02 note warned about, now demonstrated side by side.
+
+All six live references sit in ONE 825-byte function:
+  0x00E65663  push 0x0150E828   ; NvAPI_Initialize
+  0x00E657DC  push 0xAC7E37F4   ; Stereo_CreateHandleFromIUnknown
+  0x00E6585C  push 0xF6A1AD68   ; Stereo_Activate
+  0x00E6591C  push 0x451F2134   ; Stereo_GetSeparation
+  0x00E6595C  push 0x4AB00934   ; Stereo_GetConvergence
+  0x00E6599C  push 0xCE653127   ; Stereo_GetEyeSeparation
+(addresses are in the UNPACKED image; the packed image's .text is encrypted so
+they do not correspond to on-disk addresses of the shipped exe)
+
+Shape: init -> create handle -> activate -> read separation, convergence and eye
+separation. Three GETTERS and no setters at all; SetSeparation is 0 here where
+Alan Wake had 1.
+
+VERDICT: AUTOMATIC. Both Direct-only discriminators have zero references while
+the Automatic-side witnesses are all present. The game activates stereo and then
+READS BACK what the driver decided; it never sets driver mode or active eye, so
+it never takes the eyes off the driver.
+
+Regenerating: this needs the unpacked binary, which is GAME CONTENT and is
+deliberately NOT committed. To reproduce, unpack a copy again:
+  Steamless.CLI.exe <copy of AliceMadnessReturns.exe>
+then scan the unpacked .text for the ids above.

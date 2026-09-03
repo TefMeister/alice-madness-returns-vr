@@ -1,4 +1,9 @@
-# SteamStub identified (the scan is `[PD]` again), and the per-eye maths verified — but it is a TRANSPOSE of Alan Wake's
+# SteamStub identified, the NVAPI scan RUN AND ANSWERED (Automatic), and the per-eye maths verified — but it is a TRANSPOSE of Alan Wake's
+
+> **Reading order note.** Sections 1–4 were written before the user approved fetching Steamless, so
+> section 1 ends by saying the scan "moves back to `[PD]`". **It then ran the same session** — see
+> the addendum at the end, which answers it: **the mode is AUTOMATIC**. The earlier text is left as
+> written rather than retro-edited, because the gating sequence is part of the record.
 
 **Session:** `/pd`, dev PC, 2026-09-03. **The game was not launched, and nothing here has been
 run.** Everything below is read off files already on this disk, or compiled and run on the host.
@@ -138,3 +143,84 @@ that folder's `README-stereo.md`.
 **Diagnostics.** Vertical separation instead of horizontal ⇒ the wrong lane (`.y` not `.x`).
 Geometry correct near spawn and drifting far from it ⇒ something is still acting in world space,
 i.e. the `c5` trap after all. Both eyes identical ⇒ most likely the RHI re-upload above.
+
+
+---
+
+# ADDENDUM, same session — the user approved fetching Steamless, so the scan RAN. **The mode is AUTOMATIC.**
+
+**Still no launch.** A **copy** of the exe was unpacked on disk; the shipped binary was never
+touched and the game was never started.
+
+## The unpack
+
+Steamless v3.1.0.5 (`github.com/atom0s/Steamless`, sha256 `e3e2d22e098ff3fb…` on the release zip)
+independently identified the file as **SteamStub Variant 3.1 (x86)** — matching the static call made
+earlier from the `0xC0DEC0DF` magic alone. Validated before trusting anything from it:
+
+| | packed | unpacked |
+| --- | --- | --- |
+| `.text` entropy | 8.00 | **6.71** |
+| `.text` `CC` padding runs | 0 | 1 |
+| `.bind` section | present | removed |
+| entry point | `0x01661310` (in `.bind`) | **`0x00FAEF67`** (the original OEP in `.text`) |
+| `.text` disassembles | no | **yes — clean MSVC with `int3` padding** |
+
+## The result, with the control that makes it mean something
+
+| function | id | unpacked | **still-packed control** |
+| --- | --- | --- | --- |
+| `NvAPI_Initialize` | `0x0150E828` | **1** ✅ | 0 |
+| **`Stereo_SetActiveEye`** | `0x96EEA9F8` | **0** | 0 |
+| **`Stereo_SetDriverMode`** | `0x5E8F0BEC` | **0** | 0 |
+| `Stereo_CreateHandleFromIUnknown` | `0xAC7E37F4` | 1 | 0 |
+| `Stereo_Activate` | `0xF6A1AD68` | 1 | 0 |
+| `Stereo_GetSeparation` | `0x451F2134` | 1 | 0 |
+| `Stereo_GetConvergence` | `0x4AB00934` | 1 | 0 |
+| `Stereo_GetEyeSeparation` | `0xCE653127` | 1 | 0 |
+| `Enable` / `SetSeparation` / `SetSurfaceCreationMode` | — | 0 | 0 |
+
+**I kept the packed copy and scanned it too, deliberately.** Its column is all zero *including the
+positive control* — so that scan could not have produced a positive. That is exactly the false
+negative the 2026-09-02 note warned about, and it is now demonstrated side by side instead of
+argued. A negative result is only evidence if the test could have returned a positive; here both
+states are on the page.
+
+**All six live references sit in one 825-byte function** (`0x00E65663`–`0x00E6599C`, unpacked
+image): init → create handle → activate → **read** separation, convergence, eye separation.
+**Three getters and no setters at all** — `SetSeparation` is 0 here where Alan Wake had 1, so Alice
+is an even purer consumer.
+
+## ⛔️ Verdict: AUTOMATIC — the same conclusion as `alan-wake-vr`, reached independently
+
+The game activates 3D Vision and then reads back what the driver decided. It never sets driver mode
+or active eye, so **it never takes the eyes off the driver**. `NvStereoEnabled` (`ps c3`, 28,017
+shaders) and `NvStereoFixTexture` (14,479) are **consumers of driver-published values, not producers
+of an eye offset**. `[inferred-static 2026-09-03]`
+
+**This also resolves a caveat that had been recorded as genuinely ambiguous.** Epic's page is titled
+*"UE3 and NVIDIA 3D Vision **Direct**"*, which pointed one way, while an eye-sign channel in a
+texture is the signature of the Automatic pattern, which pointed the other. **The texture reading
+was right**; the page title describes what UE3 can support, not what this title shipped.
+
+## Why this is good news rather than a setback
+
+`/gr` pre-committed the outcomes, and this is the one where **the plan does not change**: *"no
+callers on either, with callers on Activate/getters ⇒ Automatic (same as Alan Wake; the render-twice
++ own-texture plan is unchanged)."*
+
+And it is better than merely "unchanged". Because the game **reads** separation and convergence from
+the driver and feeds them into its own shaders, a proxy that supplies those values itself — writing
+`ps c3` and binding its own `NvStereoFixTexture` — drives a stereo path **the shipping shaders
+already implement, in 28,017 of them**. The discontinued NVIDIA driver is not required for that. The
+existing `[PD]` plan is now confirmed rather than hypothetical.
+
+## Housekeeping
+
+The unpacked binary is **game content and is deliberately not committed**. It regenerates in one
+command from a copy, so nothing is single-copy. The scan output — ids, counts and addresses, which
+are interface metadata — is preserved at
+`dev-archive/recon/2026-09-03-steamstub-and-matrix-layout/nvapi-direct-vs-automatic-scan.txt`.
+
+⚠️ Note for anyone reading those addresses: they are in the **unpacked** image. The shipped exe's
+`.text` is encrypted, so they do not correspond to on-disk addresses of the retail binary.
