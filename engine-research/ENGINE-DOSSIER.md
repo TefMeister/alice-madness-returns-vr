@@ -26,7 +26,7 @@
 - DRM (CEG/Denuvo/GOG/none); launch-time-debugger behaviour: **⚠️ READ NARROWLY — "no DRM" means EA's Cuckoo is gone; the shipping binary IS wrapped in Valve's own SteamStub.** Corrected 2026-09-03: `.bind` holds the entry point and `.text` is encrypted at rest, and the **SteamStub v3.x header magic `0xC0DEC0DF` is verified inside the stub's own validating `cmp`** (§6). That is a **packaging wrapper, not an anti-tamper system** like Denuvo — it does not fight a debugger, and a public open-source unpacker (Steamless) restores `.text` for static analysis without running the game. Injection is unaffected: the `d3d9.dll` proxy is live-verified on this build. `[inferred-static 2026-09-03]` The Cuckoo history below remains accurate and is unchanged. **No DRM found — reconciled with a real, dated history (external-research, 2026-08-25), not just a lucky static result.** The original 2011 release used **"EA Cuckoo"**, an online-authentication DRM tied to EA's own activation servers. EA delisted the game entirely in September 2016 after accidentally distributing already-used Steam keys (refunding affected buyers rather than replacing keys), leaving existing owners with server-dependent DRM on a no-longer-sold title. The game was later **relisted on Steam, and a January 14, 2022 patch removed EA Cuckoo authentication DRM entirely** from that build. Our own static recon (zero Denuvo/SecuROM/StarForce/Cuckoo/link2ea strings) is fully consistent with this — **this is a "DRM was present historically, current build is clean" case, same pattern as Prince of Persia (2008), not a lucky negative result.** Worth being glad about specifically given this is EA-published (same publisher as Burnout Paradise, which still needs the EA App) — this title evidently doesn't carry that requirement anymore. Not yet tested live.
 - Attach workflow that works: not yet tested live, but no static evidence predicts a block.
 - Injection vector that works (proxy DLL name / injector / framework): **✅ LIVE-VERIFIED (2026-08-25), a from-scratch `d3d9.dll` proxy**, matching this portfolio's Psychonauts and Prince of Persia precedent. **First deploy attempt failed the game outright** — see `staging/alice-madness-returns-vr/proxy-d3d9/README.md` for the full story: `AliceMadnessReturns.exe` statically imports *two* functions from `d3d9.dll` (`Direct3DCreate9` and `D3DPERF_SetOptions`, a real D3D9 perf-marker export), not just one — a proxy exporting only `Direct3DCreate9` left Windows' loader unable to resolve the exe's import table at all, so the process exited before running any code (zero log output, "ran ~2 seconds then stopped"). Isolated via a clean control test (DLL removed → game launched fine), fixed by adding the second forwarding wrapper, redeployed — **confirmed working cleanly on the retest**: `Direct3DCreate9` called twice (SDKVersion=0x20 both times), `D3DPERF_SetOptions` called once (dwOptions=0x1), game ran for ~5 minutes of real play. **Lesson for future D3D9 proxies in this portfolio: check the exe's actual per-function import list for the target DLL, not just whether the DLL name appears in the import table** — Prince of Persia's exe only needed `Direct3DCreate9`, but that isn't guaranteed for every D3D9 title.
-- **⚠️ PROXY ROBUSTNESS — the proxy never frees the real `d3d9.dll`, so a reload walks past it** `[inferred-static 2026-09-04, /sr inbox, read directly]`. `proxy-d3d9/src/proxy.c:97` does `LoadLibraryA(sysdir)` and there is **no `FreeLibrary` anywhere**. If the game ever `FreeLibrary`s our proxy (a startup capability probe, a renderer restart, an options change), the system `d3d9.dll` stays resident under that base name and the game's next `LoadLibrary("d3d9.dll")` matches it by name — **the app directory is never searched, our proxy never reloads, and the game runs perfectly without the mod.** This is the same defect ReShade fixed for Alan Wake (commit `74347b91d`, 4.5.2). **Latent, not yet observed live on Alice.** ⚠️ **It is the interpretation key for the launch's "outcome 1":** the signature is a load + one or two export calls + an unload within ~100 ms in `alice_vr_proxy_log.txt`, then silence *while the game reaches gameplay* — that is "reloaded past", NOT "the wrapper crashed the game". **Fix (one line): `FreeLibrary(real_d3d9)` in `DLL_PROCESS_DETACH`**; ready to apply and redeploy if that signature appears. Cross-engine write-up: `flat-to-vr-cross-engine-research` techniques README.
+- **⚠️ PROXY ROBUSTNESS — the proxy never frees the real `d3d9.dll`, so a reload walks past it** `[inferred-static 2026-09-04, /sr inbox, read directly]`. `proxy-d3d9/src/proxy.c:97` does `LoadLibraryA(sysdir)` and there is **no `FreeLibrary` anywhere**. If the game ever `FreeLibrary`s our proxy (a startup capability probe, a renderer restart, an options change), the system `d3d9.dll` stays resident under that base name and the game's next `LoadLibrary("d3d9.dll")` matches it by name — **the app directory is never searched, our proxy never reloads, and the game runs perfectly without the mod.** This is the same defect ReShade fixed for Alan Wake (commit `74347b91d`, 4.5.2). **Latent, not yet observed live on Alice.** ⚠️ **It is the interpretation key for the launch's "outcome 1":** the signature is a load + one or two export calls + an unload within ~100 ms in `alice_vr_proxy_log.txt`, then silence *while the game reaches gameplay* — that is "reloaded past", NOT "the wrapper crashed the game". **Fix (one line): `FreeLibrary(real_d3d9)` in `DLL_PROCESS_DETACH`**; ready to apply and redeploy if that signature appears. Cross-engine write-up: `flat-to-vr-cross-engine-research` techniques README. **✅ Did NOT bite on the 2026-09-04 launch** `[verified-live 2026-09-04]`: the proxy stayed resident the whole session including the settings screens (which can Reset the device), so the bug remains latent on Alice — fix it before it can, not because it has.
 
 ## 5. Threading & frame structure
 - Immediate context only, or deferred contexts + command lists?:
@@ -286,6 +286,16 @@ them:
 | `LocalToView` | `c10` (154), `c14` (114) |
 | `InstancedPreViewTranslation` | `c6` (46), `c10` (28) — a **separate constant** from `PreViewTranslation`, used by the instanced factory |
 
+> **LIVE, 2026-09-04 (`/lm`) — first proxy launch: interception confirmed, shear test INCONCLUSIVE.**
+> The M0 proxy wrapped the device and registered 6,725 shaders `[verified-live 2026-09-04]`, but the
+> F9 shear test could not be read: the one-shot stats line fired before F9, the `vp_writes` counter
+> is gated behind `g_st.enabled`, and the F9 log samples `p00` at the toggle instant — so
+> `p00=NOT SEEN YET` is by construction, not measurement, and the before/after frame diff (mean ~5,
+> no coherent horizontal shift) is scene animation, not a shear. **This neither validates nor
+> disproves the c0 delivery below.** Cheap no-rebuild retest: F9 on → wait → F9 off → F9 on, read the
+> SECOND `stereo ON` line's `p00`. `[PD]` fix: ungate `vp_writes`, log `have_p00` continuously, add a
+> saturating shear mode. Notes: `modding-notes/2026-09-04-first-proxy-launch-interception-live-stereo-test-inconclusive.md`.
+>
 `[inferred-static 2026-09-01]` This is why a per-eye override belongs at `c0`: it is the one place the
 camera arrives at a fixed address regardless of which factory drew the object. It also explains the
 early Enslaved histogram that started the per-object-WVP scare — `c6`/`c10`/`c231` genuinely do change
@@ -465,6 +475,11 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
 - **The engine gate is already open:** `AllowNvidiaStereo3d` is an `Engine.Engine` config property
   and is `True` in both `Engine/Config/BaseEngine.ini:193` (inside the vendor's own
   `; NVCHANGE_BEGIN: Jiayuan` markers) and the user config `AliceEngine.ini:168` `[measured 2026-09-03]`.
+- **✅ CONFIRMED LIVE 2026-09-04 (`/lm`): the `3D STEREO` row IS present in Configuration → VIDEO and
+  toggles OFF↔ON freely** `[verified-live 2026-09-04, n=1]` — not driver-hidden. So the native 3D
+  Vision surface is exposed on this driver. Not CONFIRMed/engaged (that risks a renderer mode switch
+  and is not the mod's route); whether pressing CONFIRM actually drives native 3D Vision on a modern
+  driver is still untested. Interesting as corroboration, not a VR shortcut.
 - ⚠️ **Not a shortcut to VR.** 3D Vision *Automatic* is a driver feature needing NVIDIA's stereo
   stack, deprecated on current drivers and normally gated on a 3D-capable display. What is useful to
   this project is the shader plumbing it left behind (`NvStereoEnabled`, `NvStereoFixTexture`, §6),
@@ -474,9 +489,22 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
 - Evidence: `dev-archive/recon/2026-09-03-native-stereo3d-menu-path/`.
 
 ## 10. Autonomous harness recipe (this game)
-- Launch to a known scene (commands used):
-- In-process input / camera drive method that worked:
-- Frame-capture method; where images land:
+- Launch to a known scene (commands used): title `Enter` → copyright `Enter` → PROFILE SELECT `Enter`
+  (loads the highlighted profile) → main menu `Enter` on CONTINUE GAME → ~30 s load → gameplay
+  (Whitechapel). `[verified-live 2026-09-04]` Full route/hazards: `ai-game-control-profiles/profiles/alice-madness-returns.json`.
+- In-process input / camera drive method that worked: external `SendInput` scancodes via
+  `flat-to-vr-RE-toolkit/tools/game-harness.py` for menus (`Enter`/arrows/`Esc`); the proxy's own
+  **F-key hotkeys** (`GetAsyncKeyState`, polled each Present) are the stereo controls: **F9 stereo
+  toggle, F10 eye swap, F11/F12 ipd, F7/F8 convergence** `[verified-live 2026-09-04 — F9 registered]`.
+  Character/camera movement NOT exercised yet. **⚠️ Must be windowed** — `Fullscreen=True` in
+  `Documents\My Games\Alice Madness Returns\AliceGame\Config\AliceEngine.ini` gives fullscreen-
+  exclusive which BitBlt captures as black; set `Fullscreen=False` while the game is CLOSED (UE3
+  rewrites config on exit). Res already 1280x720 there.
+- Frame-capture method; where images land: `game-harness.py "Alice" shot out.png` (BitBlt, window
+  focused first). Proxy evidence in `Binaries\Win32lice_vr_proxy_log.txt`.
+- Self-close (verified 2026-09-04): pause (`Esc`) → MAIN MENU (confirm YES) → main menu → EXIT GAME
+  (confirm YES). Menus are a radial/vertical mix; verify each highlight before `Enter`
+  (RESTART sits above MAIN MENU; the PROFILE screen has DELETE).
 
 ## 11. Dead ends & false leads (save future time)
 - **✅ LIFTED 2026-09-03 — this dead end is CLEARED, and the method is recorded. Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. **The wrapper is SteamStub v3.1, and unpacking a COPY with Steamless takes seconds and needs no launch — done 2026-09-03, `.text` entropy 8.00 → 6.71 and the NVAPI scan answered (§6).** Static scans of this exe ARE possible; just do them on an unpacked copy, and **always carry the `NvAPI_Initialize 0x0150E828` positive control**, because the packed file returns a clean zero for everything. The original text said: Needs a runtime dump first. `[measured 2026-09-02]`
