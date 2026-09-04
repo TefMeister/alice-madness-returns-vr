@@ -1,0 +1,29 @@
+[15:32:23.074] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=1620 ===
+[15:32:23.079] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=72BE4B20 D3DPERF_SetOptions=72C3CDE0
+[15:32:25.964] Direct3DCreate9 called: SDKVersion=0x20
+[15:32:26.102]   -> real returned 08E869A8
+[15:32:26.103]   -> wrapped as 08E16A30
+[15:32:26.341] Direct3DCreate9 called: SDKVersion=0x20
+[15:32:26.446]   -> real returned 0C0F5550
+[15:32:26.446]   -> wrapped as 04DFE808
+[15:32:35.397] CreateDevice: adapter=0 type=1 flags=0x142 windowed=0 1280x720
+[15:32:36.377]   -> wrapped device 17888D00 (real 1C7A40A0). Stereo is OFF; F9 toggles, F10 swaps eye, F11/F12 ipd, F7/F8 convergence.
+[15:32:36.377] D3DPERF_SetOptions called: dwOptions=0x1
+[15:32:37.901] shaders registered=6725 (registry full events=0), vp writes=0, draws given the fix texture=0
+[15:33:52.714] Reset() hr=0x00000000 - registry (6740 shaders) and fix texture kept, both survive Reset
+[15:34:52.483] === alice-madness-returns-vr proxy d3d9.dll unloading ===
+[15:43:12.005] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=9200 ===
+[15:43:12.008] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=72BE4B20 D3DPERF_SetOptions=72C3CDE0
+[15:43:12.934] Direct3DCreate9 called: SDKVersion=0x20
+[15:43:13.055]   -> real returned 08F49288
+[15:43:13.056]   -> wrapped as 08F4C730
+[15:43:13.232] Direct3DCreate9 called: SDKVersion=0x20
+[15:43:13.330]   -> real returned 0C1080D8
+[15:43:13.331]   -> wrapped as 08F50930
+[15:43:19.079] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[15:43:19.226]   -> wrapped device 174A86D0 (real 1C3DC1A0). Stereo is OFF; F9 toggles, F10 swaps eye, F11/F12 ipd, F7/F8 convergence.
+[15:43:19.226] D3DPERF_SetOptions called: dwOptions=0x1
+[15:43:20.077] shaders registered=6725 (registry full events=0), vp writes=0, draws given the fix texture=0
+[15:47:40.813] HOTKEY F9: stereo ON (ipd=6.50 convergence=300.0 p00=NOT SEEN YET - shear stays 0)
+[15:49:13.090] HOTKEY F9: stereo OFF (ipd=6.50 convergence=300.0 p00=known)
+[15:58:56.931] === alice-madness-returns-vr proxy d3d9.dll unloading ===
