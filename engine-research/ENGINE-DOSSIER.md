@@ -424,6 +424,48 @@ in the driver's role.**
 - **Config methodology note (same source): UE3's authoritative runtime config often lives under `Documents\My Games\UnrealEngine3\<ProjectName>\Config\`, not the in-install-directory INI files** (which are just defaults) — check for an `AliceGame`-equivalent per-user config path before assuming edits to game-directory `.ini` files take effect. Also worth checking Alice's engine INI for a non-default `GameViewportClientClassName` (Enslaved has `NTEngine.NTReplayGameViewportClient`) — a cheap, config-only way to discover whether Spicy Horse layered custom camera/viewport logic on stock UE3, directly relevant given the native-stereo3D finding above already suggests real custom camera work happened here.
 - **Camera smoothing is a known, already-solved problem (external-research, 2026-08-25, from MadnessPatch): the base game applies heavy mouse smoothing/negative acceleration and input deadzones** — exactly the kind of input-to-camera latency that reads as unacceptable lag in a headset with real head tracking. MadnessPatch neutralizes this via a simple `DisableMouseSmoothing = 1` config toggle — strong evidence the camera-update code path is a tractable, identifiable target. **This should be treated as a required setting for any VR head-tracking work here, not an optional nicety.**
 
+### ⭐ THE TWO-EYE PATH IS BUILT (2026-09-04c, `/pd`, no launch), and the `/sr` one-element lead was already our own constant term
+
+**Two-eye.** The mono shear was proven to reach the screen on 2026-09-04b, but it moves **one** view:
+`alice_stereo_state.eye` existed and only F10 ever changed it, so both eyes had never actually been
+drawn. A `wiggle` mode now alternates the eye **in `Present`, at the frame boundary** — never
+mid-frame, because the vertex shear and the pixel stage's fix texture both read `g_st.eye` and must
+agree within a frame. Each frame is therefore still exactly the single-eye path the 54-configuration
+suite verifies, and the fix texture is re-uploaded once per frame (`applyPixelStereo()` already
+caches on the eye). **F6** toggles it; while it is on, F10 is refused with a log line rather than
+fighting it; a `wiggle flips` counter separates "not alternating" from "alternating and nothing
+moved". `[compile-verified 2026-09-04]`, deployed (`d3d9.dll` 702,976 B; previous kept as
+`d3d9.dll.bak-2026-09-04c-pre-twoeye`). **Not run.**
+
+**Diagnostics ungated, which is why the 2026-09-04 morning launch was inconclusive.** `vp_writes`
+and the `p00` recovery were gated behind `g_st.enabled`, and the summary line was one-shot at 2,000
+shaders — which fired *before* stereo was ever enabled, reported zeros, and never printed again.
+Counting and recovery are now unconditional (read-only; nothing reaches the device unless the shear
+fires) and the line is periodic at frame 120 then every 900, carrying enabled/wiggle/eye/ipd/
+convergence/`p00`/`S`/flips. **One launch now reads cleanly with stereo never enabled at all**, and
+the F9 double-toggle dance is retired.
+
+**The `/sr` one-element lead: declined, with the numbers.** `[verified-numerically 2026-09-04]`
+`/sr` generalised `mad-max-vr`'s result — a per-eye offset is one matrix element — and correctly
+warned it is the transposed element here. Re-derived: in this layout it is `c3.x -= p00 · eye_dx`,
+and `alice_stereo_apply_viewproj()`'s second line is `regs[3][0] -= S * C` with
+`S = p00 · eye_dx / C`, so **`S · C == p00 · eye_dx` identically — the one-element edit is already
+the constant term of our shear.** Measured over six vertices from 12 to 8,000 units, the full shear
+and the one-element edit alone differ in NDC x by **exactly `S`, a constant**, and not at all in `y`
+or `clip.w`. Generally:
+
+```
+our shear = one-element edit + a constant NDC shift = parallel eye translation + convergence
+          = off-axis (asymmetric-frustum) stereo
+```
+
+⇒ **Adopting the lead would delete the off-axis term, and that is not available to us.** The pixel
+stage implements NVIDIA's two-parameter form in 28,017 shipped shaders we cannot modify, so the
+vertex stage must use the same formula or the two disagree by a constant — geometry moves, every
+screen-space effect stays put. See the coupling invariant in `stereo_ue3.h`. Verdict filed back to
+`flat-to-vr-cross-engine-research/inbox/` so the technique page gains the condition; the
+generalisation itself is sound and reproduces here exactly. Write-up: `modding-notes/2026-09-04c-the-two-eye-path-is-built-and-the-one-element-lead-was-already-in-our-code.md` §1.
+
 ## 7. Constant-buffer fill mechanism
 - Map/DISCARD ring / UpdateSubresource / D3D11.1 offset / **persistent map +
   memcpy** (trap):
@@ -507,6 +549,15 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
   (RESTART sits above MAIN MENU; the PROFILE screen has DELETE).
 
 ## 11. Dead ends & false leads (save future time)
+- **Do not switch the vertex shear to the "one-element" per-eye edit**, however much cleaner it
+  looks. It is already this code's constant term, and using it *alone* drops the convergence /
+  off-axis term that 28,017 shipped pixel shaders implement themselves and cannot be changed. The
+  two stages would then disagree by a constant: geometry moves, screen-space effects do not.
+  `[verified-numerically 2026-09-04]`
+- **A gated diagnostic can make a launch unreadable.** `vp_writes` and `p00` were counted only while
+  stereo was enabled, and the summary was one-shot — so the 2026-09-04 launch reported zeros and
+  needed an F9 double-toggle to say anything. Diagnostics that answer "is the premise true" must run
+  when the feature is OFF, or the first launch cannot falsify anything.
 - **✅ LIFTED 2026-09-03 — this dead end is CLEARED, and the method is recorded. Any static scan of `AliceMadnessReturns.exe`'s `.text`** — strings, immediates, xrefs. The section is encrypted at rest (entropy 8.00, entry point in `.bind`); a null result means nothing. **The wrapper is SteamStub v3.1, and unpacking a COPY with Steamless takes seconds and needs no launch — done 2026-09-03, `.text` entropy 8.00 → 6.71 and the NVAPI scan answered (§6).** Static scans of this exe ARE possible; just do them on an unpacked copy, and **always carry the `NvAPI_Initialize 0x0150E828` positive control**, because the packed file returns a clean zero for everything. The original text said: Needs a runtime dump first. `[measured 2026-09-02]`
 - **Reading "no stereo strings in the exe" as "the integration lives in the engine layer"** (2026-09-01) — the premise is an artefact of that encryption. `[disproved 2026-09-02]`
 - **Reading `SetActiveEye`'s absence from the NVAPI id table as "Automatic mode"** — the table is the linked SDK's fixed list, not the game's usage; `NvAPI_Initialize` is absent from it too. `[inferred-static 2026-09-02]`
