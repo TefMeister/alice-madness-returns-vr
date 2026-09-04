@@ -1,0 +1,76 @@
+[15:32:35.397] CreateDevice: adapter=0 type=1 flags=0x142 windowed=0 1280x720
+[15:32:37.901] shaders registered=6725 (registry full events=0), vp writes=0, draws given the fix texture=0
+[15:43:19.079] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[15:43:20.077] shaders registered=6725 (registry full events=0), vp writes=0, draws given the fix texture=0
+[15:47:40.813] HOTKEY F9: stereo ON (ipd=6.50 convergence=300.0 p00=NOT SEEN YET - shear stays 0)
+[15:49:13.090] HOTKEY F9: stereo OFF (ipd=6.50 convergence=300.0 p00=known)
+[16:08:12.584] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=26716 ===
+[16:08:19.898] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[16:08:20.967] shaders registered=6725 (registry full events=0), vp writes=0, draws given the fix texture=0
+[16:12:31.527] HOTKEY F9: stereo ON (ipd=6.50 convergence=300.0 p00=NOT SEEN YET - shear stays 0)
+[16:12:36.754] HOTKEY F9: stereo OFF (ipd=6.50 convergence=300.0 p00=known)
+[16:12:39.755] HOTKEY F9: stereo ON (ipd=6.50 convergence=300.0 p00=known)
+[16:13:29.836] HOTKEY F12: ipd = 7.50
+[16:13:30.805] HOTKEY F12: ipd = 8.50
+[16:13:31.773] HOTKEY F12: ipd = 9.50
+[16:13:32.732] HOTKEY F12: ipd = 10.50
+[16:13:33.701] HOTKEY F12: ipd = 11.50
+[16:13:34.669] HOTKEY F12: ipd = 12.50
+[16:13:35.668] HOTKEY F12: ipd = 13.50
+[16:13:36.638] HOTKEY F12: ipd = 14.50
+[16:13:37.604] HOTKEY F12: ipd = 15.50
+[16:13:38.572] HOTKEY F12: ipd = 16.50
+[16:13:39.529] HOTKEY F12: ipd = 17.50
+[16:13:40.528] HOTKEY F12: ipd = 18.50
+[16:13:41.495] HOTKEY F12: ipd = 19.50
+[16:13:42.467] HOTKEY F12: ipd = 20.50
+[16:13:43.432] HOTKEY F12: ipd = 21.50
+[16:13:44.399] HOTKEY F12: ipd = 22.50
+[16:13:45.390] HOTKEY F12: ipd = 23.50
+[16:13:46.359] HOTKEY F12: ipd = 24.50
+[16:13:47.327] HOTKEY F12: ipd = 25.50
+[16:13:48.296] HOTKEY F12: ipd = 26.50
+[16:13:49.747] HOTKEY F7: convergence = 240.0
+[16:13:50.714] HOTKEY F7: convergence = 192.0
+[16:13:51.682] HOTKEY F7: convergence = 153.6
+[16:13:52.649] HOTKEY F7: convergence = 122.9
+[16:13:53.617] HOTKEY F7: convergence = 98.3
+[16:13:54.618] HOTKEY F7: convergence = 78.6
+[16:13:55.586] HOTKEY F7: convergence = 62.9
+[16:13:56.554] HOTKEY F7: convergence = 50.3
+[16:13:57.522] HOTKEY F7: convergence = 40.3
+[16:13:58.489] HOTKEY F7: convergence = 32.2
+[16:13:59.457] HOTKEY F7: convergence = 25.8
+[16:14:00.425] HOTKEY F7: convergence = 20.6
+[16:15:14.153] HOTKEY F11: ipd = 25.50
+[16:15:15.121] HOTKEY F11: ipd = 24.50
+[16:15:16.089] HOTKEY F11: ipd = 23.50
+[16:15:17.056] HOTKEY F11: ipd = 22.50
+[16:15:18.056] HOTKEY F11: ipd = 21.50
+[16:15:19.024] HOTKEY F11: ipd = 20.50
+[16:15:19.996] HOTKEY F11: ipd = 19.50
+[16:15:20.963] HOTKEY F11: ipd = 18.50
+[16:15:21.932] HOTKEY F11: ipd = 17.50
+[16:15:22.899] HOTKEY F11: ipd = 16.50
+[16:15:23.867] HOTKEY F11: ipd = 15.50
+[16:15:24.834] HOTKEY F11: ipd = 14.50
+[16:15:25.834] HOTKEY F11: ipd = 13.50
+[16:15:26.814] HOTKEY F11: ipd = 12.50
+[16:15:27.770] HOTKEY F11: ipd = 11.50
+[16:15:28.738] HOTKEY F11: ipd = 10.50
+[16:15:29.705] HOTKEY F11: ipd = 9.50
+[16:15:30.674] HOTKEY F11: ipd = 8.50
+[16:15:31.641] HOTKEY F11: ipd = 7.50
+[16:15:32.610] HOTKEY F11: ipd = 6.50
+[16:15:34.093] HOTKEY F8: convergence = 25.8
+[16:15:35.060] HOTKEY F8: convergence = 32.2
+[16:15:36.028] HOTKEY F8: convergence = 40.3
+[16:15:36.997] HOTKEY F8: convergence = 50.3
+[16:15:37.965] HOTKEY F8: convergence = 62.9
+[16:15:38.932] HOTKEY F8: convergence = 78.6
+[16:15:39.916] HOTKEY F8: convergence = 98.3
+[16:15:40.885] HOTKEY F8: convergence = 122.9
+[16:15:41.851] HOTKEY F8: convergence = 153.6
+[16:15:42.826] HOTKEY F8: convergence = 192.0
+[16:15:43.794] HOTKEY F8: convergence = 240.0
+[16:15:44.762] HOTKEY F8: convergence = 300.0

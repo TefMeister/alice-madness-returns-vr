@@ -286,7 +286,7 @@ them:
 | `LocalToView` | `c10` (154), `c14` (114) |
 | `InstancedPreViewTranslation` | `c6` (46), `c10` (28) — a **separate constant** from `PreViewTranslation`, used by the instanced factory |
 
-> **LIVE, 2026-09-04 (`/lm`) — first proxy launch: interception confirmed, shear test INCONCLUSIVE.**
+> **LIVE, 2026-09-04b (`/lm`) — RESOLVED: the vertex-c0 shear REACHES THE SCREEN (outcome 3).** The morning run read inconclusive; a same-day F9 double-toggle retest settled it. After enabled frames run, the F9 log reports `p00=known`, so the game DOES write the view-projection to vertex c0 and the proxy recovers it. Saturating the parameters (ipd 6.5→26.5 via F12, convergence 300→20.6 via F7) slid the WHOLE scene HORIZONTALLY (Alice centre→far left); restoring them (ipd→6.5, conv→300) recentred it exactly `[verified-live 2026-09-04, reversible]`. Proportional + reversible + horizontal (not vertical) = the shear lever works and the math lane is right. The default ipd 6.5/conv 300 shift was simply sub-visible. Still open: outcome 4 (does HUD/screen-space follow, i.e. the pixel-c4 concern) — needs a HUD/combat scene; and per-eye two-eye rendering. ⚠️ F12 is ALSO Steam's screenshot key (harmless; proxy sees it via GetAsyncKeyState too). Notes: modding-notes/2026-09-04b-f9-double-toggle-shear-reaches-the-screen.md.
 > The M0 proxy wrapped the device and registered 6,725 shaders `[verified-live 2026-09-04]`, but the
 > F9 shear test could not be read: the one-shot stats line fired before F9, the `vp_writes` counter
 > is gated behind `g_st.enabled`, and the F9 log samples `p00` at the toggle instant — so
