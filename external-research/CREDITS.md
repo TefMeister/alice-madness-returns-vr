@@ -39,6 +39,10 @@ ourselves.
 | NVIDIA 3D Vision developer documentation — "Using nvstereo.h" (the `StereoParmsTexture` channel layout and update cadence) and the Automatic background/issues pages | NVIDIA Corporation | https://archive.docs.nvidia.com/gameworks/content/technologies/desktop/nv3dva_using_nvstereoh.htm |
 | Unreal Developer Network — "Unreal Engine 3 and NVIDIA 3D Vision Direct" (`AllowNvidiaStereo3d`, fullscreen-only restriction) | Epic Games | https://docs.unrealengine.com/udk/Three/ThreeDVision.html |
 | 3Dmigoto (its published `nvstereo.h` copy is what shows the header is freely available; nothing taken from it) | bo3b and 3Dmigoto contributors | https://github.com/bo3b/3Dmigoto |
+| `ai-game-control-profiles` — this portfolio's own machine-readable game-control profiles; the `enslaved`, `doom-2016`, `psychonauts` and `alan-wake` entries are the source of the 2026-09-07 camera-injection findings (the UE3 `MOUSEEVENTF_MOVE` result, the virtual-pad result, the psychonauts counter-example and the scancode/virtual-key reversal) | Project owner + Claude, this portfolio | https://github.com/TefMeister/ai-game-control-profiles |
+| `flat-to-vr-RE-toolkit/tools/virtual-pad.py` — the hot-pluggable synthetic Xbox 360 pad, the second camera route recommended in the 2026-09-07 topic | Project owner + Claude, this portfolio | https://github.com/TefMeister/flat-to-vr-RE-toolkit |
+| **ViGEm / ViGEmBus** — the virtual-gamepad bus driver `virtual-pad.py` depends on | Nefarius Software Solutions (Benjamin Höglinger-Stelzer) | https://github.com/nefarius/ViGEmBus |
+| **vgamepad** — the Python binding used to drive the virtual pad | Yann Bouteiller | https://github.com/yannbouteiller/vgamepad |
 | NVAPI public repository — `nvapi_interface.h` id table and `nvapi_lite_stereo.h` (Direct-mode contract) | NVIDIA Corporation | https://github.com/NVIDIA/nvapi |
 | 3D-Vision-Direct sample README (what a Direct-mode app does; nothing taken) | bo3b | https://github.com/bo3b/3D-Vision-Direct |
 | "Stereo 3d refuses to work" — what the in-game toggle does | Steam Community discussion participants | https://steamcommunity.com/app/19680/discussions/0/828925216495800901/ |
