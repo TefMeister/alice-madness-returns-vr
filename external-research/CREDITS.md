@@ -21,7 +21,6 @@ ourselves.
 | Source / Work | Creator(s) | Link |
 |---|---|---|
 | vorpX Alice: Madness Returns compatibility reports & Geometry VR list | vorpX (Ralf Herrmann) & forum community | https://www.vorpx.com/forums/topic/a-masterpiece-is-back-alice-madness-returns/ |
-| MadnessPatch | Wemino | https://github.com/Wemino/MadnessPatch |
 | PC Gamer coverage of MadnessPatch | PC Gamer | https://www.pcgamer.com/games/action/the-sequel-to-one-of-my-favorite-3d-platformers-always-had-a-janky-pc-port-but-a-huge-fanmade-patch-just-dropped-in-hopes-to-fix-it/ |
 | "alice32-9-ultrawide" / "UltraWide And 60FPS Fix" mods | Nexus Mods creators | https://www.nexusmods.com/alicemadnessreturns/mods/53 |
 | DRM history reporting (EA Cuckoo removal) | ResetEra community | https://www.resetera.com/threads/the-relisted-steam-version-of-alice-madness-returns-recently-got-updated-to-work-without-ea-authentication-drm.548510/ |
@@ -39,6 +38,14 @@ ourselves.
 | NVIDIA 3D Vision developer documentation — "Using nvstereo.h" (the `StereoParmsTexture` channel layout and update cadence) and the Automatic background/issues pages | NVIDIA Corporation | https://archive.docs.nvidia.com/gameworks/content/technologies/desktop/nv3dva_using_nvstereoh.htm |
 | Unreal Developer Network — "Unreal Engine 3 and NVIDIA 3D Vision Direct" (`AllowNvidiaStereo3d`, fullscreen-only restriction) | Epic Games | https://docs.unrealengine.com/udk/Three/ThreeDVision.html |
 | 3Dmigoto (its published `nvstereo.h` copy is what shows the header is freely available; nothing taken from it) | bo3b and 3Dmigoto contributors | https://github.com/bo3b/3Dmigoto |
+| MadnessPatch (GPL-2.0 `dinput8.dll` proxy for this exact game) — its `UpdateMouseLock`/`ClipCursor` and `ProcessDeferredMessage` hooks are the evidence that Alice's mouse is on the Win32 message path, not Raw Input; also the stuck-key / key-state-desync fix and the mouse-smoothing removal (2026-09-07) | Wemino | https://github.com/Wemino/MadnessPatch |
+| A UDK project whose stock `UDKInput.ini` carries the `Axis … AbsoluteAxis=100` keyboard-to-axis bindings — one of the two independent witnesses to that grammar (2026-09-07) | snorrewb | https://github.com/snorrewb/IMT3601 |
+| UnCodeX UT3 API browser — the `PlayerInput` axis list (`aTurn`, `aLookUp`, `aBaseX`…) and exec functions incl. `SetSensitivity` (2026-09-07) | GreatEmerald | http://greatemerald.eu/uncodex/UT3/engine/playerinput.html |
+| `UCheatManager::BugItGo` documentation — the exec that sets player location *and rotation* absolutely (2026-09-07) | Epic Games | https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/UCheatManager/BugItGo |
+| Gamedev Guide UDK console-command lists (2026-09-07) | ikrima | https://ikrima.dev/ue4guide/gameplay-programming/useful-console-commands/udk-console-commands/ |
+| Alice launch-flag notes (`-freeconsole -allowcheats`, `exec cheats.txt`) (2026-09-07) | Fusilade | https://unrealbyfusilade.wordpress.com/pc-gaming/alice-madness-returns/ |
+| Steam community guides for this game — the `Tilde` console binding, the `exec commands` batch-file primitive, and the free-camera "the mouse doesn't move the camera" caveat (2026-09-07) | the guide authors | https://steamcommunity.com/app/19680/discussions/0/630802979019036946/ |
+| `SendInput`, `MOUSEINPUT` (pointer ballistics scaling injected deltas up to 4×), UIPI silent-failure, and the DirectInput high-DPI mouse note (2026-09-07) | Microsoft Learn | https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput |
 | `ai-game-control-profiles` — this portfolio's own machine-readable game-control profiles; the `enslaved`, `doom-2016`, `psychonauts` and `alan-wake` entries are the source of the 2026-09-07 camera-injection findings (the UE3 `MOUSEEVENTF_MOVE` result, the virtual-pad result, the psychonauts counter-example and the scancode/virtual-key reversal) | Project owner + Claude, this portfolio | https://github.com/TefMeister/ai-game-control-profiles |
 | `flat-to-vr-RE-toolkit/tools/virtual-pad.py` — the hot-pluggable synthetic Xbox 360 pad, the second camera route recommended in the 2026-09-07 topic | Project owner + Claude, this portfolio | https://github.com/TefMeister/flat-to-vr-RE-toolkit |
 | **ViGEm / ViGEmBus** — the virtual-gamepad bus driver `virtual-pad.py` depends on | Nefarius Software Solutions (Benjamin Höglinger-Stelzer) | https://github.com/nefarius/ViGEmBus |
