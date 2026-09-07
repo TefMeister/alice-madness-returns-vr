@@ -3,6 +3,20 @@
 **Status:** 🆕 new · **Priority:** high — it de-risks a `[PD]` row before it is built, and it offers a
 second input route that is already written, already proven on this engine, and needs no mouse at all.
 
+> ⚠️ **Its recommended ORDER is superseded, later the same day, by
+> [*The mouse may be the wrong question*](2026-09-07b-the-console-exec-file-is-a-full-python-to-game-channel-over-keyboard-alone.md).**
+> Everything below stands as evidence. What changed is that two **cheaper and more precise** routes
+> were found in front of both of these: UE3 can bind a **keyboard key to an analog axis**
+> (`Axis aTurn … AbsoluteAxis=100`, a grammar Alice's own `AliceInput.ini` already uses), and
+> `exec <file>` turns a single keypress into a **full Python→console channel**, which reaches
+> **`BugItGo X Y Z Pitch Yaw Roll`** — absolute position *and rotation* — with `BugIt` as a read-back.
+> Revised order: **console `exec` → keyboard `Axis` binding → `virtual-pad.py` → `MOUSEEVENTF_MOVE`.**
+>
+> One correction to §1 below: **the sibling's "120 steps of `dx=40`" is not portable between
+> machines.** Windows pointer ballistics can multiply an injected delta by up to 4× depending on the
+> pointer-speed and threshold settings, so that figure describes the sibling's machine, not the
+> mechanism. Pin the settings or calibrate.
+
 ## Why this was looked up
 
 The board's new `[PD]` row, added when the gate dropped FLAT → PD on 2026-09-07:
