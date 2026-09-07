@@ -61,6 +61,23 @@ Two details from that profile worth copying with the mechanism:
   all six proxy hotkeys and a graceful self-close, unassisted]`. So the transport is proven on this
   game; only the mouse half is untried.
 
+## 🚨 UPDATE, later the same day: the virtual-pad route cannot currently be tested on the dev PC
+
+**The dev PC has a pre-existing broken ViGEm bus instance** — `ROOT\SYSTEM\0004` in an Error state,
+present *before* any virtual pad was created `[measured 2026-09-07, by the `/lm enslaved` session]`.
+
+That matters here more than it looks, because **Alice's automation runs on the dev PC** (its harness
+route was re-verified there on 2026-09-07). So on the machine where Alice would actually be driven,
+`virtual-pad.py` is currently expected to fail **for a reason that has nothing to do with Alice**.
+
+⚠️ **A session that tries it there and sees nothing would draw a false conclusion** — "Alice ignores
+XInput" — from a test that could not have produced a positive. That is the standing rule about
+negatives, and this is a live instance of it.
+
+**So: repair or verify the ViGEm bus before running the virtual-pad route on the dev PC, or run that
+route on the home PC instead.** The sibling result quoted below was obtained on the **home** PC and
+is unaffected.
+
 ## ⭐ 2. There is a second route that avoids the mouse question entirely — and it is already built
 
 **A virtual XInput pad.** `flat-to-vr-RE-toolkit/tools/virtual-pad.py` (ViGEmBus + vgamepad) hot-plugs
