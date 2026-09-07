@@ -18,3 +18,7 @@
 # Local scratch
 /tmp/
 *.log
+
+# Python bytecode from dev-archive/tools
+__pycache__/
+*.pyc
