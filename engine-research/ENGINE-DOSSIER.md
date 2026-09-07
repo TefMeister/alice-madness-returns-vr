@@ -466,6 +466,82 @@ screen-space effect stays put. See the coupling invariant in `stereo_ue3.h`. Ver
 `flat-to-vr-cross-engine-research/inbox/` so the technique page gains the condition; the
 generalisation itself is sound and reproduces here exactly. Write-up: `modding-notes/2026-09-04c-the-two-eye-path-is-built-and-the-one-element-lead-was-already-in-our-code.md` §1.
 
+### ⭐ CONFIRMED LIVE 2026-09-07 (`/lm`, one flat launch) — BOTH EYES REACH THE SCREEN, AND THE BASELINE IS PROPORTIONAL
+
+The two-eye `wiggle` path built on 2026-09-04c was run for the first time. It works, and the
+evidence is quantitative rather than "it looked like it moved".
+
+**Method.** `F9` (stereo) then `F6` (wiggle) alternates the eye at the `Present` boundary; bursts of
+screen captures are then correlated by column-mean profile. A stereo shear is a *coherent horizontal
+translation*, which that measures directly; scene animation is not, and does not register.
+
+**The control is the load-bearing part.** Stereo OFF, 16 captures of the live animated Whitechapel
+scene (walking NPCs, fog, idle animation): **spread 0 px, every frame dx = +0**, corr 0.984–1.000.
+The noise floor is zero, so any non-zero reading is signal `[verified-live 2026-09-07]`.
+
+**Result.** Frames split into **exactly two clusters** at every setting, and the separation is
+proportional to ipd `[verified-numerically 2026-09-07, n=4 ipd settings, 60 frames]`:
+
+| ipd | 6.5 | 12.5 | 18.5 | 24.5 |
+| --- | --- | --- | --- | --- |
+| separation | 12 px | 22 px | 33 px | 44 px |
+
+```
+separation = 1.7833 * ipd + 0.108 px      R^2 = 0.99948      max |residual| = 0.40 px
+```
+
+Proportional, through the origin, sub-pixel residuals — a real baseline, not a shoved mono image.
+`p00 = 0.0022`, recovered and stable to four decimals across 33,300 frames, and `p00=known` on the
+**first** `F9`, so the double-toggle workaround is retired.
+
+#### The disparity field is depth-dependent `[measured 2026-09-07]`
+
+Block-matched over a 31×17 grid (trust filter peak > 0.55 and peak/second > 1.12; 416/527 tiles
+trustworthy), at ipd 24.5 / conv 300: range **−5 … +63 px**, in three separated populations —
+**Alice −1, world walls +34, NPCs +60**. A uniform slide would give one number everywhere.
+
+#### ⚠️ Alice reading ≈ 0 is the convergence plane, NOT an unsheared character path
+
+In the anaglyph Alice shows almost no fringing while the world doubles around her — which looks like
+the classic "flat cardboard hero" failure. It is not. Sweeping convergence at fixed ipd 12.5 moves
+her a long way: **conv 98 → +78, conv 300 → −1, conv 915 → +26** `[verified-live 2026-09-07, n=1 scene]`.
+She *is* sheared; the third-person camera distance simply sits near the default convergence. The
+rival hypothesis "skinned characters are skipped" is **`[disproved 2026-09-07]`**, and the NPCs
+(skinned, +60) agree independently. Per-region ipd proportionality also holds: the same wall reads
++9 px at ipd 6.5 and +17 px at ipd 12.5, against 17.3 predicted `[verified-numerically 2026-09-07, n=2]`.
+
+#### Screen-space: decals pass, HUD is still unjudged
+
+**Decals move WITH the world `[verified-live 2026-09-07, n=1 scene]`** — wall posters +34 px,
+identical to the bare brick beside (+34) and below (+34) them, peak 0.98–0.99. No tearing, so the
+coupling invariant above holds for decals at least.
+
+HUD/crosshair/SSAO remain unjudged: the save is at 0% completion and Alice has no HUD or combat
+before Wonderland. `EXTRA CONTENT` is galleries only, **no playable level**, so there is no menu
+shortcut `[verified-live 2026-09-07]`.
+
+**The pause menu's visible world does not shear `[verified-live 2026-09-07, n=1]`** — and this is a
+sound negative, not a dead test: frames kept advancing (24,300 → 25,200) and `wiggle flips` kept
+climbing one per frame, so the eye really was alternating, yet capture spread was 0 px. Cause is
+`[hypothesis]`.
+
+⚠️ **`draws_fixed` is not evidence about the vertex path.** It counts *pixel*-shader fix-texture
+bindings in `applyPixelStereo()`, not sheared draws. Its rate (≈5/frame in gameplay, ≈1/frame in
+menus) is a separate curiosity.
+
+#### ⚠️ Not established
+
+Whether the disparity field matches an ideal off-axis frustum **quantitatively**. The convergence
+sweep does not fit a simple "one uniform constant per convergence" model, but that is a limit of the
+test: at conv 98 the disparity saturated the ±90 px search window, and the NPC region walks between
+bursts. Whitechapel's far field is too dark to block-match at all (far probes peak 0.19–0.43 — *no
+measurement*, which is not the same as *zero disparity*). Needs a static scene with a long, well-lit
+sightline. `[hypothesis]`
+
+Write-up: `modding-notes/2026-09-07-both-eyes-are-real-the-rock-scales-with-ipd-at-r2-0-9995.md`.
+Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
+`dev-archive/tools/alice_harness.py` (validated 7/7 on synthetic offsets before being trusted).
+
 ## 7. Constant-buffer fill mechanism
 - Map/DISCARD ring / UpdateSubresource / D3D11.1 offset / **persistent map +
   memcpy** (trap):

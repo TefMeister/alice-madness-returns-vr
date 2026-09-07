@@ -1,0 +1,108 @@
+[11:05:35.192] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=28204 ===
+[11:05:35.195] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73954B20 D3DPERF_SetOptions=739ACDE0
+[11:05:38.085] Direct3DCreate9 called: SDKVersion=0x20
+[11:05:38.216]   -> real returned 08EDC178
+[11:05:38.217]   -> wrapped as 04DB12A0
+[11:05:38.414] Direct3DCreate9 called: SDKVersion=0x20
+[11:05:38.530]   -> real returned 0C115040
+[11:05:38.530]   -> wrapped as 08ECBD90
+[11:05:47.879] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[11:05:48.049]   -> wrapped device 17653268 (real 1C572B80). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[11:05:48.049] D3DPERF_SetOptions called: dwOptions=0x1
+[11:05:53.842] frame 120 | shaders=6740 (full events=0) vp_writes=0 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=NOT SEEN YET 0.0000 S=0.000000 | wiggle flips=0
+[11:06:20.862] frame 900 | shaders=6740 (full events=0) vp_writes=4662 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[11:06:50.070] frame 1800 | shaders=6740 (full events=0) vp_writes=24462 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[11:07:19.134] frame 2700 | shaders=6740 (full events=0) vp_writes=44262 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[11:07:48.978] frame 3600 | shaders=9018 (full events=0) vp_writes=62733 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[11:08:18.023] frame 4500 | shaders=9018 (full events=0) vp_writes=97857 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[11:08:47.073] frame 5400 | shaders=9018 (full events=0) vp_writes=132975 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[11:09:00.837] HOTKEY F9: stereo ON (ipd=6.50 convergence=300.0 p00=known)
+[11:09:02.353] HOTKEY F6: TWO-EYE wiggle ON - the eye now alternates every frame; the picture should rock left/right and the rock should grow with F12 (ipd). If it does NOT rock, only one eye is reaching the screen.
+[11:09:16.128] frame 6300 | shaders=9018 (full events=0) vp_writes=168103 draws_fixed=2377 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=428
+[11:09:37.031] HOTKEY F12: ipd = 7.50
+[11:09:37.263] HOTKEY F12: ipd = 8.50
+[11:09:37.487] HOTKEY F12: ipd = 9.50
+[11:09:37.744] HOTKEY F12: ipd = 10.50
+[11:09:37.967] HOTKEY F12: ipd = 11.50
+[11:09:38.193] HOTKEY F12: ipd = 12.50
+[11:09:43.840] HOTKEY F12: ipd = 13.50
+[11:09:44.098] HOTKEY F12: ipd = 14.50
+[11:09:44.327] HOTKEY F12: ipd = 15.50
+[11:09:44.554] HOTKEY F12: ipd = 16.50
+[11:09:44.778] HOTKEY F12: ipd = 17.50
+[11:09:44.999] HOTKEY F12: ipd = 18.50
+[11:09:45.258] frame 7200 | shaders=9018 (full events=0) vp_writes=203225 draws_fixed=6888 | stereo ON WIGGLE eye=L ipd=18.50 conv=300.0 p00=0.0022 S=-0.000068 | wiggle flips=1328
+[11:09:50.390] HOTKEY F12: ipd = 19.50
+[11:09:50.616] HOTKEY F12: ipd = 20.50
+[11:09:50.873] HOTKEY F12: ipd = 21.50
+[11:09:51.098] HOTKEY F12: ipd = 22.50
+[11:09:51.323] HOTKEY F12: ipd = 23.50
+[11:09:51.562] HOTKEY F12: ipd = 24.50
+[11:10:14.482] frame 8100 | shaders=9018 (full events=0) vp_writes=238349 draws_fixed=11400 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=2228
+[11:10:43.596] frame 9000 | shaders=9018 (full events=0) vp_writes=273473 draws_fixed=15912 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=3128
+[11:11:12.630] frame 9900 | shaders=9018 (full events=0) vp_writes=308595 draws_fixed=20423 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=4028
+[11:11:41.691] frame 10800 | shaders=9018 (full events=0) vp_writes=343719 draws_fixed=24935 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=4928
+[11:12:10.728] frame 11700 | shaders=9018 (full events=0) vp_writes=378841 draws_fixed=29446 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=5828
+[11:12:39.765] frame 12600 | shaders=9018 (full events=0) vp_writes=413965 draws_fixed=33958 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=6728
+[11:13:08.829] frame 13500 | shaders=9018 (full events=0) vp_writes=449085 draws_fixed=38468 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=7628
+[11:13:37.894] frame 14400 | shaders=9018 (full events=0) vp_writes=484207 draws_fixed=42979 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=8528
+[11:14:07.158] frame 15300 | shaders=9018 (full events=0) vp_writes=519323 draws_fixed=47487 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=9428
+[11:14:36.226] frame 16200 | shaders=9018 (full events=0) vp_writes=554433 draws_fixed=51992 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=10328
+[11:15:05.261] frame 17100 | shaders=9018 (full events=0) vp_writes=589547 draws_fixed=56499 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=11228
+[11:15:34.319] frame 18000 | shaders=9018 (full events=0) vp_writes=624657 draws_fixed=61004 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=12128
+[11:16:03.361] frame 18900 | shaders=9018 (full events=0) vp_writes=659771 draws_fixed=65511 | stereo ON WIGGLE eye=L ipd=24.50 conv=300.0 p00=0.0022 S=-0.000090 | wiggle flips=13028
+[11:16:09.720] HOTKEY F7: convergence = 240.0
+[11:16:09.946] HOTKEY F7: convergence = 192.0
+[11:16:10.204] HOTKEY F7: convergence = 153.6
+[11:16:10.429] HOTKEY F7: convergence = 122.9
+[11:16:10.656] HOTKEY F7: convergence = 98.3
+[11:16:32.398] frame 19800 | shaders=9018 (full events=0) vp_writes=694885 draws_fixed=70018 | stereo ON WIGGLE eye=L ipd=24.50 conv=98.3 p00=0.0022 S=-0.000275 | wiggle flips=13928
+[11:16:39.754] HOTKEY F11: ipd = 23.50
+[11:16:39.980] HOTKEY F11: ipd = 22.50
+[11:16:40.206] HOTKEY F11: ipd = 21.50
+[11:16:40.431] HOTKEY F11: ipd = 20.50
+[11:16:40.657] HOTKEY F11: ipd = 19.50
+[11:16:40.915] HOTKEY F11: ipd = 18.50
+[11:16:41.141] HOTKEY F11: ipd = 17.50
+[11:16:41.367] HOTKEY F11: ipd = 16.50
+[11:16:41.592] HOTKEY F11: ipd = 15.50
+[11:16:41.819] HOTKEY F11: ipd = 14.50
+[11:16:42.077] HOTKEY F11: ipd = 13.50
+[11:16:42.303] HOTKEY F11: ipd = 12.50
+[11:16:49.235] HOTKEY F8: convergence = 122.9
+[11:16:49.493] HOTKEY F8: convergence = 153.6
+[11:16:49.718] HOTKEY F8: convergence = 192.0
+[11:16:49.944] HOTKEY F8: convergence = 240.0
+[11:16:50.170] HOTKEY F8: convergence = 300.0
+[11:16:55.944] HOTKEY F8: convergence = 375.0
+[11:16:56.171] HOTKEY F8: convergence = 468.8
+[11:16:56.428] HOTKEY F8: convergence = 585.9
+[11:16:56.654] HOTKEY F8: convergence = 732.4
+[11:16:56.880] HOTKEY F8: convergence = 915.5
+[11:17:01.479] frame 20700 | shaders=9018 (full events=0) vp_writes=729997 draws_fixed=74524 | stereo ON WIGGLE eye=L ipd=12.50 conv=915.5 p00=0.0022 S=-0.000015 | wiggle flips=14828
+[11:17:30.511] frame 21600 | shaders=9018 (full events=0) vp_writes=765111 draws_fixed=79031 | stereo ON WIGGLE eye=L ipd=12.50 conv=915.5 p00=0.0022 S=-0.000015 | wiggle flips=15728
+[11:17:58.288] HOTKEY F11: ipd = 11.50
+[11:17:58.513] HOTKEY F11: ipd = 10.50
+[11:17:58.771] HOTKEY F11: ipd = 9.50
+[11:17:58.998] HOTKEY F11: ipd = 8.50
+[11:17:59.223] HOTKEY F11: ipd = 7.50
+[11:17:59.449] HOTKEY F11: ipd = 6.50
+[11:17:59.545] frame 22500 | shaders=9018 (full events=0) vp_writes=800221 draws_fixed=83536 | stereo ON WIGGLE eye=L ipd=6.50 conv=915.5 p00=0.0022 S=-0.000008 | wiggle flips=16628
+[11:17:59.933] HOTKEY F7: convergence = 732.4
+[11:18:00.159] HOTKEY F7: convergence = 585.9
+[11:18:00.386] HOTKEY F7: convergence = 468.8
+[11:18:00.642] HOTKEY F7: convergence = 375.0
+[11:18:00.868] HOTKEY F7: convergence = 300.0
+[11:18:28.662] frame 23400 | shaders=9018 (full events=0) vp_writes=835335 draws_fixed=88043 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=17528
+[11:18:57.695] frame 24300 | shaders=9018 (full events=0) vp_writes=870441 draws_fixed=92546 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=18428
+[11:19:26.782] frame 25200 | shaders=9018 (full events=0) vp_writes=905541 draws_fixed=97046 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=19328
+[11:19:55.818] frame 26100 | shaders=9018 (full events=0) vp_writes=940641 draws_fixed=101546 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=20228
+[11:20:24.858] frame 27000 | shaders=9018 (full events=0) vp_writes=975741 draws_fixed=106046 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=21128
+[11:20:53.900] frame 27900 | shaders=9018 (full events=0) vp_writes=1010841 draws_fixed=110546 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=22028
+[11:21:22.938] frame 28800 | shaders=9018 (full events=0) vp_writes=1045941 draws_fixed=115046 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=22928
+[11:21:51.996] frame 29700 | shaders=9033 (full events=0) vp_writes=1069087 draws_fixed=117047 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=23828
+[11:22:21.141] frame 30600 | shaders=9033 (full events=0) vp_writes=1087411 draws_fixed=117880 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=24728
+[11:22:50.247] frame 31500 | shaders=9033 (full events=0) vp_writes=1107211 draws_fixed=118780 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=25628
+[11:23:19.343] frame 32400 | shaders=9033 (full events=0) vp_writes=1127011 draws_fixed=119680 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=26528
+[11:23:48.418] frame 33300 | shaders=9033 (full events=0) vp_writes=1146811 draws_fixed=120580 | stereo ON WIGGLE eye=L ipd=6.50 conv=300.0 p00=0.0022 S=-0.000024 | wiggle flips=27428
+[11:23:55.687] === alice-madness-returns-vr proxy d3d9.dll unloading ===
