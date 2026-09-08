@@ -619,7 +619,52 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
   exclusive which BitBlt captures as black; set `Fullscreen=False` while the game is CLOSED (UE3
   rewrites config on exit). Res already 1280x720 there.
 - Frame-capture method; where images land: `game-harness.py "Alice" shot out.png` (BitBlt, window
-  focused first). Proxy evidence in `Binaries\Win32lice_vr_proxy_log.txt`.
+  focused first). Proxy evidence in `Binaries\Win32\alice_vr_proxy_log.txt`.
+- **CAMERA CONTROL: FOUR ROUTES, AND THE IMPORT TABLE NOW SAYS WHICH ARE AVAILABLE** (folded from
+  three `/gr` drops and one `/sr` drop of 2026-09-07; measured 2026-09-08). Camera control is the one
+  automation capability still unproven on this game. `dev-archive/tools/alice_harness.py` implements
+  routes 1 and 4; **none has been run.**
+
+  | # | route | state |
+  | --- | --- | --- |
+  | 1 | **console `exec` file + `BugItGo`/`BugIt`** | implemented (`console`, `bugit`, `bugitgo`); `[reported]` that the commands exist |
+  | 2 | keyboard `Axis aTurn` binding in `AliceInput.ini` | not implemented; `[reported]` / `[inferred-static]` |
+  | 3 | virtual pad via an `xinput1_3.dll` proxy | **newly available - see below** |
+  | 4 | `SendInput` `MOUSEEVENTF_MOVE` | implemented (`mouse`, `ballistics`) |
+
+  **Route 1 is first because it is self-verifying.** UE3's `BugItGo <X> <Y> <Z> <Pitch> <Yaw> <Roll>`
+  sets location *and rotation* absolutely and `BugIt` prints them back, so "did the camera move?"
+  becomes a number rather than a screenshot judgement. Bind a key to `exec commands`, rewrite the
+  extensionless `commands` file from Python between presses, and one keypress is a full
+  Python-to-console channel. Needs `-freeconsole -allowcheats`. `[reported 2026-09-07]`
+  WARNING: **where the exec file goes is NOT settled** - the drop said `Binaries\`, but the exe
+  lives in `Binaries\Win32\` (its working directory), and UE3 builds are also documented reading exec
+  files from `<Game>\Config`. The harness writes to **all four** candidates so one launch tests them
+  together; all four exist on the dev PC `[verified-numerically 2026-09-08]`.
+
+- **THE EXE'S IMPORT TABLE, READ FIRST-HAND, SETTLES TWO THINGS THE DROPS COULD ONLY INFER**
+  `[verified-numerically 2026-09-08]` (`llvm-objdump -p AliceMadnessReturns.exe`):
+
+  | imported | NOT imported |
+  | --- | --- |
+  | `DINPUT8.dll` -> `DirectInput8Create` | `RegisterRawInputDevices` |
+  | `XINPUT1_3.dll` -> **ordinals 2 and 3, BY ORDINAL** | `GetRawInputData` |
+  | `USER32`: `GetKeyState`, `GetMessageW`, `PeekMessageW` | `GetAsyncKeyState` |
+  | `USER32`: `ClipCursor`, `GetClipCursor`, `GetCursorPos`, `SetCursorPos` | `GetKeyboardState` |
+
+  - **Raw Input is excluded by construction.** The `/gr` drop *inferred* this from MadnessPatch
+    hooking `ClipCursor`; the import table says it outright. So the mouse path is the Win32
+    cursor/message path and an injected `MOUSEEVENTF_MOVE` has a plausible way in - **route 4 is
+    worth trying**, where on a Raw-Input game it would not be.
+  - **ROUTE 3 IS NOT BLOCKED, and the record saying otherwise is about a different mechanism.**
+    Two drops warn the virtual-pad route "cannot be tested on the dev PC" because its **ViGEm bus**
+    is broken. True of a ViGEm *virtual device* - and irrelevant here: Alice imports `XINPUT1_3.dll`
+    **by ordinal, exactly as `prince-of-persia-2008-vr` does**, so an `xinput1_3.dll` **proxy**
+    fabricates a pad *inside the process* and needs no ViGEm bus at all. That project's proxy exists,
+    loads, and pins its ordinals in a `.def` for this same reason.
+    WARNING: what is NOT established is whether Alice ever *polls* XInput - POP's proxy loaded fine
+    and that game never called it. This is a route that is **available**, not one known to work.
+
 - Self-close (verified 2026-09-04): pause (`Esc`) → MAIN MENU (confirm YES) → main menu → EXIT GAME
   (confirm YES). Menus are a radial/vertical mix; verify each highlight before `Enter`
   (RESTART sits above MAIN MENU; the PROFILE screen has DELETE).
