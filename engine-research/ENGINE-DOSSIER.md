@@ -35,6 +35,45 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐ THE ONE NUMBER THAT SETTLES IT IS SCALE-FREE, AND IT IS NOW LOGGED (2026-09-08d, `/pd`, no launch)
+
+Write-up: `modding-notes/2026-09-08d-the-scale-free-p00-and-a-build-that-could-not-be-checked.md`.
+Deployed `d3d9.dll` md5 `37293f99...`, 704,512 B, dated backup kept. **Not run.**
+
+**`|row0.xyz| / |row3.xyz|` is `p00` whatever units the matrix is in.** Row 0 produces `clip.x`,
+row 3 produces `clip.w`; a uniform scale `k` multiplies both, so it cancels. That property is a
+HOST TEST, not an assumption: `stereo_ue3_test.c` builds a matrix with `p00 = 0.836`, multiplies the
+whole thing by **1/380**, and checks the raw `p00` is dragged down while **the ratio is unchanged**;
+it also refuses an orthographic matrix instead of dividing by zero. `[verified-numerically
+2026-09-08]` Had the ratio not been scale-free, the number logged in-game would have been
+uninterpretable and the launch wasted.
+
+The proxy now logs mathematical **row 0** and **row 3** in full, their xyz lengths, and the ratio -
+**and states what the reading means**, so it does not depend on having the 09-08c note open. It
+fires on the **first perspective ViewProjection** (a launch that never touches a hotkey still
+answers the question) and again on **every F9** (the FOV changes in cutscenes and on aiming). Cost:
+one 64-byte memcpy on a path that already copies the same bytes, no I/O except on those events.
+
+- ratio ~ **0.3-3** => ordinary projection scale (it reports the implied hfov): the matrix IS
+  uniformly scaled, `p00_cached` is not the projection scale, `convergence` is not in `clip.w`
+  units, and the unit-mismatch hypothesis is **confirmed**.
+- ratio ~ **0.0022** => `p00` really is tiny, the hypothesis is **disproved**, and what produced the
+  measured screen motion becomes the next question.
+
+### ⛔️ AND THIS BUILD COULD NEVER HAVE BEEN HASH-CHECKED (found the same session)
+
+`build.sh` had no `-Wl,--no-insert-timestamp`, so the PE TimeDateStamp changed on every link: two
+builds of **identical** source hashed `56fe72c6...` then `f4fee746...` back to back
+`[verified-numerically 2026-09-08]`. CONVENTIONS.md's "rebuild and compare the hash" check therefore
+**silently could not work here**, and a session doing it properly would have concluded the deployed
+DLL was stale when it was not.
+
+Checked the way that does work - a byte diff: the deployed DLL differed from a build of its own
+committed source in **exactly six bytes**, at offsets 129-131 and 249861-249863, the PE header and
+debug-directory timestamps. **The stamp was honest; only the proof was missing.** The flag is now in
+and reproducibility is verified by the check that could not have passed before - two builds now hash
+identically. ⚠️ **Fifth project found with this defect**; treat it as a default for any new proxy.
+
 ### ⭐⭐ disparity(z) DERIVED: the SHAPE is an off-axis frustum, the AMPLITUDE is 380x wrong (2026-09-08c, `/pd`, no launch)
 
 Write-up: `modding-notes/2026-09-08c-the-disparity-shape-is-right-and-the-amplitude-is-380x-wrong.md`.
