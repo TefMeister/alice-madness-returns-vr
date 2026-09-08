@@ -73,6 +73,12 @@ KEYS = {
     "UP": (0x48, True), "DOWN": (0x50, True), "LEFT": (0x4B, True), "RIGHT": (0x4D, True),
     "W": (0x11, False), "A": (0x1E, False), "S": (0x1F, False), "D": (0x20, False),
     "SPACE": (0x39, False),
+    # NUMPAD. These share their scancodes with the arrow/nav cluster and are told
+    # apart ONLY by the extended flag being ABSENT - which is the same trap the
+    # toolkit records in the other direction (arrows NEED the flag). Sending an
+    # arrow scancode without the flag is a numpad key, and nothing errors either way.
+    "NP4": (0x4B, False), "NP6": (0x4D, False), "NP7": (0x47, False),
+    "NP9": (0x49, False), "NP8": (0x48, False), "NP2": (0x50, False),
     "F1": (0x3B, False), "F2": (0x3C, False), "F3": (0x3D, False),
     "F4": (0x3E, False), "F5": (0x3F, False),
     "F6": (0x40, False), "F7": (0x41, False), "F8": (0x42, False),
