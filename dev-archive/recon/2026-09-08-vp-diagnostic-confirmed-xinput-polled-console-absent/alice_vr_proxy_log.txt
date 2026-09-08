@@ -1,0 +1,49 @@
+[18:37:30.139] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=3968 ===
+[18:37:30.143] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73944B20 D3DPERF_SetOptions=7399CDE0
+[18:37:40.957] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=29820 ===
+[18:37:40.960] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73944B20 D3DPERF_SetOptions=7399CDE0
+[18:37:43.297] Direct3DCreate9 called: SDKVersion=0x20
+[18:37:43.423]   -> real returned 09090FC0
+[18:37:43.424]   -> wrapped as 09092360
+[18:37:43.620] Direct3DCreate9 called: SDKVersion=0x20
+[18:37:43.725]   -> real returned 090910A0
+[18:37:43.726]   -> wrapped as 09092270
+[18:37:51.245] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[18:37:51.478]   -> wrapped device 17691C40 (real 1C6499E0). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[18:37:51.478] D3DPERF_SetOptions called: dwOptions=0x1
+[18:37:57.074] frame 120 | shaders=6740 (full events=0) vp_writes=0 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=NOT SEEN YET 0.0000 S=0.000000 | wiggle flips=0
+[18:38:17.352] VP DIAGNOSTIC (first perspective VP):
+[18:38:17.352]    row0 = [-0.917089 -0.630229  0.000853  0.000000]   (produces clip.x)
+[18:38:17.352]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[18:38:17.352]    |row0.xyz| = 1.112762   (this is what p00_cached holds)
+[18:38:17.352]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[18:38:17.352]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112762
+[18:38:17.353]    => ORDINARY projection scale (hfov ~ 84 deg). The matrix is uniformly scaled by ~1x, p00_cached is NOT the projection scale, and `convergence` is not in clip.w units. The 09-08c unit-mismatch hypothesis is CONFIRMED and the fix is one scale factor.
+[18:38:24.045] frame 900 | shaders=6740 (full events=0) vp_writes=4618 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:38:53.137] frame 1800 | shaders=6740 (full events=0) vp_writes=24418 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:39:22.185] frame 2700 | shaders=6740 (full events=0) vp_writes=44218 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:39:51.221] frame 3600 | shaders=6740 (full events=0) vp_writes=64018 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:40:20.278] frame 4500 | shaders=6740 (full events=0) vp_writes=83818 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:40:49.318] frame 5400 | shaders=6740 (full events=0) vp_writes=103618 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:41:19.024] frame 6300 | shaders=9018 (full events=0) vp_writes=117588 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:41:48.239] frame 7200 | shaders=9018 (full events=0) vp_writes=152164 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:42:17.271] frame 8100 | shaders=9018 (full events=0) vp_writes=187286 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:42:46.307] frame 9000 | shaders=9018 (full events=0) vp_writes=222404 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:43:15.392] frame 9900 | shaders=9018 (full events=0) vp_writes=257530 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:43:44.424] frame 10800 | shaders=9018 (full events=0) vp_writes=292650 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:44:13.460] frame 11700 | shaders=9018 (full events=0) vp_writes=327772 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:44:42.510] frame 12600 | shaders=9018 (full events=0) vp_writes=362894 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:45:11.566] frame 13500 | shaders=9018 (full events=0) vp_writes=398012 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:45:40.599] frame 14400 | shaders=9018 (full events=0) vp_writes=433136 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:46:09.634] frame 15300 | shaders=9018 (full events=0) vp_writes=468256 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:46:38.827] frame 16200 | shaders=9018 (full events=0) vp_writes=503378 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:47:07.861] frame 17100 | shaders=9018 (full events=0) vp_writes=538488 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:47:36.905] frame 18000 | shaders=9018 (full events=0) vp_writes=573602 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:48:05.940] frame 18900 | shaders=9018 (full events=0) vp_writes=608712 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:48:34.990] frame 19800 | shaders=9018 (full events=0) vp_writes=643828 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:49:04.025] frame 20700 | shaders=9018 (full events=0) vp_writes=678928 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:49:33.059] frame 21600 | shaders=9018 (full events=0) vp_writes=714028 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:50:02.182] frame 22500 | shaders=9033 (full events=0) vp_writes=743398 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:50:31.238] frame 23400 | shaders=9033 (full events=0) vp_writes=763198 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:51:00.273] frame 24300 | shaders=9033 (full events=0) vp_writes=782998 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[18:51:18.715] === alice-madness-returns-vr proxy d3d9.dll unloading ===
