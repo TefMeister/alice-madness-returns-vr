@@ -73,6 +73,8 @@ KEYS = {
     "UP": (0x48, True), "DOWN": (0x50, True), "LEFT": (0x4B, True), "RIGHT": (0x4D, True),
     "W": (0x11, False), "A": (0x1E, False), "S": (0x1F, False), "D": (0x20, False),
     "SPACE": (0x39, False),
+    "F1": (0x3B, False), "F2": (0x3C, False), "F3": (0x3D, False),
+    "F4": (0x3E, False), "F5": (0x3F, False),
     "F6": (0x40, False), "F7": (0x41, False), "F8": (0x42, False),
     "F9": (0x43, False), "F10": (0x44, False), "F11": (0x57, False), "F12": (0x58, False),
 }
@@ -90,9 +92,23 @@ INPUT_MOUSE = 0
 SPI_GETMOUSE, SPI_SETMOUSE = 0x0003, 0x0004
 SPI_GETMOUSESPEED, SPI_SETMOUSESPEED = 0x0070, 0x0071
 
-# The key the game must have bound to `exec commands`. F6..F12 are already in the
-# table above and are not used by Alice's default bindings.
-CONSOLE_EXEC_KEY = "F7"
+# The key the game must have bound to `exec commands`.
+#
+# CORRECTED 2026-09-08. This said "F6..F12 ... are not used by Alice's default
+# bindings" and picked F7. Both halves were wrong, and each failure is silent:
+#
+#   * Alice DOES bind F1-F9 by default, in AliceInput.ini -- F5 quicksave,
+#     F6 quickload, F7/F8 toggle bUsePostProcessEffects, F9 shot. So F7 would have
+#     toggled post-processing and never run `exec commands`.
+#   * The d3d9 proxy polls VK_F6 THROUGH VK_F12 for its stereo hotkeys, so F7 ALSO
+#     multiplies convergence by 0.8 on every press. A `bugit` would have silently
+#     changed the stereo state it was sharing a session with.
+#
+# Between the two, EVERY F-key from F1 to F12 is claimed. The way out is to take
+# one back deliberately: F1 (`viewmode wireframe`, harmless to lose) is rebound to
+# `exec commands` in AliceInput.ini, and F1 is outside the proxy's F6..F12 range.
+# If you change this key, check it against BOTH lists.
+CONSOLE_EXEC_KEY = "F1"
 EXEC_FILE = "commands"
 
 
