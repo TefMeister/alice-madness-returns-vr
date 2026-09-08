@@ -35,6 +35,54 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐ disparity(z) DERIVED: the SHAPE is an off-axis frustum, the AMPLITUDE is 380x wrong (2026-09-08c, `/pd`, no launch)
+
+Write-up: `modding-notes/2026-09-08c-the-disparity-shape-is-right-and-the-amplitude-is-380x-wrong.md`.
+Tool: `proxy-d3d9/test/disparity_model.c`, which **links the shipped `stereo_ue3.c`** and drives a
+point through the real `alice_stereo_apply_viewproj()`; it runs on every `build-stereo-test.sh`.
+**17 checks, 0 failures.**
+
+**The closed form**, verified against the shipped shear to 6e-8 px over 45 `(ipd, C, z)` points
+`[verified-numerically 2026-09-08]`:
+
+> `disparity(z) = p00 * ipd * W / 2 * (1/C - 1/z)`
+
+with `eye_dx = +-ipd/2`. Two structural consequences: disparity is **exactly zero at z = C**, and
+there is a **finite ceiling** `p00*ipd*W/(2C)` that **does not depend on depth at all**.
+
+- **✅ THE SHAPE IS CONFIRMED, from a sweep that needs no depth estimate.** Alice at three
+  convergences (`98 -> +78`, `300 -> -1`, `915 -> +26`): fitting `K` and `z` to the first two
+  predicts the third at **-26.8 px vs 26 measured (97%)**, and the fitted depth lands at **292
+  units**, on the convergence that measured ~0. The `1/C - 1/z` form describes this field.
+  ⚠️ It **requires** the conv-915 disparity to be NEGATIVE - eyes reversed relative to conv 98.
+  No capture has confirmed that sign. `[verified-numerically 2026-09-08]`
+- **❌ THE AMPLITUDE CANNOT COME FROM `p00 = 0.0022`.** At ipd 6.5, W 1280, C 300 the largest
+  disparity this code can produce **at any depth** is **0.0305 px**; +34 and +60 px were measured.
+  **+60 px is 1,967x the ceiling, and no depth closes that gap because the ceiling is
+  depth-independent.** Independently, the measured ipd slope **1.7833 px/unit** (R^2 0.99948, n=4)
+  is **380x** the model's maximum slope of 0.00469. `[verified-numerically 2026-09-08]`
+- **⭐ The p00 that WOULD fit is 0.836 - `1/tan(hfov/2)` for a 100 degree horizontal FOV**, an
+  entirely ordinary projection scale. So **`p00 = 0.0022` is almost certainly not the projection
+  x-scale it is documented as**, even though it is real and stable to four decimals across 33,300
+  frames.
+- **The reconciling hypothesis, arithmetically exact but unproven:** `clip.w` and the `convergence`
+  slider are **not in the same units**. When `w << C` the `C` cancels and the shift tends to
+  `-p00*(ipd/2)/w`. Solving for the `w` that gives the measured 12 px yields **w = 0.763**, so
+  **C/w = 393** - the same factor, from a different measurement - and feeding that `w` back through
+  the shipped code reproduces the whole ipd sweep (12.0 / 23.0 / 45.1 vs 12 / 22 / 44).
+  `[hypothesis]`
+- **⚠️ A sign convention is now load-bearing and is recorded nowhere.** Solved for implied `w`,
+  the two positive populations have **no physical solution** (w comes out negative); reading them as
+  magnitudes rescues those two and **breaks Alice**, whose value is already negative. **No single
+  convention makes all three physical**, so the gap is not a sign artefact - it is the amplitude.
+- **⭐ THE ONE CHEAP TEST:** log the full mathematical **row 0 and row 3** of the ViewProjection
+  once beside the recovered `p00`, on the existing F9 path. `|row0.xyz| ~ 0.0022` with a unit-ish
+  `row3.xyz` => the matrix really is world-to-clip and the screen motion did **not** come from our
+  `S`; a uniformly scaled matrix => the unit mismatch is confirmed and the fix is one scale factor.
+  **Until then, treat the convergence numbers as dimensionless knob positions, not distances** -
+  which is how they have actually been used.
+
+
 ### ⛔️ THE EXE'S `.text` IS ENCRYPTED AT REST — NO STATIC CODE SCAN ON THIS BINARY CAN RETURN A TRUE NEGATIVE (2026-09-02, `/pd`, no launch)
 
 **Read this before planning any static work on `AliceMadnessReturns.exe`.** `.text` measures
