@@ -24,6 +24,26 @@ Usage:
   burst PREFIX N [ms]        N captures as fast as possible (default 0 ms apart)
   shift A B                  horizontal displacement of B relative to A, in pixels
   cluster PREFIX             group a burst into displacement clusters (wiggle test)
+
+CAMERA CONTROL - FOUR ROUTES, CHEAPEST AND MOST PRECISE FIRST
+  console CMD...             write the `exec` file and press the bound key   [route 1]
+  bugit                      shorthand for `console BugIt` - prints pose     [route 1]
+  bugitgo X Y Z P YA R       set location AND rotation absolutely            [route 1]
+  mouse DX DY [steps]        relative mouse move via SendInput               [route 4]
+  ballistics                 report/pin the pointer acceleration settings    [route 4 prereq]
+
+  The order is not arbitrary. A /gr drop on 2026-09-07 established that the
+  console is a full Python->game channel over ONE keypress, and that UE3's
+  `BugItGo` sets location and rotation ABSOLUTELY while `BugIt` prints them
+  back. That makes camera aim repeatable and SELF-VERIFYING - "did the camera
+  move?" becomes a number rather than a screenshot judgement. Mouse injection is
+  the least precise of the four and carries two documented hazards (see mouse()),
+  so it is last, not first.
+
+  !! NONE OF THE CAMERA ROUTES HAS BEEN RUN. They are written, not tested.
+  `bugit` is the one command that decides the scope of all of them: it prints a
+  location and rotation (route 1 is live, and everything else is optional), or it
+  errors (the cheat manager is not exposed in this retail build).
 """
 import ctypes
 import ctypes.wintypes as wt
@@ -31,6 +51,17 @@ import glob
 import os
 import sys
 import time
+
+# The Windows console defaults to cp1252, which cannot encode every character a
+# message might carry - and an UnencodableError here would kill the harness in the
+# middle of a live session, after the input has already been sent. Measured
+# 2026-09-08: a warning line containing a non-ASCII glyph did exactly that.
+# Printed text below is kept ASCII anyway; this is the floor under that habit.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError):
+    pass
 
 user32 = ctypes.WinDLL("user32", use_last_error=True)
 TITLE_SUBSTR = "Alice"
@@ -49,14 +80,35 @@ KEYS = {
 KEYEVENTF_EXTENDEDKEY, KEYEVENTF_KEYUP, KEYEVENTF_SCANCODE = 0x0001, 0x0002, 0x0008
 INPUT_KEYBOARD = 1
 
+MOUSEEVENTF_MOVE = 0x0001
+INPUT_MOUSE = 0
+
+# SystemParametersInfo actions for pointer ballistics. Windows can multiply an
+# injected relative delta by UP TO FOUR TIMES depending on these, so a `mouse`
+# calibration measured on one machine is not portable to another unless they are
+# pinned first. [reported 2026-09-07, Microsoft's own documentation]
+SPI_GETMOUSE, SPI_SETMOUSE = 0x0003, 0x0004
+SPI_GETMOUSESPEED, SPI_SETMOUSESPEED = 0x0070, 0x0071
+
+# The key the game must have bound to `exec commands`. F6..F12 are already in the
+# table above and are not used by Alice's default bindings.
+CONSOLE_EXEC_KEY = "F7"
+EXEC_FILE = "commands"
+
 
 class KEYBDINPUT(ctypes.Structure):
     _fields_ = [("wVk", wt.WORD), ("wScan", wt.WORD), ("dwFlags", wt.DWORD),
                 ("time", wt.DWORD), ("dwExtraInfo", ctypes.POINTER(wt.ULONG))]
 
 
+class MOUSEINPUT(ctypes.Structure):
+    _fields_ = [("dx", wt.LONG), ("dy", wt.LONG), ("mouseData", wt.DWORD),
+                ("dwFlags", wt.DWORD), ("time", wt.DWORD),
+                ("dwExtraInfo", ctypes.POINTER(wt.ULONG))]
+
+
 class _IU(ctypes.Union):
-    _fields_ = [("ki", KEYBDINPUT), ("pad", ctypes.c_byte * 32)]
+    _fields_ = [("ki", KEYBDINPUT), ("mi", MOUSEINPUT), ("pad", ctypes.c_byte * 32)]
 
 
 class INPUT(ctypes.Structure):
@@ -125,6 +177,161 @@ def press(name, count=1, hold=0.08, gap=0.15):
         time.sleep(hold)
         _send(scan, ext, True)
         time.sleep(gap)
+
+
+# ---------------------------------------------------------------------------
+# ROUTE 1 - the console `exec` channel.
+#
+# UE3's console command `exec <file>` runs each line of an EXTENSIONLESS file as
+# a console command. Bind one key to `exec commands`, rewrite the file from here
+# between presses, and that single key becomes a complete Python->game channel.
+#
+# !! WHERE THE FILE GOES IS NOT SETTLED. The /gr drop said
+# `Alice Madness Returns\Binaries`, but the exe actually lives in
+# `Binaries\Win32`, which is its working directory, and UE3 builds have also been
+# documented reading exec files from `<Game>\Config`. Rather than guess and get a
+# silent no-op, this writes the SAME file to every candidate and says which ones
+# it managed - so one launch tests all of them at once and the log says which
+# path was live. Writing a few hundred bytes into four directories is cheap; a
+# failed test that cannot distinguish "wrong path" from "no cheat manager" is
+# not. [inferred-static 2026-09-08 - none of these has been confirmed live]
+# ---------------------------------------------------------------------------
+
+def _game_root():
+    """The install root, from this file's own recorded location or an override."""
+    env = os.environ.get("ALICE_ROOT")
+    if env:
+        return env
+    for c in (r"D:\Program Files (x86)\Steam\steamapps\common\Alice Madness Returns",
+              r"C:\Program Files (x86)\Steam\steamapps\common\Alice Madness Returns",
+              r"D:\SteamLibrary\steamapps\common\Alice Madness Returns"):
+        if os.path.isdir(c):
+            return c
+    return None
+
+
+def _exec_targets(root):
+    docs = os.path.join(os.path.expanduser("~"), "Documents", "My Games",
+                        "Alice Madness Returns", "AliceGame", "Config")
+    return [
+        os.path.join(root, "Binaries", "Win32"),   # the exe's own directory (its CWD)
+        os.path.join(root, "Binaries"),            # what the /gr drop named
+        os.path.join(root, "AliceGame", "Config"),
+        docs,
+    ]
+
+
+def write_exec(cmds):
+    """Write the exec file to every candidate directory. Returns the list written."""
+    root = _game_root()
+    if not root:
+        sys.exit("NO INSTALL: set ALICE_ROOT to the game folder")
+    text = "\n".join(cmds) + "\n"
+    written = []
+    for d in _exec_targets(root):
+        if not os.path.isdir(d):
+            continue
+        try:
+            with open(os.path.join(d, EXEC_FILE), "w", encoding="ascii", newline="\n") as f:
+                f.write(text)
+            written.append(d)
+        except OSError as e:
+            print("  could not write %s: %s" % (d, e))
+    if not written:
+        sys.exit("NO TARGET: none of the candidate directories was writable")
+    return written
+
+
+def console(cmds):
+    """Route 1: write the exec file, then press the key bound to `exec commands`."""
+    written = write_exec(cmds)
+    print("exec file (%d line(s)) written to %d location(s):" % (len(cmds), len(written)))
+    for d in written:
+        print("   ", d)
+    print("pressing %s (must be bound to `exec %s`)" % (CONSOLE_EXEC_KEY, EXEC_FILE))
+    press(CONSOLE_EXEC_KEY)
+    print("PRE-FLIGHT, if nothing happens - all three are silent failures:")
+    print("  1. launch flags -freeconsole -allowcheats")
+    print("  2. %s bound to `exec %s` in AliceInput.ini" % (CONSOLE_EXEC_KEY, EXEC_FILE))
+    print("  3. the console output is in the game window, not here - screenshot it")
+
+
+# ---------------------------------------------------------------------------
+# ROUTE 4 - relative mouse injection.
+#
+# Last of the four on purpose. Two documented hazards, both of which make a
+# failure look like a fact about the game:
+#
+#   * POINTER BALLISTICS. Windows may multiply an injected relative delta by up
+#     to 4x depending on pointer speed and two threshold values, so a calibration
+#     is not portable between machines. `ballistics` reports them and can pin
+#     them. [reported 2026-09-07]
+#   * UIPI. If the game runs at a higher integrity level than this harness,
+#     SendInput fails SILENTLY - neither the return value nor GetLastError says
+#     so. The only symptom is nothing happening. [reported]
+#
+# !! Alice's mouse path looks like the Win32 cursor/window-message path rather
+# than Raw Input [inferred-static 2026-09-07] - MadnessPatch hooks UpdateMouseLock
+# (which calls ClipCursor) and ProcessDeferredMessage. A Raw-Input reader has no
+# reason to clip the cursor. If that holds, injected moves should be seen; it is
+# an inference from someone else's patch, not a measurement of ours.
+# ---------------------------------------------------------------------------
+
+def ballistics(pin=False):
+    """Report the pointer acceleration settings, and optionally pin them off."""
+    arr = (ctypes.c_int * 3)()
+    if not user32.SystemParametersInfoW(SPI_GETMOUSE, 0, ctypes.byref(arr), 0):
+        print("SPI_GETMOUSE failed: %d" % ctypes.get_last_error())
+        return
+    speed = ctypes.c_int(0)
+    user32.SystemParametersInfoW(SPI_GETMOUSESPEED, 0, ctypes.byref(speed), 0)
+    print("pointer thresholds = (%d, %d)  acceleration = %d  speed = %d/20"
+          % (arr[0], arr[1], arr[2], speed.value))
+    if arr[2] == 0:
+        print("  acceleration is OFF - an injected delta is applied 1:1 and IS portable")
+    else:
+        print("  !! acceleration is ON - an injected delta may be scaled up to 4x, and any")
+        print("     step size calibrated here will NOT reproduce on another machine.")
+    if not pin:
+        print("  (run `ballistics pin` to turn acceleration off for this session)")
+        return
+    off = (ctypes.c_int * 3)(0, 0, 0)
+    if user32.SystemParametersInfoW(SPI_SETMOUSE, 0, ctypes.byref(off), 0):
+        print("  pinned: acceleration off. !! THIS IS A SYSTEM-WIDE USER SETTING and this")
+        print("     harness does not restore it - `ballistics` again to confirm, and set it")
+        print("     back in Mouse Properties if you want it on.")
+    else:
+        print("  could not pin: %d" % ctypes.get_last_error())
+
+
+def _send_mouse(dx, dy):
+    inp = INPUT(type=INPUT_MOUSE,
+                u=_IU(mi=MOUSEINPUT(int(dx), int(dy), 0, MOUSEEVENTF_MOVE, 0, None)))
+    if user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT)) != 1:
+        raise OSError("SendInput(mouse) failed: %d" % ctypes.get_last_error())
+
+
+def mouse(dx, dy, steps=1, gap=0.016):
+    """Route 4: relative mouse movement, split into `steps` deltas."""
+    hwnd, _ = need_window()
+    if not focus(hwnd):
+        print("WARN: could not foreground the window; input may go elsewhere")
+    arr = (ctypes.c_int * 3)()
+    user32.SystemParametersInfoW(SPI_GETMOUSE, 0, ctypes.byref(arr), 0)
+    if arr[2]:
+        print("!! pointer acceleration is ON - this delta may be scaled. `ballistics pin` first.")
+    per_x = dx // steps if steps else dx
+    per_y = dy // steps if steps else dy
+    for _ in range(steps):
+        _send_mouse(per_x, per_y)
+        time.sleep(gap)
+    # Whatever is left after integer division, so the total is exactly (dx, dy).
+    rx, ry = dx - per_x * steps, dy - per_y * steps
+    if rx or ry:
+        _send_mouse(rx, ry)
+    print("sent %d step(s) totalling (%d, %d)" % (steps, dx, dy))
+    print("!! SendInput reporting success does NOT mean the game saw it - UIPI failures are")
+    print("   silent. Confirm with `bugit` (a number) rather than by eye (a judgement).")
 
 
 def grab(path):
@@ -225,6 +432,28 @@ def main():
         lo, hi = min(ds), max(ds)
         print("\nspread: %d px  (min %+d, max %+d, distinct %s)"
               % (hi - lo, lo, hi, sorted(set(ds))))
+
+    elif cmd == "console":
+        if len(sys.argv) < 3:
+            sys.exit("usage: console <command> [more words of the same command]")
+        console([" ".join(sys.argv[2:])])
+
+    elif cmd == "bugit":
+        console(["BugIt"])
+
+    elif cmd == "bugitgo":
+        if len(sys.argv) != 8:
+            sys.exit("usage: bugitgo X Y Z Pitch Yaw Roll  (six numbers, UE3 rotator units)")
+        console(["BugItGo " + " ".join(sys.argv[2:8])])
+
+    elif cmd == "ballistics":
+        ballistics(pin=(len(sys.argv) > 2 and sys.argv[2] == "pin"))
+
+    elif cmd == "mouse":
+        if len(sys.argv) < 4:
+            sys.exit("usage: mouse DX DY [steps]")
+        st = int(sys.argv[4]) if len(sys.argv) > 4 else 1
+        mouse(int(sys.argv[2]), int(sys.argv[3]), max(1, st))
 
     else:
         sys.exit(__doc__)
