@@ -1,0 +1,13 @@
+[18:37:30.137] === alice xinput1_3 proxy loaded, PID=3968 ===
+[18:37:30.138] real xinput loaded; GetState=04A12850 SetState=04A12C20 GetCaps=04A12DA0
+[18:37:30.139] shared pad block mapped, enabled=0 pad_force=0  (injection defaults OFF - this is an INSTRUMENT until a harness turns it on)
+[18:37:40.956] === alice xinput1_3 proxy loaded, PID=29820 ===
+[18:37:40.957] real xinput loaded; GetState=02D72850 SetState=02D72C20 GetCaps=02D72DA0
+[18:37:40.957] shared pad block mapped, enabled=0 pad_force=0  (injection defaults OFF - this is an INSTRUMENT until a harness turns it on)
+[18:37:53.909] XInputGetState ENTERED for the first time (idx=0) - Alice DOES poll XInput
+[18:37:53.909] first pad-0 entry did not inject: state=ok block=mapped enabled=0 pad_force=0 hr=1167
+[18:41:09.848] XInputSetState ENTERED for the first time (idx=0)
+[18:43:06.432] XInputGetState entries=600 (idx0=150), applied_pad=0
+[18:48:16.177] XInputGetState entries=1200 (idx0=300), applied_pad=0
+[18:51:18.715] === unloading; XInputGetState entries=1550 (idx0=388) SetState=6 GetCaps=0 applied_pad=0 ===
+[18:51:18.715] === VERDICT: CALLED FOR PAD 0 BUT OUR APPLY DECLINED - injection was off or refused ===
