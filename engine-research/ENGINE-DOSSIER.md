@@ -629,7 +629,7 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
   | --- | --- | --- |
   | 1 | **console `exec` file + `BugItGo`/`BugIt`** | implemented (`console`, `bugit`, `bugitgo`); `[reported]` that the commands exist |
   | 2 | keyboard `Axis aTurn` binding in `AliceInput.ini` | not implemented; `[reported]` / `[inferred-static]` |
-  | 3 | virtual pad via an `xinput1_3.dll` proxy | **newly available - see below** |
+  | 3 | virtual pad via an `xinput1_3.dll` proxy | **BUILT AND DEPLOYED 2026-09-08b, not run** |
   | 4 | `SendInput` `MOUSEEVENTF_MOVE` | implemented (`mouse`, `ballistics`) |
 
   **Route 1 is first because it is self-verifying.** UE3's `BugItGo <X> <Y> <Z> <Pitch> <Yaw> <Roll>`
@@ -664,6 +664,38 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
     loads, and pins its ordinals in a `.def` for this same reason.
     WARNING: what is NOT established is whether Alice ever *polls* XInput - POP's proxy loaded fine
     and that game never called it. This is a route that is **available**, not one known to work.
+
+- **ROUTE 3 IS BUILT AND DEPLOYED - AND IT IS AN INSTRUMENT FIRST** (2026-09-08b, `/pd`, no launch).
+  `staging/alice-madness-returns-vr/proxy-xinput/`; deployed `xinput1_3.dll` md5 `26764e15...`,
+  60,416 B, into `Binaries\Win32\`. Write-up:
+  `modding-notes/2026-09-08b-the-xinput-proxy-is-an-instrument-first.md`.
+
+  - **The open question is not "can we fabricate a pad" - it is whether Alice POLLS XInput.**
+    Importing a DLL is not calling it, and there is a first-party precedent for the gap:
+    `prince-of-persia-2008-vr` imports the same DLL the same way, its proxy loads cleanly, and that
+    game was never once observed calling `XInputGetState`. So this counts ENTRIES into all three
+    exports and prints a verdict on unload whether or not anything is injected:
+    `NEVER CALLED` (route 3 is dead here) / `CALLED BUT NEVER FOR PAD 0` / `DECLINED` (our side) /
+    `INJECTED`. `applied_pad` alone cannot tell the first from the third, and only the first is a
+    fact about the game. `[compile-verified 2026-09-08]`
+  - **Injection defaults OFF**, so deploying it changes no behaviour until a harness enables the
+    shared block.
+  - **Its shared block is deliberately NOT the sibling's.** POP uses `Local\pop2008_vr_input`;
+    reusing that name would have made two running games share one block and each drive the other's
+    pad - which would present as a game behaviour rather than a bug. Name, magic and every symbol
+    are Alice's alone, and a test asserts they differ so a future copy-paste cannot undo it.
+  - **The .def pins ordinals 2, 3 and 4.** Alice imports 2 and 3 BY ORDINAL, so a name-only export
+    table would not resolve and the game would fail to start. The proxy imports no xinput itself
+    (`KERNEL32` + UCRT only) so it cannot recurse; the real DLL is loaded by full system path with
+    `xinput1_4.dll` as the ABI-compatible fallback `[verified-numerically 2026-09-08]`.
+  - Host suite **43 checks, 0 failures** over the shipped `pad_inject.c`, covering the refusals
+    rather than the happy path: disabled and bad-magic are bit-for-bit no-ops, a fabricated state
+    starts CLEAN rather than ORing into whatever a failed call left, injection is additive over a
+    real pad, and **the packet number advances on every apply** - a game comparing `dwPacketNumber`
+    treats an unchanged one as stale and ignores the whole state, which would look exactly like
+    "injection does not work here". `[verified-numerically 2026-09-08]`
+  - **Reverting is deleting one file.** `xinput1_3.dll` is NEW in that folder - nothing was
+    overwritten, so there is no backup to keep - and it shares no state with our `d3d9.dll`.
 
 - Self-close (verified 2026-09-04): pause (`Esc`) → MAIN MENU (confirm YES) → main menu → EXIT GAME
   (confirm YES). Menus are a radial/vertical mix; verify each highlight before `Enter`
