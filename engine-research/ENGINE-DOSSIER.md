@@ -106,9 +106,71 @@ and `AliceInput.ini` carries dedicated first-person look scales, `LookRightScale
 ⚠️ **Why this took so long to find, and the lesson to carry.** The action's primary home is a
 **controller chord** (right-stick click), which is exactly the case the toolkit's PLAYBOOK warns
 pressing keys will never discover. The project had read `AliceInput.ini` several times and had never
-opened `AliceControlLayout.ini`, which is where this game keeps its *action* bindings —
-`AliceInput.ini` holds only axes and aliases. **On a UE3 title, read every `*Input*` and
-`*ControlLayout*` ini before concluding a feature is absent.**
+opened `AliceControlLayout.ini`. **On a UE3 title, read every `*Input*` and `*ControlLayout*` ini
+before concluding a feature is absent.**
+
+> ⚠️ **CORRECTED 2026-09-09c (`/pd`).** The clause that used to end this paragraph said
+> `AliceControlLayout.ini` "is where this game keeps its *action* bindings" and that
+> "`AliceInput.ini` holds only axes and aliases". **Both halves are wrong.** `AliceInput.ini`
+> carries **`[Engine.KeyCommands]`**, the 33-entry action→command table; `AliceControlLayout.ini`
+> binds nothing at runtime. See §6c. The `T` observation above is unaffected — it was
+> `[verified-live]`; only the explanation of *why* it works was wrong.
+
+## 6c. ⭐⭐ HOW KEY BINDING ACTUALLY WORKS — two files, and neither is `ControlLayout` (2026-09-09c, `/pd`, no launch)
+
+Write-up: `modding-notes/2026-09-09c-the-key-layout-lives-in-two-files-and-neither-is-controllayout.md`.
+Evidence: `dev-archive/recon/2026-09-09c-how-key-binding-actually-works/`.
+Tool: `dev-archive/tools/parse_gameconfig_cfg.py`.
+
+| half | where | what it holds |
+| --- | --- | --- |
+| **the command** | `[Engine.KeyCommands]` in **`AliceInput.ini`** | 33 `Key_<Action> = <command string>` entries |
+| **the key** | **`CheckPoint\<profile>\GameConfig_PC.CFG`** | a FIXED array of **33 × 2 = 66** key-name strings — primary for actions 1..33, then secondary for actions 1..33 |
+
+`[measured 2026-09-09]` — 66 length-prefixed strings parsed from the 2,148-byte profile against 33
+ini entries; the counts match exactly and **the profile holds no command text anywhere**.
+
+**The anchor that makes the pairing more than arithmetic:** slot 5 reads `T` / `Key_AimingMode` /
+`EnterFPSByRS`, and "`T` enters first person" is the one binding verified live here. Slots 1–4 are
+`W`/`S`/`A`/`D` against the four movement actions, 11 `SpaceBar` against `Key_Jump`, 12/13 the mouse
+buttons against melee/range.
+
+**⇒ The bindable action set is FIXED AT 33.** No ini edit can create a 34th, because the key for
+action *n* comes from a fixed-size array with no slot 34. `T` works because it *ships* in slot 5.
+That is the mechanism behind the 2026-09-09 retraction.
+
+⚠️ **`ControlLayout` was being reloaded the whole time** — the user copy's `[IniVersion]` stamp went
+from `1787589835` to `1788952193` after the edit, i.e. UE3 regenerated it from the modified default
+exactly as designed `[measured 2026-09-09]`. The file was read; it is simply not what binds keys.
+
+**Corroboration from the exe** (`.rdata` is not encrypted by the SteamStub wrapper): `CheckPoint\` +
+`GameConfig_PC` + `.CFG` appear three times with the section name **`Engine.KeyCommands`** adjacent
+in the same string block; and the native thunks are all index-based — `execGetAliceKeys`,
+`execSetAliceKeys`, `execGetAliceKeyIndex`, `execExecRebindKey`, `execExecResetKeyBindings`,
+`execExecControlLayout`. A getter, a setter and an *index*, and no "add a binding" call.
+⚠️ `KeyBindArray` appears nowhere in the exe in either encoding, but that carries no weight on its
+own — UE3 config property names come from the script packages, not the exe.
+
+### ⭐ What this unblocks: repoint an EXISTING action
+
+Eight of the 33 actions have **no key at all** `[measured 2026-09-09]`:
+`Key_SwitchLockedTargetRight`, `Key_PCAttackType`, `Key_ChangeWeaponGroup`, `Key_VorpalBladeAttack`,
+`Key_PepperGrinderAttack`, `Key_HobbyHorseAttack`, `Key_ArmTeapotCannonAttack`, `Key_Attack`. And
+three actions (`Key_LockOn`, `Key_LockOn1`, `Key_LockOn2`) all sit on `CapsLock` with near-identical
+commands, so at least two are redundant.
+
+So an arbitrary command CAN be run — not by adding a binding, but by **changing what an existing
+action does**, in `AliceInput.ini`. That restores the route to `BugIt`, and with it camera position
+and eye height, which the retraction had stranded.
+
+- **Cheapest test:** repoint `Key_LockOn2` (already on `CapsLock`) and press it. Needs only an ini
+  edit and no key assignment, and it answers whether commands are read from the ini at all.
+- **Cleaner but costlier:** repoint a keyless action such as `Key_PCAttackType`, then give it a key
+  via the CONTROLS UI or by writing a key name into its profile slot.
+
+⚠️ `[inferred-static 2026-09-09]` — **not run.** The result that would show the derivation is wrong
+rather than a detail needing tuning: repointing `Key_LockOn2` and pressing `CapsLock` produces the
+old lock-on behaviour and nothing else, which would mean commands are not read from the ini either.
 
 | measured in first person | value |
 | --- | --- |
