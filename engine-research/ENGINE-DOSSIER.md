@@ -35,6 +35,57 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐ SETTLED 2026-09-09b (`/lm`, live) — THE MYSTERY `c0` WRITE WAS NEVER A MATRIX, AND THE SHEAR WAS CORRUPTING IT
+
+Write-up: `modding-notes/2026-09-09b-the-mystery-write-was-never-a-matrix-and-added-key-binds-are-ignored.md` §1.
+
+The once-per-frame non-camera write at `c0` arrives with **`Vector4fCount = 8`**, so it is not a
+4×4 matrix at all. Its values are exact whole-texel offsets for the running 1280×720 backbuffer —
+`0.00078125 = 1/1280`, `0.0015625 = 2/1280`, `0.00138889 = 1/720`, `0.00277778 = 2/720` — i.e. a
+filter/blur pass uploading **`SampleOffsets` as an eight-register array**, precisely what the
+shipped `GlobalShaderCache` said was the only non-view constant bound at vertex `c0`.
+`[verified-numerically 2026-09-09, n=1 launch, 24,484 c0 writes]`
+
+**The census is total, with no residue:** `4=23372 8+=1112` against
+`camera=23352 affine=20 skewed=1112`. Two independent counters, and every skewed write is an
+8-register one. There is no leftover mystery matrix. `[verified-numerically 2026-09-09]`
+
+**⭐ THE DEFECT THIS EXPOSED, now fixed.** The interception test was `start == 0 && count >= 4`,
+which a four-register ViewProjection satisfies **and so does the eight-register blur array**. So
+whenever stereo was on, the shear rewrote registers 0..3 of a blur pass's sample offsets every
+frame. It had never been seen because it only fires with stereo enabled, and a wrongly-filtered blur
+reads as ordinary stereo weirdness. The fix is `count == 4` — a ViewProjectionMatrix is exactly four
+registers — with the classification and census still seeing every write, because that census is what
+found this.
+
+**Verified both ways:** the shear can no longer reach a non-4 write `[compile-verified 2026-09-09]`,
+and the camera shear is unchanged — stereo off → on measured **−5 px before the fix and −6 px
+after**, on the same scene, the 1 px being framing noise between two launches
+`[measured 2026-09-09, n=1 scene each]`.
+
+⚠️ **NOT established: whether the corruption was ever VISIBLE.** The defect is proven by
+construction, not by a before/after artefact — Whitechapel at rest does not obviously run a blur
+pass. Do not describe it as "a bug we could see".
+
+### ⭐ WHAT FIRST PERSON SURVIVES (2026-09-09b, live)
+
+`p00cam` is a free first/third-person detector — **≈1.5697 in first person, ≈1.4281 in third** — so
+the state can be read from the log without a screenshot.
+
+| action | result |
+| --- | --- |
+| jump, and run-then-jump | **stays in first person** `[verified-live 2026-09-09, n=1 each]` |
+| walking (12 taps) | stays in first person `[verified-live 2026-09-09, n=1]` |
+| weapon switch (`One`) | **exits to third person** `[verified-live 2026-09-09, n=1]` |
+
+The weapon-switch exit had been `[inferred-static]` from `QuitFPS` in that key's command list; it is
+now live. That raises confidence in the rest of that list without proving it.
+
+⚠️ **Combat is untested** (Chapter 1's opening has no enemies) and **eye height is unmeasured** —
+and harder than it looked, because it wanted `BugIt`, which §9 now shows cannot be reached by
+rebinding.
+
+
 ### ⭐⭐ THE GAME SHIPS A FIRST-PERSON CAMERA, AND IT IS ALREADY ON THE `T` KEY (2026-09-09, `/lm`, live)
 
 Write-up: `modding-notes/2026-09-09-the-c0-census-answers-itself-and-alice-ships-a-first-person-camera.md` §3.
@@ -868,7 +919,65 @@ Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
 
 ## 9. cvar / console cheat sheet
 
-### ⭐ THERE IS A SECOND COMMAND CHANNEL, AND IT IS NOT THE CONSOLE (2026-09-09, `/lm`)
+### ⛔️ CORRECTION 2026-09-09b — THERE IS NO "BIND ANY COMMAND TO ANY KEY" CHANNEL
+
+**This supersedes the sub-section below it**, written earlier the same day. That section said
+`AliceControlLayout.ini` "binds engine commands **directly to keys**, with no console in the path"
+and treated it as a live channel. **Only one half of that is true.**
+
+Three unused commands were bound to three free keys, in **both** copies of the layout file, with the
+game closed: `BugItForGameController` on `G`, `StatUnitAndStatFPS` on `H`,
+`ChangeCameraMode` on `J`. **All three did nothing**, and the rows were still in the file
+afterwards — so the game had not rewritten it.
+
+Two explanations fitted that equally (added rows ignored, or those three commands absent like the
+console), so the discriminator was run: **`G` was rebound to `EnterFPSByRS`, the exact command that
+works on `T`.**
+
+```
+before   : third-person
+after G  : third-person      <- the command that works on T, on a new key
+after T  : FIRST-PERSON      <- seconds later, same run
+```
+
+`[verified-live 2026-09-09, n=1 launch]`
+
+**⇒ The game does not honour rows added to this file. The shipped bindings work; added ones do
+not.** `T` → first person is real, and it is real because it *shipped* on `T` — not because the ini
+is a channel we can write to.
+
+⚠️ **The mechanism is NOT established** `[hypothesis]`: the layout may be cached in the profile or
+save, compiled into the build, or read with a fixed row count. What is known is that the game *can*
+rebind keys — its own CONFIGURATION → CONTROLS screen does, and the exe exports `ExecRebindKey` and
+`ExecResetKeyBindings` (below). **Driving that UI is the untried next attempt**, and it is now the
+only known route to the other commands named in the file.
+
+⚠️ **And `BugItForGameController` was never actually executed** — the failure was in delivery, not
+in the command. Whether it exists in this build is still open.
+
+**What survives from the superseded section:** reading every input-related ini is still how `T` was
+found, and that rule is right. What does not survive is the inference that anything *named* in such
+a file can be reached by adding a row. The project's own standing rule already said as much — a
+binding in a shipped ini is a lead, not evidence — and this is that rule biting one level up: the
+*file* was evidence of what the game can do, not of what we can make it do.
+
+### ⚠️ [SUPERSEDED 2026-09-09b — see the correction above] A SECOND COMMAND CHANNEL THAT IS NOT THE CONSOLE (2026-09-09, `/lm`)
+
+2026-09-08 settled that the developer console is **not exposed in this retail build** — five
+candidate causes excluded, `exec` never ran. That conclusion stands.
+
+`AliceGame\Config\AliceControlLayout.ini` is a different file from `AliceInput.ini` (which holds
+only axes and aliases) and the project had never opened it. Its `KeyBindArray1`/`KeyBindArray2` rows
+name:
+
+`EnterFPS`, `EnterFPSByRS`, `QuitFPS`, `ChangeCameraMode`, `ToggleCloseFollowCamera`, `TogglePOI`,
+`ToggleGhost`, `togglephysicsmode`, `BugItForGameController`, `StatUnitAndStatFPS`,
+`CheshireCatAppear`, `TriggerHysteria`, `ShowMenu`, `ShowJournalMenu`, `OpenSamepleMenu` (sic).
+
+**`EnterFPSByRS` is proven live — it is on `T` and it works** (§6).
+`[verified-live 2026-09-09, n=1 launch]` **Every other name in that list is a lead and nothing
+more.** `[reported 2026-09-09]`
+
 
 2026-09-08 settled that the developer console is **not exposed in this retail build** — five
 candidate causes excluded, `exec` never ran. That conclusion stands. What it did **not** mean, and
