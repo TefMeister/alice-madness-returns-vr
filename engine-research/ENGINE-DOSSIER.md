@@ -35,6 +35,102 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐ THE GAME SHIPS A FIRST-PERSON CAMERA, AND IT IS ALREADY ON THE `T` KEY (2026-09-09, `/lm`, live)
+
+Write-up: `modding-notes/2026-09-09-the-c0-census-answers-itself-and-alice-ships-a-first-person-camera.md` §3.
+Evidence: `dev-archive/recon/2026-09-09-c0-census-camera-yaw-and-the-built-in-first-person-camera/`.
+
+**Press `T` in gameplay. Alice leaves the frame and the camera drops to eye level.**
+`[verified-live 2026-09-09, n=1 launch]` No mod, no rebind, no console. The shipped
+`Documents\My Games\Alice Madness Returns\AliceGame\Config\AliceControlLayout.ini` carries
+
+```
+KeyBindArray1=(Name="T",Command="EnterFPSByRS | OnRelease ToggleCloseFollowCamera")
+KeyBindArray1=(Name="XboxTypeS_RightThumbstick",Command="ToggleGhost | OnRelease ToggleCloseFollowCamera |EnterFPS")
+```
+
+and `AliceInput.ini` carries dedicated first-person look scales, `LookRightScaleForFP=500` and
+`LookUpScaleForFP=-350`.
+
+⚠️ **Why this took so long to find, and the lesson to carry.** The action's primary home is a
+**controller chord** (right-stick click), which is exactly the case the toolkit's PLAYBOOK warns
+pressing keys will never discover. The project had read `AliceInput.ini` several times and had never
+opened `AliceControlLayout.ini`, which is where this game keeps its *action* bindings —
+`AliceInput.ini` holds only axes and aliases. **On a UE3 title, read every `*Input*` and
+`*ControlLayout*` ini before concluding a feature is absent.**
+
+| measured in first person | value |
+| --- | --- |
+| hfov | ≈ 65.1° (`p00cam` 1.569685) vs 70.0° third person `[measured 2026-09-09]` |
+| yaw per numpad press | ≈ 2.9° — vs 94° third person `[measured 2026-09-09, n=1 launch]` |
+| pitch per numpad press | ≈ 10–15° `[measured 2026-09-09, n=1 launch]` |
+| survives walking | yes, 12 forward taps `[verified-live 2026-09-09, n=1]` |
+| what leaves it | `QuitFPS` is bound alongside attack, weapon switch and most context actions `[inferred-static 2026-09-09]` |
+
+**The camera is finely aimable in first person and is not in third person.** That, and not the FOV,
+is the reason this matters for the VR work: every camera experiment so far has had a 94°-per-press
+control.
+
+**More of the same vocabulary is in that file and NONE of it has been tried:** `EnterFPS`,
+`QuitFPS`, `ChangeCameraMode`, `ToggleCloseFollowCamera`, `TogglePOI`, `ToggleGhost`,
+`togglephysicsmode`, `BugItForGameController`, `StatUnitAndStatFPS`. `[reported 2026-09-09]`
+`BugItForGameController` is the one to try first — 2026-09-08 settled that the console is not
+exposed in this retail build, and this reaches the same `BugIt` pose dump without one.
+
+### ⭐⭐ THE `c0` CENSUS, READ LIVE (2026-09-09, `/lm`) — CONFIRMS THE CORRECTION BELOW
+
+`range=[0.002210 .. 2.747477]` across 5400 frames: **the spread is three orders of magnitude, so
+more than one matrix reaches `c0`** `[measured 2026-09-09, n=1 launch]`. The `/pd` correction
+immediately below was right, and this is the live evidence it asked for.
+
+Three things the census added that the correction could not:
+
+1. **The non-camera matrix is written EXACTLY ONCE PER FRAME, and it is the LAST write of the
+   frame.** Non-camera-shaped writes rise by exactly 900 per 900-frame interval, three intervals
+   running. `[verified-numerically 2026-09-09, n=3 intervals]` That is the whole mechanism behind
+   the 2026-09-08 `p00=0.0022` reading — a one-field report shows the last writer.
+2. **About 38 camera-shaped writes per frame, and they all carry ONE heading** (`spread` reads
+   0.000 in every trace line of two launches) `[measured 2026-09-09, n=2 launches]`. So "the
+   camera's matrix" is well defined within a frame.
+3. **The camera's `p00` is scene-dependent, not a constant:** 2.747477 in menus (hfov 39.9°),
+   1.428148 in Whitechapel (70.0°), 1.569685 in first person (65.1°). The 1.112762 the
+   first-perspective diagnostic prints (83.9°) is simply whichever camera was up at that moment.
+   `[measured 2026-09-09]`
+4. **The classifier's documented limit does not bite on this game.** A tiny-`p00` matrix of the
+   right shape *would* be accepted, but Alice's actual 0.0022 matrix is **rejected** — it is the one
+   non-camera write per frame. `[measured 2026-09-09, n=1 launch]`
+
+### ⭐ THE CAMERA'S HEADING IS NOW AN INSTRUMENT (2026-09-09, `/lm`)
+
+`alice_stereo_camera_angles()` — row 3 of a camera-shaped VP produces `clip.w` and has unit length,
+so it **is** the camera's forward axis; UE3 is X-forward, Y-right, Z-up, so
+`yaw = atan2(row3.y, row3.x)`, `pitch = asin(row3.z)`. Nothing calibrated, no convention guessed.
+Nine host checks. `[compile-verified 2026-09-09]` The proxy logs a `camtrace` line every 30 frames
+carrying `yaw`, `pitch`, an **unwrapped cumulative `total`**, `dmax` (largest single-frame step —
+the accumulation is only trustworthy while this stays well under 180) and `spread`.
+
+- **⭐ SIGN CONVENTION, the thing the board has wanted written down since 2026-09-07: POSITIVE PITCH
+  IS UP.** Verified by eye at two angles — −30.15° is the cobbles, +60.27° is the sky.
+  `[verified-live 2026-09-09, n=2 angles]`
+- ⚠️ **`aLookUp` with a POSITIVE `Speed` pitches the view DOWN.** The axis name and its sign
+  disagree, and nothing errors.
+- **Third-person turn rate: one 80 ms press = −94.2°, and presses compose linearly**
+  (−94.20, −94.17, −188.33/2, −380.57/4) `[verified-numerically 2026-09-09, n=4, spread ~1%]`.
+  This is why 2026-09-08b's screenshot method failed: its 10-to-100-press sweep was 2.6 to 26 full
+  revolutions, so there was no return-to-start to find.
+- ⚠️ **Hold duration is NOT a dial:** 20 ms → −5.31°, 40 ms → −168.69°, 80 ms → −94.20°,
+  160 ms → +75.39°. Not monotonic, not proportional. Unexplained. `[measured 2026-09-09, n=1 each]`
+- **Pitch is exactly 0.000 in third person** — the follow camera is level, which is why the sign
+  convention could not be settled before first person was found.
+
+### One crash, not reproduced (2026-09-09)
+
+First launch of the session died in the level load: `AliceMadnessReturns.exe` + `0x00067d48`,
+`c0000005`, faulting module the exe rather than `d3d9.dll`. Three further launches across three
+proxy builds loaded the same save cleanly. `n=1`, cause not established.
+`[measured 2026-09-09, n=1]`
+
+
 ### ⭐⭐ CORRECTION 2026-09-09 (`/pd`, no launch) — THE 505.8× SCALE FACTOR IS A PHANTOM: TWO MATRICES SHARE `c0`
 
 Write-up: `modding-notes/2026-09-09-the-505x-scale-factor-is-a-phantom-two-matrices-share-c0.md`.
@@ -711,6 +807,29 @@ Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
 - UI / HUD (how it's kept separate):
 
 ## 9. cvar / console cheat sheet
+
+### ⭐ THERE IS A SECOND COMMAND CHANNEL, AND IT IS NOT THE CONSOLE (2026-09-09, `/lm`)
+
+2026-09-08 settled that the developer console is **not exposed in this retail build** — five
+candidate causes excluded, `exec` never ran. That conclusion stands. What it did **not** mean, and
+was read as meaning for a day, is that the game's commands are unreachable.
+
+`AliceGame\Config\AliceControlLayout.ini` binds engine commands **directly to keys**, with no
+console in the path. It is a different file from `AliceInput.ini` (which holds only axes and
+aliases) and the project had never opened it. Its `KeyBindArray1`/`KeyBindArray2` rows name:
+
+`EnterFPS`, `EnterFPSByRS`, `QuitFPS`, `ChangeCameraMode`, `ToggleCloseFollowCamera`, `TogglePOI`,
+`ToggleGhost`, `togglephysicsmode`, `BugItForGameController`, `StatUnitAndStatFPS`,
+`CheshireCatAppear`, `TriggerHysteria`, `ShowMenu`, `ShowJournalMenu`, `OpenSamepleMenu` (sic).
+
+**`EnterFPSByRS` is proven live — it is on `T` and it works** (§6).
+`[verified-live 2026-09-09, n=1 launch]` **Every other name in that list is a lead and nothing
+more** — a binding surviving in a shipped ini is not evidence the feature is live, which is this
+project's own rule and cost it a session in 2026-09-08. `[reported 2026-09-09]`
+
+Try `BugItForGameController` next: it reaches the same `BugIt` pose dump the dead console route was
+after, and a working pose dump would make camera position, not just heading, measurable.
+
 | command / cvar | effect | use |
 |---|---|---|
 | `FOV <10-150>` | native UE3 field-of-view command | confirmed via two independent Nexus FOV/ultrawide mods, both `BaseInput.ini`-bound |
