@@ -86,6 +86,11 @@ KEYS = {
     # toolkit records in the other direction (arrows NEED the flag). Sending an
     # arrow scancode without the flag is a numpad key, and nothing errors either way.
     "NP4": (0x4B, False), "NP6": (0x4D, False), "NP7": (0x47, False),
+    # The head-offset hotkeys (2026-09-09). NumPad 5 / minus / plus are the
+    # numpad keys AliceInput.ini does NOT bind - 2/4/6/7/8/9 are the camera
+    # axes. Non-extended like the rest of the numpad; the extended flag would
+    # make 0x4A/0x4E something else entirely.
+    "NP5": (0x4C, False), "NPSUB": (0x4A, False), "NPADD": (0x4E, False),
     "NP9": (0x49, False), "NP8": (0x48, False), "NP2": (0x50, False),
     "F1": (0x3B, False), "F2": (0x3C, False), "F3": (0x3D, False),
     "F4": (0x3E, False), "F5": (0x3F, False),
