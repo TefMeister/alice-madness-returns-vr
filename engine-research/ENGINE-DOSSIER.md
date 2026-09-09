@@ -79,6 +79,64 @@ look-and-adjust loop against the `camtrace` line, not a calculation.
 `BugItForGameController` is the one to try first — 2026-09-08 settled that the console is not
 exposed in this retail build, and this reaches the same `BugIt` pose dump without one.
 
+### ⭐⭐ WHAT ELSE WRITES `c0`? NOTHING *BINDS* IT — AND THE MYSTERY WRITE MAY NOT BE A MATRIX (2026-09-09b, `/pd`, no launch)
+
+Write-up: `modding-notes/2026-09-09b-nothing-else-binds-c0-and-the-mystery-write-may-not-be-a-matrix.md`.
+Evidence: `dev-archive/recon/2026-09-09b-what-else-writes-c0/`. Tool: `dev-archive/tools/c0_constant_census.py`.
+
+**Nothing but `ViewProjectionMatrix` is bound to vertex `c0` by any material shader**
+`[measured 2026-09-09]` — 2,431 of 2,807 `vs_3_0` tables carry it there and the other 376 bind
+*nothing* at c0. So the once-per-frame non-camera write is not some other named constant sharing
+the register.
+
+⚠️ **Every earlier pass read only `RefShaderCache`.** UE3 keeps its post-process, filter and
+fullscreen shaders in **`GlobalShaderCache-PC-D3D-SM3.bin`** — the passes that run *last* in a
+frame, which is exactly what the census says the mystery write is. It had never been examined.
+
+⭐ **And it holds exactly ONE vertex shader binding a non-view constant at `c0`: `SampleOffsets`,
+an `c0 ×8` array, declaring no other constants at all** `[measured 2026-09-09]` — the shape of a
+UE3 filter/blur vertex shader.
+
+**The proxy intercepts on `start == 0 && count >= 4`.** A 4×4 satisfies that with `count == 4`;
+so does an 8-register array. That single fact fits every measured property of the mystery write
+without a second *view* having to exist at all:
+
+| census observation | fits a blur pass? |
+| --- | --- |
+| exactly one non-camera write per frame | a single post-process filter setup |
+| always the LAST write of the frame | post-processing runs last |
+| never camera-shaped | sample offsets are not a projection |
+| `p00 = 0.0022`, three orders below the camera's | ≈ one texel of UV at a reduced-resolution target |
+
+⚠️ **`[hypothesis]`, not a finding** — a mechanism derived from what the game *ships*, not a
+measurement of what it *does*. Either of two observations kills it: the write arriving with
+`count == 4`, or the dumped rows looking like a projection.
+
+⚠️ **If it holds it is a DEFECT, not a curiosity:** the proxy shears every qualifying `c0` write,
+so with stereo on it has been writing a shear into a blur's sample offsets. The fix would be to
+tighten the interception to `count == 4`.
+
+#### The instruments that settle it (built, tested, deployed, NEVER RUN)
+
+- **`alice_stereo_classify_vp()`** — replaces the 0/1 of `is_camera_vp()` with the *reason*:
+  `CAMERA` / `AFFINE-ORTHO` (|row3|≈0, i.e. shadow, light or 2D canvas) / `SCALED-PERSP`
+  (perspective × a uniform scale — the case a scale factor *would* fix, and the one 2026-09-08c
+  wrongly assumed) / `SKEWED` (row0 not ⊥ row3) / `DEGENERATE`. It reports the raw `p00`,
+  `|row3|`, `perp` and `c3.w` **beside** the verdict, because this project has already been burnt
+  by a diagnostic printing *"uniformly scaled by ~1× … CONFIRMED"* for `|row3| = 1.0`.
+  9 checks against ground truth built in the test `[verified-numerically 2026-09-09]`.
+  ⚠️ **Known limit, kept deliberately visible by its own test:** `AFFINE-ORTHO` cannot separate a
+  2D canvas from a shadow volume. Only the backbuffer width can, so the proxy now records it and
+  prints `extent = 2/p00` next to it.
+- **The same-frame `c0dump`** — camera matrix and the frame's last non-camera matrix, in full, on
+  one frame, with both verdicts. Capped at 6, at frame 150 and every 1800 after.
+- **⭐ `Vector4fCount`, which was never recorded at all** — the cheapest discriminator there is.
+- ⚠️ **A gap closed on the way:** the old census ran *inside* the `is_perspective()` gate, so an
+  orthographic write at `c0` was not merely unclassified, it was **invisible**. Every `c0` write is
+  now classified.
+
+`[compile-verified 2026-09-09]`, `-Wall -Wextra` clean, exports intact, existing suite still green.
+
 ### ⭐⭐ THE `c0` CENSUS, READ LIVE (2026-09-09, `/lm`) — CONFIRMS THE CORRECTION BELOW
 
 `range=[0.002210 .. 2.747477]` across 5400 frames: **the spread is three orders of magnitude, so
