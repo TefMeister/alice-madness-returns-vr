@@ -150,6 +150,72 @@ before concluding a feature is absent.**
 > binds nothing at runtime. See §6c. The `T` observation above is unaffected — it was
 > `[verified-live]`; only the explanation of *why* it works was wrong.
 
+## 6d. ⭐⭐ THE EYE POINT IS IN THE MATRIX — camera position out, head offset in (2026-09-09d, `/pd`, no launch)
+
+Write-up: `modding-notes/2026-09-09d-the-eye-point-was-in-the-matrix-all-along.md`.
+Evidence: `dev-archive/recon/2026-09-09d-the-eye-point-is-in-the-matrix/`.
+
+**The `BugIt` pose dump was never needed.** The 2026-09-09 retraction removed the only known route
+to camera position and eye height. The position is recoverable from the ViewProjection alone —
+three dot products out of register 3, from quantities this project already reads.
+
+With `column_j` = `(regs[0][j], regs[1][j], regs[2][j])`, for `VP = V·P` with a symmetric
+projection over a rigid view:
+
+| | |
+| --- | --- |
+| `column_3` | `forward`, unit — what `row3_len` reads as 1 |
+| `column_0` | `p00 · right` — its length is what `recover_p00` returns |
+| `column_1` | `p11 · up` |
+| `regs[3][j]` | `-(eye · column_j)` |
+
+⇒ `eye.right = -regs[3][0]/p00`, `eye.up = -regs[3][1]/p11`, `eye.forward = -regs[3][3]`, and
+`eye` follows because the basis is orthonormal.
+
+**Moving the eye** by a world offset `d` is translating the world by `-d`:
+`regs[3][j] -= dot(d, column_j)` for `j = 0..3`. Four dot products, exact, and correct for any
+offset — **including a forward component, which a shear cannot express at all.**
+
+⚠️ **All three functions are gated on `alice_stereo_is_camera_vp()`, and that is load-bearing.**
+The recovery is valid only for an orthonormal basis, which is exactly what that function's two
+tests establish — and it means **a matrix we have already sheared is refused**, because the shear
+adds `S·column_3` into `column_0`. **Read and offset BEFORE `alice_state_observe_vp()`, never
+after.** Applied after, it is refused every frame, the camera never moves, and nothing says why;
+the proxy counts refusals (`refused=` in `camtrace`) so that cannot stay silent.
+
+### ⚠️⚠️ DO NOT PUT THE IPD IN THE HEAD OFFSET
+
+The per-eye separation is **already** inside `alice_stereo_apply_viewproj()` — its one-element part
+"alone reproduces a parallel (on-axis) eye translation", with `column_0 += S·column_3` making it
+off-axis. Passing an eye separation as `dx` as well translates the eye **twice**: wrong by exactly
+one IPD, invisible in a static test, obvious only in a headset.
+
+**Pinned by test, not by warning:** a pure eye translation touches **register 3 only**; the shear
+also rewrites **column 0**. The two are distinguishable in the matrix itself. The IPD stays in the
+shear; the head/body offset stays in `alice_stereo_apply_eye_offset()`.
+
+### Verified, and the tests were checked against themselves
+
+Ground truth is built the other way round — a VP constructed from an explicit awkward pose (no axis
+world-aligned, eye at `(1234.5, −678.25, 90.125)`, aspect ≠ 1), then read back.
+`[verified-numerically 2026-09-09]`: basis, position, an offset landing exactly where asked, the
+inverse returning to the original, a zero offset **bit-identical**, and a sheared matrix refused by
+both reader and writer.
+
+⚠️ **Mutation-checked:** flipping one sign in the recovery produces **63 failures**; restoring it
+gives all-pass. A suite that cannot fail is not evidence.
+
+### Where the head offset comes from — the honest answer
+
+**A tuned constant, for now.** There is no head tracker in this loop and nothing in the game reports
+where a head would be, so it is three numbers dialled by eye; later the same three arrive from an
+HMD pose and the function does not change. Tuning is by **hotkey**, because this proxy has no ini at
+all: **F3** selects an axis, **F4/F5** step it by ∓5 units. All three default to **0**, so an untuned
+build takes the previous path. ⚠️ F1–F5 were the only F-keys the proxy was not already using; the
+game may bind some itself, and that collision is untested.
+
+`[compile-verified 2026-09-09]`, exports unchanged, full suite green.
+
 ## 6c. ⭐⭐ HOW KEY BINDING ACTUALLY WORKS — two files, and neither is `ControlLayout` (2026-09-09c, `/pd`, no launch)
 
 Write-up: `modding-notes/2026-09-09c-the-key-layout-lives-in-two-files-and-neither-is-controllayout.md`.
