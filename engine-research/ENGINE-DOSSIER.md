@@ -1212,6 +1212,47 @@ Read from the Steamless-unpacked exe's UTF-16 string table. This answers most of
 - Evidence: `dev-archive/recon/2026-09-03-native-stereo3d-menu-path/`.
 
 ## 10. Autonomous harness recipe (this game)
+
+### ⚠️ THE HARNESS MATCHES THE GAME WINDOW BY PROCESS, NOT BY TITLE — and this file is why (2026-09-09)
+
+Folded from `engine-research/inbox/2026-09-09-pd-match-the-game-window-by-process-not-title.md`
+(a `/pd` tandem drop; the fix and its test were written on `doom-2016-vr` and ported here).
+
+**On 2026-09-09 `alice_harness.py` returned the user's CHROME TAB.** They had googled Alice's
+first-person mode, the tab title contained "ALICE", and `find_window()` matched `TITLE_SUBSTR` as a
+substring of any visible window. The next calls in every session are `focus()` then `press()`, so
+menu keys — `ENTER`, `DOWN`, `ESC` — would have gone into their browser. **Nothing would have
+errored**; the game would simply have read as "ignoring the keyboard", the same silent signature
+this project already records for other causes. It was caught only because the client rect came back
+at `-32000`, i.e. a minimised window.
+
+**A title is USER DATA.** A browser tab, an editor, a chat window or this session's own terminal can
+each contain a game's name, so a title match can only ever NARROW the search. The **owning process**
+is what verifies it.
+
+**Fixed:** `find_window(require_process=True)` now checks both, via
+`GetWindowThreadProcessId` → `OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION)` →
+`QueryFullProcessImageNameW`, against `alicemadnessreturns.exe`.
+`[verified-numerically 2026-09-09]`
+
+- **`QueryFullProcessImageNameW`, not `GetModuleFileNameEx`** — it needs only
+  `PROCESS_QUERY_LIMITED_INFORMATION`, which a normal user holds for a normal process; the
+  module-based calls need `PROCESS_VM_READ` and simply fail.
+- **The refusal is LOUD.** `need_window()` names every window that matched the title but failed the
+  process check, and its owning process. A silent "not found" reads identically to "the game is not
+  running", and the whole point is that an impostor is visible.
+
+⚠️ **Verified with a DECOY, not by inspection.** `dev-archive/tools/test_find_window_decoy.py`
+creates a real visible window titled exactly `Alice: Madness Returns`, owned by `python.exe`, and
+requires four things — the last three would prove nothing without the first:
+
+1. the owning process is read correctly;
+2. **title-only matching FINDS it** — the 2026-09-09 bug, reproduced on demand;
+3. process-checked matching REFUSES it;
+4. the refusal NAMES the impostor and its process.
+
+**All four pass** `[verified-numerically 2026-09-09]`. The test needs no game.
+
 - Launch to a known scene (commands used): title `Enter` → copyright `Enter` → PROFILE SELECT `Enter`
   (loads the highlighted profile) → main menu `Enter` on CONTINUE GAME → ~30 s load → gameplay
   (Whitechapel). `[verified-live 2026-09-04]` Full route/hazards: `ai-game-control-profiles/profiles/alice-madness-returns.json`.
