@@ -30,6 +30,7 @@ CAMERA CONTROL - FOUR ROUTES, CHEAPEST AND MOST PRECISE FIRST
   bugit                      shorthand for `console BugIt` - prints pose     [route 1]
   bugitgo X Y Z P YA R       set location AND rotation absolutely            [route 1]
   mouse DX DY [steps]        relative mouse move via SendInput               [route 4]
+  click [left|right] [n]     press a mouse BUTTON (Alice's attack is left)
   ballistics                 report/pin the pointer acceleration settings    [route 4 prereq]
 
   The order is not arbitrary. A /gr drop on 2026-09-07 established that the
@@ -333,6 +334,32 @@ def ballistics(pin=False):
         print("  could not pin: %d" % ctypes.get_last_error())
 
 
+MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP   = 0x0002, 0x0004
+MOUSEEVENTF_RIGHTDOWN, MOUSEEVENTF_RIGHTUP = 0x0008, 0x0010
+
+
+def click(button="left", count=1, hold=0.08, gap=0.15):
+    """Press a mouse BUTTON, the way press() does keys.
+
+    Added 2026-09-09. The harness was keyboard-only, which mattered because
+    Alice's attack is LeftMouseButton and the whole "does first person survive
+    combat?" question is unanswerable without it. Same hold/gap discipline as
+    press(): the game samples input per frame, so a click has to be held long
+    enough for one frame to see it down.
+    """
+    down, up = ((MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP) if button == "left"
+                else (MOUSEEVENTF_RIGHTDOWN, MOUSEEVENTF_RIGHTUP))
+    hwnd, _ = need_window()
+    focus(hwnd)
+    for _ in range(count):
+        for flag in (down, up):
+            inp = INPUT(type=INPUT_MOUSE)
+            inp.u.mi = MOUSEINPUT(dx=0, dy=0, mouseData=0, dwFlags=flag,
+                                  time=0, dwExtraInfo=None)
+            user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
+            time.sleep(hold if flag in (down,) else gap)
+
+
 def _send_mouse(dx, dy):
     inp = INPUT(type=INPUT_MOUSE,
                 u=_IU(mi=MOUSEINPUT(int(dx), int(dy), 0, MOUSEEVENTF_MOVE, 0, None)))
@@ -477,6 +504,11 @@ def main():
 
     elif cmd == "ballistics":
         ballistics(pin=(len(sys.argv) > 2 and sys.argv[2] == "pin"))
+
+    elif cmd == "click":
+        n = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+        click(sys.argv[2] if len(sys.argv) > 2 else "left", n)
+        print("clicked %s x%d" % (sys.argv[2] if len(sys.argv) > 2 else "left", n))
 
     elif cmd == "mouse":
         if len(sys.argv) < 4:
