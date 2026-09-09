@@ -1,0 +1,48 @@
+stereo_ue3.c numeric verification (Alice, column-major UE3 layout)
+
+  register layout:
+    column-major register round trip reproduces plain matrix maths
+
+  the 2026-09-09 /pd classifier - WHY a matrix is not the camera's:
+    each REASON a matrix is not the camera's is now a distinct kind;
+    AFFINE-ORTHO cannot separate a canvas from a shadow volume, and
+    check 4 keeps that limit visible rather than implied
+
+  against a true off-axis pair, across PreViewTranslation:
+    54 configurations match the true off-axis pair, at PreViewTranslation
+    up to 250,000 units - the c5 trap does not bite the clip-space form
+
+  the c5 trap and the porting trap:
+    correct ndc.x = +0.355487   row-major port ndc.x = +0.323986
+    row-major port also corrupts clip.w (1388.8748 vs 1656.5835) - it mixes columns
+
+  convergence and parallax:
+    parallax L-R: near(50u) +0.11155   far(3000u) -0.02008
+
+  recovery and guards:
+    p00 recovered; ortho and C<=0 refused; S = 0 is bit-identical
+
+  the /sr one-element lead, settled:
+    S*C == p00*eye_dx; the full shear == one-element + a constant NDC shift of S;
+    and the one-element edit alone reproduces a parallel (on-axis) eye translation
+
+  the 2026-09-08d scale-free diagnostic:
+    |row0.xyz|/|row3.xyz| survives a 380x uniform scale, so the number the
+    next launch logs means p00 whatever units the matrix is in
+
+  the 2026-09-09 correction - which matrix is the camera's:
+    a scaled camera matrix FAILS deliberately - that is the case a scale
+    factor would fix, and it must never be absorbed silently
+    but a tiny-p00 matrix of the right SHAPE is accepted: the classifier
+    narrows the question, the reported p00 RANGE is what settles it
+
+  ... and which p00 the shear actually uses:
+    the shear for a matrix has always come from that matrix's own p00;
+    it is now checked against the shipped code instead of assumed
+
+  the 2026-09-09 camera-yaw instrument:
+    yaw/pitch come straight out of row3.xyz, so nothing is calibrated
+    and no convention is guessed - which is what the screenshot method
+    could not manage on 2026-09-08b
+
+ALL CHECKS PASSED

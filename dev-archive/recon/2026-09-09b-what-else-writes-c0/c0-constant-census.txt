@@ -1,0 +1,74 @@
+========================================================================
+RefShaderCache-PC-D3D-SM3.upk
+  45832 CTAB blocks, 16491 distinct tables
+
+  --- ps_3_0  (43025 shaders) ---
+       28451  UniformPixelVector_0                         c0 x1
+        4319  DecalFarPlaneDistance                        c0 x1
+        3186  TwoSidedSign                                 c0 x1
+        2516  DistanceFadeParameters                       c0 x1
+        1454  UniformPixelVector_1                         c0 x1
+         417  <nothing at c0>                              
+         360  UniformPixelVector_2                         c0 x1
+         340  ScreenDoorFadeSettings                       c0 x1
+         220  UniformPixelScalar_0                         c0 x1
+         153  UniformPixelScalar_1                         c0 x1
+         144  CameraWorldPos                               c0 x1
+         132  UniformPixelVector_4                         c0 x1
+         125  SpotDirection                                c0 x1
+         116  LightMapDensityParameters                    c0 x1
+         106  UniformPixelScalar_3                         c0 x1
+          83  UniformPixelVector_3                         c0 x1
+          69  UniformPixelScalar_5                         c0 x1
+          69  UniformPixelScalar_4                         c0 x1
+          58  OcclusionPercentage                          c0 x1
+          57  IndividualVelocityScale                      c0 x1
+          57  LightColorAndFalloffExponent                 c0 x1
+          55  UniformPixelScalar_2                         c0 x1
+          50  UniformPixelScalar_6                         c0 x1
+          49  UniformPixelVector_7                         c0 x1
+          47  TextureDensityParameters                     c0 x1
+
+  --- vs_3_0  (2807 shaders) ---
+        2431  ViewProjectionMatrix                         c0 x4
+         376  <nothing at c0>                              
+========================================================================
+GlobalShaderCache-PC-D3D-SM3.bin
+  198 CTAB blocks, 150 distinct tables
+
+  --- ps_3_0  (159 shaders) ---
+          36  InvRandomAngleTextureSize                    c0 x1
+          35  <nothing at c0>                              
+          15  ShadowModulateColor                          c0 x1
+          14  ColorScale                                   c0 x1
+           8  PackedParameters                             c0 x1
+           6  TextureComponentReplicateAlpha               c0 x1
+           6  BloomScale                                   c0 x1
+           3  ShadowBufferSizeAndSoftTransitionScale       c0 x1
+           3  AOScreenPositionScaleBias                    c0 x1
+           3  DynamicTonemappingParam                      c0 x1
+           2  CellSize                                     c0 x1
+           2  ShadowFadeFraction                           c0 x1
+           2  FogDistanceScale                             c0 x1
+           2  OcclusionColor                               c0 x1
+           2  RenderTargetClampParameter                   c0 x1
+           2  tor                                          c0 x1
+           1  c_BrushMetrics                               c0 x1
+           1  ConstantColor                                c0 x1
+           1  ForcePosition                                c0 x1
+           1  ProjectionScaleBias                          c0 x1
+           1  SampleWeights                                c0 x1
+           1  CustomParameters                             c0 x1
+           1  g_fExp                                       c0 x1
+           1  CalculateAdaptedParam                        c0 x1
+           1  SampleInitialParam                           c0 x1
+
+  --- vs_3_0  (39 shaders) ---
+          31  <nothing at c0>                              
+           4  ViewProjectionMatrix                         c0 x4
+           2  SceneCoordinateScaleBias                     c0 x1
+           1  SampleOffsets                                c0 x8
+           1  SampleOffsets                                c0 x2
+
+A 4x4 matrix shows as `x4`. Anything marked `x1` is a single vector
+and cannot be the once-per-frame MATRIX the board is asking about.
