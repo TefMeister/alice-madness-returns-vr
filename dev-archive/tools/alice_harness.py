@@ -156,8 +156,63 @@ def _send(scan, ext, up):
         raise OSError("SendInput failed: %d" % ctypes.get_last_error())
 
 
-def find_window():
-    out = []
+PROCESS_NAME = "alicemadnessreturns.exe"
+# Windows that matched the title but failed the process check on the last
+# find_window() call, as (hwnd, title, owning-process) - see need_window().
+LAST_REJECTED = []
+
+
+def window_process_name(hwnd):
+    """The lower-cased exe name that owns `hwnd`, or None.
+
+    QueryFullProcessImageNameW rather than GetModuleFileNameEx: it needs only
+    PROCESS_QUERY_LIMITED_INFORMATION, which a normal user holds for a normal
+    process, where the module-based calls need PROCESS_VM_READ and fail."""
+    k = ctypes.windll.kernel32
+    pid = wt.DWORD(0)
+    user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+    if not pid.value:
+        return None
+    PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
+    h = k.OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, False, pid.value)
+    if not h:
+        return None
+    try:
+        size = wt.DWORD(32768)
+        buf = ctypes.create_unicode_buffer(size.value)
+        if not k.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(size)):
+            return None
+        return buf.value.rsplit("\\", 1)[-1].lower()
+    finally:
+        k.CloseHandle(h)
+
+
+def find_window(require_process=True):
+    """Find the game's window by TITLE **and** by the process that owns it.
+
+    ⚠️ WHY THE PROCESS CHECK EXISTS, and it is not hypothetical: THIS harness is
+    the one it happened to. On 2026-09-09 it returned the user's CHROME TAB,
+    because they had googled Alice's first-person mode and the tab title
+    contained "ALICE" while this function matched TITLE_SUBSTR as a substring of
+    any visible window. The next calls in every session are focus() then press(),
+    so menu keys would have gone into their browser - and the game would simply
+    have read as "ignoring the keyboard", the same silent signature this file
+    already warns about for other causes. It was caught only because the client
+    rect came back at -32000, i.e. a minimised window.
+
+    A title is USER DATA. A browser tab, an editor, a chat window, this session's
+    own terminal can each contain a game's name, so a title match can only ever
+    NARROW the search. The owning process is what VERIFIES it: a window whose
+    process image is AliceMadnessReturns.exe is the game's, whatever its title.
+
+    Ported from doom-2016-vr/dev-archive/tools/doomdrive.py via a /pd tandem
+    inbox drop, 2026-09-09. Keep both checks; neither alone is enough.
+
+    `require_process=False` exists only so the decoy self-test can demonstrate
+    the old title-only behaviour. It is NOT a way to make a failing match pass.
+    """
+    found = []
+    rejected = []
 
     @ctypes.WINFUNCTYPE(wt.BOOL, wt.HWND, wt.LPARAM)
     def cb(hwnd, _):
@@ -169,16 +224,32 @@ def find_window():
             user32.GetWindowTextW(hwnd, b, n + 1)
             t = b.value
             if TITLE_SUBSTR.lower() in t.lower() and "harness" not in t.lower():
-                out.append((hwnd, t))
+                proc = window_process_name(hwnd)
+                if not require_process or proc == PROCESS_NAME:
+                    found.append((hwnd, t))
+                else:
+                    rejected.append((hwnd, t, proc))
         return True
 
     user32.EnumWindows(cb, 0)
-    return out
+    # Record what was refused so need_window() can NAME it. A silent empty list
+    # reads identically to "the game is not running", and the whole point is that
+    # an impostor window is LOUD rather than invisible.
+    global LAST_REJECTED
+    LAST_REJECTED = rejected
+    return found
 
 
 def need_window():
     w = find_window()
     if not w:
+        if LAST_REJECTED:
+            lines = chr(10).join("    %r  owned by %s" % (t, pr or "<unknown>")
+                                 for _, t, pr in LAST_REJECTED)
+            msg = ("NO WINDOW: %d window(s) matched %r but are NOT owned by %s, "
+                   "so they were refused:" % (len(LAST_REJECTED), TITLE_SUBSTR,
+                                              PROCESS_NAME))
+            sys.exit(msg + chr(10) + lines)
         sys.exit("NO WINDOW: nothing visible matching %r - is the game running?" % TITLE_SUBSTR)
     return w[0]
 
