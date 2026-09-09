@@ -35,7 +35,68 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
-### ⭐⭐ THE ONE NUMBER THAT SETTLES IT IS SCALE-FREE, AND IT IS NOW LOGGED (2026-09-08d, `/pd`, no launch)
+### ⭐⭐ CORRECTION 2026-09-09 (`/pd`, no launch) — THE 505.8× SCALE FACTOR IS A PHANTOM: TWO MATRICES SHARE `c0`
+
+Write-up: `modding-notes/2026-09-09-the-505x-scale-factor-is-a-phantom-two-matrices-share-c0.md`.
+Deployed `d3d9.dll` md5 `1d534f20...`, 706,560 B, backup `d3d9.dll.bak-2026-09-09`. **Not run.**
+
+**This supersedes the two sub-sections below it** (the 09-08d reading of the diagnostic, and
+09-08c's "the amplitude is 380× wrong"). Their arithmetic is sound; their premise is not.
+
+`c0..c3` is **not written by the camera alone.** The 2026-09-08 launch logged two real numbers
+twenty seconds apart, from two different matrices:
+
+| where | value | what it is |
+| --- | --- | --- |
+| `VP DIAGNOSTIC (first perspective VP)` | `\|row0.xyz\| = 1.112762`, `\|row3.xyz\| = 1.000000` | the **camera's** matrix — an ordinary 83.9° projection over a rigid view |
+| every periodic report, 24,300 frames | `p00 = 0.0022` | whatever wrote `c0..c3` **last** in the frame |
+
+The 09-08c derivation compared the measured disparity against `0.0022` as if it were the camera's
+projection scale. It never was. **`|row3.xyz| = 1.000000` exactly ⇒ the camera's matrix carries no
+uniform scale ⇒ `convergence` IS in its `clip.w` units and nothing needs multiplying.**
+`[measured 2026-09-08]`
+
+And the shear was never computed from `0.0022` for the camera's matrix: `device.cpp` has recovered
+`p00` from a write and applied the shear **to that same write** since 2026-09-03. That ordering now
+lives in one shipped function, `alice_state_observe_vp()`, and is **tested** — camera → other →
+camera returns the camera's shear both times. `[verified-numerically 2026-09-09]`
+
+**The measurements fit the camera's own `p00` with no scale factor**, all driven through the shipped
+`stereo_ue3.c` (23 checks, 0 failures):
+
+- model slope cap at C=300 is **2.374 px/unit ipd**; measured was **1.7833** — inside range, fitting
+  at **z = 171.3 units**, in front of the convergence plane, which is why the readings were negative;
+- the whole ipd sweep reproduces at that one depth: **−11.59 / −22.29 / −43.69 px** vs measured
+  **12 / 22 / 44**;
+- ⭐ **09-08c's own "the `p00` that would fit is 0.836" is a LOWER BOUND** (it assumes `z ≫ C`), and
+  the camera's measured **1.112762 is 1.33× that minimum**. The requirement was always satisfied —
+  this is the cheapest way to see the error. `[verified-numerically 2026-09-09]`
+
+⚠️ **What is still open.** What the `0.0022` matrix *is* is **not established** — a post-process or
+2D pass is a guess. It matters, because the proxy **shears it too**: any perspective write at `c0`
+gets a shear, and whether that is harmless or a real defect is unknown. `[hypothesis]`
+
+⚠️ **How the diagnostic said the opposite.** It branched on the ratio and printed, for
+`|row3.xyz| = 1.0`, *"the matrix is uniformly scaled by ~1x ... the unit-mismatch hypothesis is
+CONFIRMED"* — a sentence that contradicts itself, since "scaled by ~1×" **is** "not scaled". "Is this
+matrix scaled?" is answered by `|row3.xyz|` **alone**, and the branch now tests that. **The general
+trap:** a diagnostic printing a number *and* its interpretation is far more useful than one printing
+only the number, and far more dangerous — the interpretation gets read and the number does not.
+
+**New instruments (all ungated, so one launch with stereo OFF reads them):**
+
+- `alice_stereo_is_camera_vp()` — `|row3.xyz| == 1` and `row0.xyz ⊥ row3.xyz`. A **uniformly scaled**
+  camera matrix fails deliberately: that is the case a scale factor would genuinely fix, and it must
+  stay visible. ⚠️ **Known limit:** a tiny-`p00` matrix of the right *shape* is a valid narrow-FOV
+  camera and **is accepted**. The classifier narrows; the **range** settles.
+- The **c0 census** in the periodic line: `p00 camera=... last=... range=[min .. max]` plus a count
+  of camera-shaped writes, replacing the single `p00=` field that silently meant "last writer".
+
+### ⚠️ [SUPERSEDED 2026-09-09 — see the correction above] THE ONE NUMBER THAT SETTLES IT IS SCALE-FREE, AND IT IS NOW LOGGED (2026-09-08d, `/pd`, no launch)
+
+> **The scale-free ratio itself is still correct and still logged.** What is superseded is the
+> reading of the result: `|row3.xyz| = 1.0` means the matrix is **not** scaled, so the branch below
+> that concluded "the unit-mismatch hypothesis is confirmed" had it backwards.
 
 Write-up: `modding-notes/2026-09-08d-the-scale-free-p00-and-a-build-that-could-not-be-checked.md`.
 Deployed `d3d9.dll` md5 `37293f99...`, 704,512 B, dated backup kept. **Not run.**
@@ -74,7 +135,11 @@ debug-directory timestamps. **The stamp was honest; only the proof was missing.*
 and reproducibility is verified by the check that could not have passed before - two builds now hash
 identically. ⚠️ **Fifth project found with this defect**; treat it as a default for any new proxy.
 
-### ⭐⭐ disparity(z) DERIVED: the SHAPE is an off-axis frustum, the AMPLITUDE is 380x wrong (2026-09-08c, `/pd`, no launch)
+### ⚠️ [PARTLY SUPERSEDED 2026-09-09] disparity(z) DERIVED: the SHAPE is an off-axis frustum, the AMPLITUDE is 380x wrong (2026-09-08c, `/pd`, no launch)
+
+> **The SHAPE half stands** — `disparity(z) = p00·ipd·W/2·(1/C − 1/z)`, verified to 6e-8 px against
+> the shipped shear, is unaffected. **The AMPLITUDE half is withdrawn:** it compares the measurement
+> against `p00 = 0.0022`, which belongs to a different matrix. See the correction at the top of §6.
 
 Write-up: `modding-notes/2026-09-08c-the-disparity-shape-is-right-and-the-amplitude-is-380x-wrong.md`.
 Tool: `proxy-d3d9/test/disparity_model.c`, which **links the shipped `stereo_ue3.c`** and drives a
