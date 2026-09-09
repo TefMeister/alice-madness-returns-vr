@@ -1,0 +1,7 @@
+camtrace samples: 386
+frame period ms: min=31.3 median=32.3 p90=32.3 max=41.8
+            fps: median=31.0  slowest=23.9
+
+samples where |total| moved >1 deg: 12
+  moves: 2.9, 4.6, 5.3, 6.3, 14.0, 75.1, 77.9, 94.0, 94.2, 168.7, 183.8, 302.2
+  dmax on those samples: min=1.5 median=53.7 max=56.8

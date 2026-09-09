@@ -493,7 +493,31 @@ the accumulation is only trustworthy while this stays well under 180) and `sprea
   This is why 2026-09-08b's screenshot method failed: its 10-to-100-press sweep was 2.6 to 26 full
   revolutions, so there was no return-to-start to find.
 - ⚠️ **Hold duration is NOT a dial:** 20 ms → −5.31°, 40 ms → −168.69°, 80 ms → −94.20°,
-  160 ms → +75.39°. Not monotonic, not proportional. Unexplained. `[measured 2026-09-09, n=1 each]`
+  160 ms → +75.39°. Not monotonic, not proportional. `[measured 2026-09-09, n=1 each]`
+  **✅ EXPLAINED 2026-09-09f (`/pd`, no launch): the durations tested are AT OR BELOW ONE FRAME.**
+  Note: `modding-notes/2026-09-09f-hold-duration-is-erratic-because-it-is-shorter-than-a-frame.md`.
+  - The binding is an **axis**, not a button — `Axis aTurn Speed=±200.0 AbsoluteAxis=100` in
+    `[Engine.PlayerInput]` `[measured 2026-09-09]` — and UE3 applies an axis **once per tick while
+    held**, so the turn is a *sampled* quantity and the sampling rate is the frame rate.
+  - The session's frame period was **median 32.3 ms (31 fps)** `[measured 2026-09-09, n=386
+    camtrace samples]`. So **20 ms is SHORTER THAN ONE FRAME** (0.6 of one), 40 ms is 1.24, 80 ms is
+    2.5, 160 ms is 5.0. A sub-frame press can be pressed and released **between two polls**, and
+    whether one poll or two land inside it depends on a phase nothing controls.
+  - **That also explains the one reliable value:** 80 ms spans ~2.5 frames, so it is always caught
+    by at least two polls and the count can vary by at most one in two-to-three — which is why
+    80 ms alone repeats to 1%.
+  - ⇒ **Duration is the wrong control variable.** Counting **presses at the fixed 80 ms hold** is
+    not a workaround around a mystery; it is the right way to drive a per-tick axis.
+  - ⚠️ **A tidier explanation was DISPROVED by the same log:** angle wrapping. `alice_yaw_delta`
+    wraps into (−180, 180] and the accumulation is only valid below 180°/frame, so a sign flip is
+    exactly what exceeding it looks like. **`dmax` never exceeded 83° in the whole run**, and 56.8°
+    on the samples that moved `[disproved 2026-09-09]`. The unwrapper was never near its limit —
+    and the thing that settled it was `dmax`, printed for precisely this purpose.
+  - ⚠️ **Still not established:** the per-poll turn amount (the log has no key-down timing, so the
+    poll count per press cannot be recovered), and the +75.4° at 160 ms specifically, which five
+    frames of sampling does not obviously explain and which is `n=1`. **The check that would
+    overturn this:** a hold of **≥500 ms** should turn ~15× the per-poll amount with a few-percent
+    spread; if a long hold is *also* erratic, sampling is not the cause.
 - **Pitch is exactly 0.000 in third person** — the follow camera is level, which is why the sign
   convention could not be settled before first person was found.
 
