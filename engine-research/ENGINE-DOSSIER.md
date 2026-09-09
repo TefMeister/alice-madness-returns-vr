@@ -62,14 +62,16 @@ opened `AliceControlLayout.ini`, which is where this game keeps its *action* bin
 | measured in first person | value |
 | --- | --- |
 | hfov | ≈ 65.1° (`p00cam` 1.569685) vs 70.0° third person `[measured 2026-09-09]` |
-| yaw per numpad press | ≈ 2.9° — vs 94° third person `[measured 2026-09-09, n=1 launch]` |
-| pitch per numpad press | ≈ 10–15° `[measured 2026-09-09, n=1 launch]` |
+| yaw per numpad press | roughly 20°, but **not a constant** — −21.13 / −21.16 / +5.78÷2 / −12.44÷4. Still far finer than third person's 94° `[measured 2026-09-09, n=4 bursts]` |
+| pitch per numpad press | moves, and **clamps at about ±90°** (straight up / straight down); the per-press amount is not constant `[measured 2026-09-09, n=4 bursts]` |
 | survives walking | yes, 12 forward taps `[verified-live 2026-09-09, n=1]` |
 | what leaves it | `QuitFPS` is bound alongside attack, weapon switch and most context actions `[inferred-static 2026-09-09]` |
 
-**The camera is finely aimable in first person and is not in third person.** That, and not the FOV,
-is the reason this matters for the VR work: every camera experiment so far has had a 94°-per-press
-control.
+**The camera is far more finely aimable in first person than in third**, and that — not the FOV — is
+why this matters for the VR work: every camera experiment so far has had a 94°-per-press control.
+⚠️ **But the first-person step is not a constant**, so a session that needs a KNOWN angle should
+still drive the third-person camera, whose −94.2° repeats to 1%. Aiming in first person is a
+look-and-adjust loop against the `camtrace` line, not a calculation.
 
 **More of the same vocabulary is in that file and NONE of it has been tried:** `EnterFPS`,
 `QuitFPS`, `ChangeCameraMode`, `ToggleCloseFollowCamera`, `TogglePOI`, `ToggleGhost`,

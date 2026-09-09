@@ -126,9 +126,14 @@ this project has opened several times.
 
 ### What first person is like, measured
 
-- **The camera becomes finely controllable, which it is not in third person.** Yaw about **2.9° per
-  press** against 94° in third person; pitch about **10–15° per press**.
-  `[measured 2026-09-09, n=1 launch]`
+- **The camera moves in much smaller steps than in third person, but the step is NOT a constant.**
+  One press is roughly **20° of yaw** against 94° in third person — so the control is far finer — but
+  repeats of the same burst gave −21.13°, −21.16°, +5.78° (÷2) and −12.44° (÷4).
+  `[measured 2026-09-09, n=4 bursts]` **Pitch moves, and clamps at about ±90°** — straight up and
+  straight down — after which further presses do nothing `[measured 2026-09-09, n=4 bursts]`.
+  ⚠️ The first readings of this session (2.9° yaw, 10–15° pitch) were single samples of a quantity
+  that is not stable, and should not be quoted as rates. **The only per-press figure on this game
+  that repeats is the third-person yaw, −94.2°.**
 - **hfov ≈ 65.1°** (`p00cam` 1.569685) against 70.0° in third person. `[measured 2026-09-09]`
 - **It survives walking.** Twelve forward taps and the view was still first person.
   `[verified-live 2026-09-09, n=1]` What *does* leave it is readable in the same ini: `QuitFPS` is
