@@ -1,0 +1,525 @@
+[19:34:18.874] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=29628 ===
+[19:34:18.877] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73944B20 D3DPERF_SetOptions=7399CDE0
+[19:34:21.795] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=29548 ===
+[19:34:21.798] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73944B20 D3DPERF_SetOptions=7399CDE0
+[19:34:22.758] Direct3DCreate9 called: SDKVersion=0x20
+[19:34:22.881]   -> real returned 090B4598
+[19:34:22.881]   -> wrapped as 08F68340
+[19:34:23.082] Direct3DCreate9 called: SDKVersion=0x20
+[19:34:23.190]   -> real returned 0C22CA48
+[19:34:23.191]   -> wrapped as 0C206DC8
+[19:34:29.186] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[19:34:29.354]   -> wrapped device 1768FC88 (real 1C6DA7C0). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[19:34:29.354] D3DPERF_SetOptions called: dwOptions=0x1
+[19:34:34.500] frame 120 | shaders=6740 (full events=0) vp_writes=0 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=NOT SEEN YET 0.0000 S=0.000000 | wiggle flips=0
+[19:34:54.709] VP DIAGNOSTIC (first perspective VP):
+[19:34:54.709]    row0 = [-0.917089 -0.630229  0.000853  0.000068]   (produces clip.x)
+[19:34:54.709]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[19:34:54.709]    |row0.xyz| = 1.112763   (this is what p00_cached holds)
+[19:34:54.709]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[19:34:54.709]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112763
+[19:34:54.709]    => ORDINARY projection scale (hfov ~ 84 deg). The matrix is uniformly scaled by ~1x, p00_cached is NOT the projection scale, and `convergence` is not in clip.w units. The 09-08c unit-mismatch hypothesis is CONFIRMED and the fix is one scale factor.
+[19:35:01.428] frame 900 | shaders=6740 (full events=0) vp_writes=4618 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:35:30.591] frame 1800 | shaders=6740 (full events=0) vp_writes=24418 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:36:00.247] frame 2700 | shaders=9018 (full events=0) vp_writes=51801 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:36:29.284] frame 3600 | shaders=9018 (full events=0) vp_writes=86919 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:36:58.348] frame 4500 | shaders=9018 (full events=0) vp_writes=122041 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:37:27.397] frame 5400 | shaders=9018 (full events=0) vp_writes=157161 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:37:56.469] frame 6300 | shaders=9018 (full events=0) vp_writes=184654 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:38:25.550] frame 7200 | shaders=9018 (full events=0) vp_writes=205354 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:38:54.585] frame 8100 | shaders=9018 (full events=0) vp_writes=226054 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:39:23.636] frame 9000 | shaders=9018 (full events=0) vp_writes=253182 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:39:52.676] frame 9900 | shaders=9018 (full events=0) vp_writes=283866 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:40:21.722] frame 10800 | shaders=9018 (full events=0) vp_writes=311736 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:40:50.816] frame 11700 | shaders=9033 (full events=0) vp_writes=334751 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:41:19.851] frame 12600 | shaders=9033 (full events=0) vp_writes=354551 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:41:32.776] === alice-madness-returns-vr proxy d3d9.dll unloading ===
+[12:17:16.770] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=2656 ===
+[12:17:16.773] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=71F54B20 D3DPERF_SetOptions=71FACDE0
+[12:17:19.163] Direct3DCreate9 called: SDKVersion=0x20
+[12:17:19.300]   -> real returned 08F38900
+[12:17:19.301]   -> wrapped as 08FB1B00
+[12:17:19.504] Direct3DCreate9 called: SDKVersion=0x20
+[12:17:19.616]   -> real returned 0C1261A8
+[12:17:19.616]   -> wrapped as 08FB18C0
+[12:17:28.713] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[12:17:28.857]   -> wrapped device 176C2158 (real 1C676D40). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[12:17:28.857] D3DPERF_SetOptions called: dwOptions=0x1
+[12:17:34.567] frame 120 | shaders=6740 (full events=0) vp_writes=0 (camera-shaped 0) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=NOT SEEN YET 0.000000 last=0.000000 range=[0.000000 .. 0.000000] | S=0.000000 | wiggle flips=0
+[12:17:54.793] VP DIAGNOSTIC (first perspective VP):
+[12:17:54.793]    row0 = [-0.917088 -0.630228  0.000853  0.000068]   (produces clip.x)
+[12:17:54.793]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[12:17:54.793]    |row0.xyz| = 1.112762   (this is what p00_cached holds)
+[12:17:54.793]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[12:17:54.793]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112762
+[12:17:54.793]    camera-shaped matrix? YES   (|row3.xyz|==1 and row0 perpendicular to row3)
+[12:17:54.793]    => the view part is RIGID and the matrix is NOT scaled, so p00 for THIS matrix really is 1.112762 (hfov ~ 84 deg) and `convergence` IS in clip.w units. NO scale factor is needed. If a periodic report shows a different p00, that is a DIFFERENT matrix arriving at c0 - not this one being mis-read.
+[12:18:01.431] frame 900 | shaders=6740 (full events=0) vp_writes=4574 (camera-shaped 4347) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:18:30.473] frame 1800 | shaders=6740 (full events=0) vp_writes=24374 (camera-shaped 23247) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:18:59.523] frame 2700 | shaders=6740 (full events=0) vp_writes=44174 (camera-shaped 42147) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:21:06.003] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=11252 ===
+[12:21:06.006] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=71F54B20 D3DPERF_SetOptions=71FACDE0
+[12:21:06.914] Direct3DCreate9 called: SDKVersion=0x20
+[12:21:07.037]   -> real returned 08F832F0
+[12:21:07.039]   -> wrapped as 08F89BA0
+[12:21:07.227] Direct3DCreate9 called: SDKVersion=0x20
+[12:21:07.326]   -> real returned 0C114908
+[12:21:07.326]   -> wrapped as 08FF9728
+[12:21:13.107] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[12:21:13.261]   -> wrapped device 1768B1D8 (real 1C697160). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[12:21:13.261] D3DPERF_SetOptions called: dwOptions=0x1
+[12:21:18.379] frame 120 | shaders=6740 (full events=0) vp_writes=0 (camera-shaped 0) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=NOT SEEN YET 0.000000 last=0.000000 range=[0.000000 .. 0.000000] | S=0.000000 | wiggle flips=0
+[12:21:38.536] VP DIAGNOSTIC (first perspective VP):
+[12:21:38.536]    row0 = [-0.917089 -0.630229  0.000853  0.000000]   (produces clip.x)
+[12:21:38.536]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[12:21:38.536]    |row0.xyz| = 1.112762   (this is what p00_cached holds)
+[12:21:38.536]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[12:21:38.536]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112762
+[12:21:38.536]    camera-shaped matrix? YES   (|row3.xyz|==1 and row0 perpendicular to row3)
+[12:21:38.536]    => the view part is RIGID and the matrix is NOT scaled, so p00 for THIS matrix really is 1.112762 (hfov ~ 84 deg) and `convergence` IS in clip.w units. NO scale factor is needed. If a periodic report shows a different p00, that is a DIFFERENT matrix arriving at c0 - not this one being mis-read.
+[12:21:45.361] frame 900 | shaders=6740 (full events=0) vp_writes=4706 (camera-shaped 4473) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:22:14.402] frame 1800 | shaders=6740 (full events=0) vp_writes=24506 (camera-shaped 23373) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:22:44.086] frame 2700 | shaders=9018 (full events=0) vp_writes=38960 (camera-shaped 37170) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:23:13.269] frame 3600 | shaders=9018 (full events=0) vp_writes=72148 (camera-shaped 69514) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:23:42.310] frame 4500 | shaders=9018 (full events=0) vp_writes=107270 (camera-shaped 103736) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:24:11.346] frame 5400 | shaders=9018 (full events=0) vp_writes=142388 (camera-shaped 137954) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:24:40.422] frame 6300 | shaders=9018 (full events=0) vp_writes=177514 (camera-shaped 172180) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:25:09.460] frame 7200 | shaders=9018 (full events=0) vp_writes=212632 (camera-shaped 206398) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:25:38.516] frame 8100 | shaders=9018 (full events=0) vp_writes=247756 (camera-shaped 240622) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:26:07.560] frame 9000 | shaders=9018 (full events=0) vp_writes=282874 (camera-shaped 274840) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:26:36.604] frame 9900 | shaders=9018 (full events=0) vp_writes=317996 (camera-shaped 309062) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:27:05.646] frame 10800 | shaders=9018 (full events=0) vp_writes=353118 (camera-shaped 343284) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:27:34.682] frame 11700 | shaders=9018 (full events=0) vp_writes=388238 (camera-shaped 377504) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:28:03.722] frame 12600 | shaders=9018 (full events=0) vp_writes=423362 (camera-shaped 411728) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:28:32.828] frame 13500 | shaders=9018 (full events=0) vp_writes=458480 (camera-shaped 445946) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:29:01.945] frame 14400 | shaders=9018 (full events=0) vp_writes=493604 (camera-shaped 480170) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:29:30.981] frame 15300 | shaders=9018 (full events=0) vp_writes=528724 (camera-shaped 514390) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:30:00.022] frame 16200 | shaders=9018 (full events=0) vp_writes=563846 (camera-shaped 548612) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:30:29.060] frame 17100 | shaders=9018 (full events=0) vp_writes=598968 (camera-shaped 582834) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:30:58.120] frame 18000 | shaders=9018 (full events=0) vp_writes=634086 (camera-shaped 617052) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:31:27.176] frame 18900 | shaders=9018 (full events=0) vp_writes=669210 (camera-shaped 651276) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:31:56.208] frame 19800 | shaders=9018 (full events=0) vp_writes=704314 (camera-shaped 685480) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:32:25.281] frame 20700 | shaders=9033 (full events=0) vp_writes=731061 (camera-shaped 711387) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:32:54.360] frame 21600 | shaders=9033 (full events=0) vp_writes=750861 (camera-shaped 730287) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:33:02.904] === alice-madness-returns-vr proxy d3d9.dll unloading ===
+[12:33:39.122] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=8068 ===
+[12:33:39.125] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=71F54B20 D3DPERF_SetOptions=71FACDE0
+[12:33:40.001] Direct3DCreate9 called: SDKVersion=0x20
+[12:33:40.122]   -> real returned 08E7D460
+[12:33:40.122]   -> wrapped as 04E215D8
+[12:33:40.306] Direct3DCreate9 called: SDKVersion=0x20
+[12:33:40.419]   -> real returned 0C11BE18
+[12:33:40.420]   -> wrapped as 0C120198
+[12:33:46.004] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[12:33:46.164]   -> wrapped device 176A46B8 (real 1C5B7200). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[12:33:46.164] D3DPERF_SetOptions called: dwOptions=0x1
+[12:33:51.265] frame 120 | shaders=6740 (full events=0) vp_writes=0 (camera-shaped 0) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=NOT SEEN YET 0.000000 last=0.000000 range=[0.000000 .. 0.000000] | S=0.000000 | wiggle flips=0
+[12:34:11.521] VP DIAGNOSTIC (first perspective VP):
+[12:34:11.521]    row0 = [-0.917089 -0.630229  0.000853  0.000000]   (produces clip.x)
+[12:34:11.521]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[12:34:11.521]    |row0.xyz| = 1.112763   (this is what p00_cached holds)
+[12:34:11.521]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[12:34:11.521]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112763
+[12:34:11.521]    camera-shaped matrix? YES   (|row3.xyz|==1 and row0 perpendicular to row3)
+[12:34:11.521]    => the view part is RIGID and the matrix is NOT scaled, so p00 for THIS matrix really is 1.112763 (hfov ~ 84 deg) and `convergence` IS in clip.w units. NO scale factor is needed. If a periodic report shows a different p00, that is a DIFFERENT matrix arriving at c0 - not this one being mis-read.
+[12:34:12.451] camtrace frame=720 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.697225
+[12:34:13.415] camtrace frame=750 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.746454
+[12:34:14.383] camtrace frame=780 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747457
+[12:34:15.351] camtrace frame=810 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:16.319] camtrace frame=840 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:17.286] camtrace frame=870 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:18.254] frame 900 | shaders=6740 (full events=0) vp_writes=4640 (camera-shaped 4410) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:34:18.255] camtrace frame=900 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:19.222] camtrace frame=930 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:20.190] camtrace frame=960 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:21.158] camtrace frame=990 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:22.126] camtrace frame=1020 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:23.094] camtrace frame=1050 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:24.062] camtrace frame=1080 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:25.029] camtrace frame=1110 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:25.997] camtrace frame=1140 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:26.965] camtrace frame=1170 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:27.933] camtrace frame=1200 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:28.901] camtrace frame=1230 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:29.869] camtrace frame=1260 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:30.836] camtrace frame=1290 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:31.804] camtrace frame=1320 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:32.773] camtrace frame=1350 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:33.741] camtrace frame=1380 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:34.708] camtrace frame=1410 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:35.676] camtrace frame=1440 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:36.643] camtrace frame=1470 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:37.612] camtrace frame=1500 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:38.580] camtrace frame=1530 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:39.547] camtrace frame=1560 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:40.515] camtrace frame=1590 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:41.483] camtrace frame=1620 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:42.451] camtrace frame=1650 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:43.419] camtrace frame=1680 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:34:44.430] camtrace frame=1710 yaw=+6.350 pitch=+0.000 spread=0.000 n=0 p00cam=2.747477
+[12:34:45.613] camtrace frame=1740 yaw=+6.350 pitch=+0.000 spread=0.000 n=0 p00cam=2.747477
+[12:34:46.616] camtrace frame=1770 yaw=+6.350 pitch=+0.000 spread=0.000 n=0 p00cam=2.747477
+[12:34:47.613] frame 1800 | shaders=9018 (full events=0) vp_writes=21910 (camera-shaped 20895) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:34:47.613] camtrace frame=1800 yaw=+6.350 pitch=+0.000 spread=0.000 n=0 p00cam=2.747477
+[12:34:48.791] camtrace frame=1830 yaw=+0.000 pitch=+0.000 spread=0.000 n=40 p00cam=1.428148
+[12:34:49.756] camtrace frame=1860 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:50.723] camtrace frame=1890 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:51.692] camtrace frame=1920 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:52.661] camtrace frame=1950 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:53.627] camtrace frame=1980 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:54.595] camtrace frame=2010 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:55.563] camtrace frame=2040 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:56.541] camtrace frame=2070 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:57.509] camtrace frame=2100 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:58.476] camtrace frame=2130 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:34:59.443] camtrace frame=2160 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:00.411] camtrace frame=2190 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:01.379] camtrace frame=2220 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:02.348] camtrace frame=2250 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:03.315] camtrace frame=2280 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:04.283] camtrace frame=2310 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:05.250] camtrace frame=2340 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:06.218] camtrace frame=2370 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:07.187] camtrace frame=2400 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:08.154] camtrace frame=2430 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:09.123] camtrace frame=2460 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:10.090] camtrace frame=2490 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:11.059] camtrace frame=2520 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:12.026] camtrace frame=2550 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:12.994] camtrace frame=2580 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:13.962] camtrace frame=2610 yaw=+0.000 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:35:14.950] camtrace frame=2640 yaw=+2.878 pitch=+0.000 spread=0.000 n=42 p00cam=1.428148
+[12:35:15.934] camtrace frame=2670 yaw=-54.492 pitch=+0.000 spread=0.000 n=167 p00cam=1.428148
+[12:35:16.885] frame 2700 | shaders=9018 (full events=0) vp_writes=58107 (camera-shaped 56197) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:35:16.885] camtrace frame=2700 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:17.854] camtrace frame=2730 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:18.821] camtrace frame=2760 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:19.788] camtrace frame=2790 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:20.757] camtrace frame=2820 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:21.725] camtrace frame=2850 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:22.692] camtrace frame=2880 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:23.661] camtrace frame=2910 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:24.628] camtrace frame=2940 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:25.597] camtrace frame=2970 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:26.566] camtrace frame=3000 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:27.533] camtrace frame=3030 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:28.500] camtrace frame=3060 yaw=+168.267 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:35:29.468] camtrace frame=3090 yaw=+82.661 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:30.435] camtrace frame=3120 yaw=+79.124 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:31.403] camtrace frame=3150 yaw=+79.124 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:32.370] camtrace frame=3180 yaw=+79.124 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:33.338] camtrace frame=3210 yaw=-106.128 pitch=+0.000 spread=0.000 n=22 p00cam=1.428148
+[12:35:34.306] camtrace frame=3240 yaw=-109.248 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:35.275] camtrace frame=3270 yaw=-109.248 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:36.243] camtrace frame=3300 yaw=-109.248 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:37.214] camtrace frame=3330 yaw=+16.238 pitch=+0.000 spread=0.000 n=98 p00cam=1.428148
+[12:35:38.178] camtrace frame=3360 yaw=-110.940 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:39.146] camtrace frame=3390 yaw=-110.940 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:40.113] camtrace frame=3420 yaw=-110.940 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:41.082] camtrace frame=3450 yaw=-110.940 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:42.050] camtrace frame=3480 yaw=-110.940 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:43.017] camtrace frame=3510 yaw=-110.940 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:43.986] camtrace frame=3540 yaw=-110.940 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:44.953] camtrace frame=3570 yaw=-110.940 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:45.929] frame 3600 | shaders=9018 (full events=0) vp_writes=90157 (camera-shaped 87347) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:35:45.929] camtrace frame=3600 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:46.896] camtrace frame=3630 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:47.894] camtrace frame=3660 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:48.861] camtrace frame=3690 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:49.830] camtrace frame=3720 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:50.798] camtrace frame=3750 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:51.765] camtrace frame=3780 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:52.733] camtrace frame=3810 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:53.701] camtrace frame=3840 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:54.668] camtrace frame=3870 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:55.636] camtrace frame=3900 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:56.605] camtrace frame=3930 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:57.573] camtrace frame=3960 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:35:58.540] camtrace frame=3990 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:35:59.508] camtrace frame=4020 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:00.476] camtrace frame=4050 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:01.445] camtrace frame=4080 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:02.411] camtrace frame=4110 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:03.379] camtrace frame=4140 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:04.348] camtrace frame=4170 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:05.315] camtrace frame=4200 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:06.283] camtrace frame=4230 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:07.251] camtrace frame=4260 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:08.220] camtrace frame=4290 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:09.186] camtrace frame=4320 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:10.154] camtrace frame=4350 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:11.122] camtrace frame=4380 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:12.091] camtrace frame=4410 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:13.058] camtrace frame=4440 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:14.026] camtrace frame=4470 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:14.994] frame 4500 | shaders=9018 (full events=0) vp_writes=114127 (camera-shaped 110417) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:36:14.994] camtrace frame=4500 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:15.962] camtrace frame=4530 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:16.930] camtrace frame=4560 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:17.898] camtrace frame=4590 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:18.866] camtrace frame=4620 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:19.833] camtrace frame=4650 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:20.801] camtrace frame=4680 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:21.769] camtrace frame=4710 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:22.738] camtrace frame=4740 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:23.704] camtrace frame=4770 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:24.673] camtrace frame=4800 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:25.641] camtrace frame=4830 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:26.609] camtrace frame=4860 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:27.576] camtrace frame=4890 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:28.544] camtrace frame=4920 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:29.512] camtrace frame=4950 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:30.480] camtrace frame=4980 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:31.449] camtrace frame=5010 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:32.416] camtrace frame=5040 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:33.383] camtrace frame=5070 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:34.364] camtrace frame=5100 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:35.332] camtrace frame=5130 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:36.300] camtrace frame=5160 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:37.269] camtrace frame=5190 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:38.237] camtrace frame=5220 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:39.204] camtrace frame=5250 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:40.172] camtrace frame=5280 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:41.140] camtrace frame=5310 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:42.108] camtrace frame=5340 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:43.076] camtrace frame=5370 yaw=-110.962 pitch=+0.000 spread=0.000 n=26 p00cam=1.428148
+[12:36:44.044] frame 5400 | shaders=9018 (full events=0) vp_writes=138167 (camera-shaped 133557) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:36:44.044] camtrace frame=5400 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:45.011] camtrace frame=5430 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:45.979] camtrace frame=5460 yaw=-110.962 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:36:46.949] camtrace frame=5490 yaw=+161.169 pitch=+0.000 spread=0.000 n=49 p00cam=1.428148
+[12:36:47.916] camtrace frame=5520 yaw=+154.863 pitch=+0.000 spread=0.000 n=49 p00cam=1.428148
+[12:36:48.885] camtrace frame=5550 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:49.852] camtrace frame=5580 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:50.819] camtrace frame=5610 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:51.788] camtrace frame=5640 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:52.755] camtrace frame=5670 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:53.723] camtrace frame=5700 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:54.691] camtrace frame=5730 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:55.659] camtrace frame=5760 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:56.627] camtrace frame=5790 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:57.595] camtrace frame=5820 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:58.563] camtrace frame=5850 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:36:59.530] camtrace frame=5880 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:00.498] camtrace frame=5910 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:01.466] camtrace frame=5940 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:02.433] camtrace frame=5970 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:03.402] camtrace frame=6000 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:04.370] camtrace frame=6030 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:05.337] camtrace frame=6060 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:06.306] camtrace frame=6090 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:07.273] camtrace frame=6120 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:08.242] camtrace frame=6150 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:09.209] camtrace frame=6180 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:10.177] camtrace frame=6210 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:11.147] camtrace frame=6240 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:12.114] camtrace frame=6270 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:13.082] frame 6300 | shaders=9018 (full events=0) vp_writes=179545 (camera-shaped 174035) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:37:13.082] camtrace frame=6300 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:14.050] camtrace frame=6330 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:15.017] camtrace frame=6360 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:15.986] camtrace frame=6390 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:16.953] camtrace frame=6420 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:17.922] camtrace frame=6450 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:18.889] camtrace frame=6480 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:19.857] camtrace frame=6510 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:20.825] camtrace frame=6540 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:21.793] camtrace frame=6570 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:22.760] camtrace frame=6600 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:23.729] camtrace frame=6630 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:24.697] camtrace frame=6660 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:25.664] camtrace frame=6690 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:26.632] camtrace frame=6720 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:27.600] camtrace frame=6750 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:28.568] camtrace frame=6780 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:29.544] camtrace frame=6810 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:30.515] camtrace frame=6840 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:31.480] camtrace frame=6870 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:32.449] camtrace frame=6900 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:33.416] camtrace frame=6930 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:34.384] camtrace frame=6960 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:35.351] camtrace frame=6990 yaw=+154.863 pitch=+0.000 spread=0.000 n=47 p00cam=1.428148
+[12:37:36.320] camtrace frame=7020 yaw=-13.821 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:37.288] camtrace frame=7050 yaw=-13.821 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:38.255] camtrace frame=7080 yaw=-13.821 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:39.223] camtrace frame=7110 yaw=-13.821 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:40.191] camtrace frame=7140 yaw=-13.821 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:41.158] camtrace frame=7170 yaw=-102.480 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:37:42.126] frame 7200 | shaders=9018 (full events=0) vp_writes=220717 (camera-shaped 214307) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:37:42.127] camtrace frame=7200 yaw=-102.986 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:37:43.094] camtrace frame=7230 yaw=-102.986 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:37:44.062] camtrace frame=7260 yaw=-102.986 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:37:45.029] camtrace frame=7290 yaw=-102.986 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:37:45.998] camtrace frame=7320 yaw=-102.986 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:37:46.967] camtrace frame=7350 yaw=+162.817 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:47.934] camtrace frame=7380 yaw=+162.817 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:48.902] camtrace frame=7410 yaw=+162.817 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:49.870] camtrace frame=7440 yaw=+162.817 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:50.837] camtrace frame=7470 yaw=+162.817 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:51.805] camtrace frame=7500 yaw=-3.384 pitch=+0.000 spread=0.000 n=44 p00cam=1.428148
+[12:37:52.773] camtrace frame=7530 yaw=-5.867 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:53.741] camtrace frame=7560 yaw=-5.867 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:54.714] camtrace frame=7590 yaw=-5.867 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:55.700] camtrace frame=7620 yaw=-5.867 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:56.667] camtrace frame=7650 yaw=-5.867 pitch=+0.000 spread=0.000 n=38 p00cam=1.428148
+[12:37:57.635] camtrace frame=7680 yaw=-174.551 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:58.603] camtrace frame=7710 yaw=-174.551 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:37:59.571] camtrace frame=7740 yaw=-174.551 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:00.539] camtrace frame=7770 yaw=-174.551 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:01.507] camtrace frame=7800 yaw=-174.551 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:02.475] camtrace frame=7830 yaw=+96.812 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:38:03.441] camtrace frame=7860 yaw=+96.284 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:38:04.410] camtrace frame=7890 yaw=+96.284 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:38:05.378] camtrace frame=7920 yaw=+96.284 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:38:06.345] camtrace frame=7950 yaw=+96.284 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:38:07.313] camtrace frame=7980 yaw=+96.284 pitch=+0.000 spread=0.000 n=24 p00cam=1.428148
+[12:38:08.281] camtrace frame=8010 yaw=+171.562 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:09.250] camtrace frame=8040 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:10.219] camtrace frame=8070 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:11.185] frame 8100 | shaders=9018 (full events=0) vp_writes=255482 (camera-shaped 248172) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:38:11.185] camtrace frame=8100 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:12.154] camtrace frame=8130 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:13.121] camtrace frame=8160 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:14.089] camtrace frame=8190 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:15.057] camtrace frame=8220 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:16.026] camtrace frame=8250 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:16.993] camtrace frame=8280 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:17.961] camtrace frame=8310 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:18.929] camtrace frame=8340 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:19.896] camtrace frame=8370 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:20.864] camtrace frame=8400 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:21.833] camtrace frame=8430 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:22.800] camtrace frame=8460 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:23.768] camtrace frame=8490 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:24.741] camtrace frame=8520 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:25.704] camtrace frame=8550 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:26.672] camtrace frame=8580 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:27.641] camtrace frame=8610 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:28.607] camtrace frame=8640 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:29.575] camtrace frame=8670 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:30.544] camtrace frame=8700 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:31.512] camtrace frame=8730 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:32.479] camtrace frame=8760 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:33.447] camtrace frame=8790 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:34.415] camtrace frame=8820 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:35.382] camtrace frame=8850 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:36.350] camtrace frame=8880 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:37.318] camtrace frame=8910 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:38.286] camtrace frame=8940 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:39.254] camtrace frame=8970 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:40.223] frame 9000 | shaders=9018 (full events=0) vp_writes=296882 (camera-shaped 288672) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:38:40.223] camtrace frame=9000 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:41.190] camtrace frame=9030 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:42.157] camtrace frame=9060 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:43.125] camtrace frame=9090 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:44.093] camtrace frame=9120 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:45.061] camtrace frame=9150 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:46.029] camtrace frame=9180 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:46.997] camtrace frame=9210 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:47.965] camtrace frame=9240 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:48.933] camtrace frame=9270 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:49.901] camtrace frame=9300 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:50.869] camtrace frame=9330 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:51.836] camtrace frame=9360 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:52.805] camtrace frame=9390 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:53.776] camtrace frame=9420 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:54.745] camtrace frame=9450 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:55.718] camtrace frame=9480 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:56.685] camtrace frame=9510 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:57.653] camtrace frame=9540 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:58.622] camtrace frame=9570 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:38:59.590] camtrace frame=9600 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:00.584] camtrace frame=9630 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:01.538] camtrace frame=9660 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:02.506] camtrace frame=9690 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:03.473] camtrace frame=9720 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:04.441] camtrace frame=9750 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:05.409] camtrace frame=9780 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:06.377] camtrace frame=9810 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:07.360] camtrace frame=9840 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:08.328] camtrace frame=9870 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:09.296] frame 9900 | shaders=9018 (full events=0) vp_writes=338282 (camera-shaped 329172) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.428148 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:39:09.296] camtrace frame=9900 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:10.264] camtrace frame=9930 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:11.229] camtrace frame=9960 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:12.197] camtrace frame=9990 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:13.165] camtrace frame=10020 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:14.134] camtrace frame=10050 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:15.101] camtrace frame=10080 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:16.078] camtrace frame=10110 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:17.047] camtrace frame=10140 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:18.015] camtrace frame=10170 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:18.985] camtrace frame=10200 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:19.951] camtrace frame=10230 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:20.919] camtrace frame=10260 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:21.887] camtrace frame=10290 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:22.853] camtrace frame=10320 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:23.821] camtrace frame=10350 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:24.790] camtrace frame=10380 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:25.758] camtrace frame=10410 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:26.726] camtrace frame=10440 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:27.694] camtrace frame=10470 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:28.661] camtrace frame=10500 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:29.630] camtrace frame=10530 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:30.617] camtrace frame=10560 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:31.572] camtrace frame=10590 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:32.541] camtrace frame=10620 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:33.509] camtrace frame=10650 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:34.477] camtrace frame=10680 yaw=+171.606 pitch=+0.000 spread=0.000 n=45 p00cam=1.428148
+[12:39:35.431] camtrace frame=10710 yaw=+171.606 pitch=+0.000 spread=0.000 n=0 p00cam=1.428148
+[12:39:36.426] camtrace frame=10740 yaw=+171.606 pitch=+0.000 spread=0.000 n=0 p00cam=1.428148
+[12:39:37.431] camtrace frame=10770 yaw=+171.606 pitch=+0.000 spread=0.000 n=0 p00cam=1.428148
+[12:39:38.382] frame 10800 | shaders=9033 (full events=0) vp_writes=375344 (camera-shaped 365403) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747420 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:39:38.382] camtrace frame=10800 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747420
+[12:39:39.369] camtrace frame=10830 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:40.337] camtrace frame=10860 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:41.304] camtrace frame=10890 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:42.272] camtrace frame=10920 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:43.240] camtrace frame=10950 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:44.207] camtrace frame=10980 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:45.175] camtrace frame=11010 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:46.144] camtrace frame=11040 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:47.139] camtrace frame=11070 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:48.104] camtrace frame=11100 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:49.072] camtrace frame=11130 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:50.039] camtrace frame=11160 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:51.008] camtrace frame=11190 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:51.975] camtrace frame=11220 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:52.948] camtrace frame=11250 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:53.916] camtrace frame=11280 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:54.892] camtrace frame=11310 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:55.860] camtrace frame=11340 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:56.828] camtrace frame=11370 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:57.796] camtrace frame=11400 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:58.764] camtrace frame=11430 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:39:59.732] camtrace frame=11460 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:00.700] camtrace frame=11490 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:01.673] camtrace frame=11520 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:02.641] camtrace frame=11550 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:03.609] camtrace frame=11580 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:04.576] camtrace frame=11610 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:05.544] camtrace frame=11640 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:06.512] camtrace frame=11670 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:07.480] frame 11700 | shaders=9033 (full events=0) vp_writes=395144 (camera-shaped 384303) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:40:07.480] camtrace frame=11700 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:08.448] camtrace frame=11730 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:09.436] camtrace frame=11760 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:10.405] camtrace frame=11790 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:11.373] camtrace frame=11820 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:12.340] camtrace frame=11850 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:13.309] camtrace frame=11880 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:14.276] camtrace frame=11910 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:15.243] camtrace frame=11940 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:16.211] camtrace frame=11970 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:17.179] camtrace frame=12000 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:18.162] camtrace frame=12030 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:19.131] camtrace frame=12060 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:20.099] camtrace frame=12090 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:21.066] camtrace frame=12120 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:22.035] camtrace frame=12150 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:23.002] camtrace frame=12180 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:23.970] camtrace frame=12210 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:24.938] camtrace frame=12240 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:25.926] camtrace frame=12270 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:26.894] camtrace frame=12300 yaw=+6.350 pitch=+0.000 spread=0.000 n=21 p00cam=2.747477
+[12:40:28.609] === alice-madness-returns-vr proxy d3d9.dll unloading ===

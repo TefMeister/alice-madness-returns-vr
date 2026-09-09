@@ -1,0 +1,59 @@
+[19:34:18.874] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=29628 ===
+[19:34:18.877] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73944B20 D3DPERF_SetOptions=7399CDE0
+[19:34:21.795] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=29548 ===
+[19:34:21.798] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73944B20 D3DPERF_SetOptions=7399CDE0
+[19:34:22.758] Direct3DCreate9 called: SDKVersion=0x20
+[19:34:22.881]   -> real returned 090B4598
+[19:34:22.881]   -> wrapped as 08F68340
+[19:34:23.082] Direct3DCreate9 called: SDKVersion=0x20
+[19:34:23.190]   -> real returned 0C22CA48
+[19:34:23.191]   -> wrapped as 0C206DC8
+[19:34:29.186] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[19:34:29.354]   -> wrapped device 1768FC88 (real 1C6DA7C0). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[19:34:29.354] D3DPERF_SetOptions called: dwOptions=0x1
+[19:34:34.500] frame 120 | shaders=6740 (full events=0) vp_writes=0 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=NOT SEEN YET 0.0000 S=0.000000 | wiggle flips=0
+[19:34:54.709] VP DIAGNOSTIC (first perspective VP):
+[19:34:54.709]    row0 = [-0.917089 -0.630229  0.000853  0.000068]   (produces clip.x)
+[19:34:54.709]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[19:34:54.709]    |row0.xyz| = 1.112763   (this is what p00_cached holds)
+[19:34:54.709]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[19:34:54.709]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112763
+[19:34:54.709]    => ORDINARY projection scale (hfov ~ 84 deg). The matrix is uniformly scaled by ~1x, p00_cached is NOT the projection scale, and `convergence` is not in clip.w units. The 09-08c unit-mismatch hypothesis is CONFIRMED and the fix is one scale factor.
+[19:35:01.428] frame 900 | shaders=6740 (full events=0) vp_writes=4618 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:35:30.591] frame 1800 | shaders=6740 (full events=0) vp_writes=24418 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:36:00.247] frame 2700 | shaders=9018 (full events=0) vp_writes=51801 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:36:29.284] frame 3600 | shaders=9018 (full events=0) vp_writes=86919 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:36:58.348] frame 4500 | shaders=9018 (full events=0) vp_writes=122041 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:37:27.397] frame 5400 | shaders=9018 (full events=0) vp_writes=157161 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:37:56.469] frame 6300 | shaders=9018 (full events=0) vp_writes=184654 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:38:25.550] frame 7200 | shaders=9018 (full events=0) vp_writes=205354 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:38:54.585] frame 8100 | shaders=9018 (full events=0) vp_writes=226054 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:39:23.636] frame 9000 | shaders=9018 (full events=0) vp_writes=253182 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:39:52.676] frame 9900 | shaders=9018 (full events=0) vp_writes=283866 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:40:21.722] frame 10800 | shaders=9018 (full events=0) vp_writes=311736 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:40:50.816] frame 11700 | shaders=9033 (full events=0) vp_writes=334751 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:41:19.851] frame 12600 | shaders=9033 (full events=0) vp_writes=354551 draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 p00=0.0022 S=0.000000 | wiggle flips=0
+[19:41:32.776] === alice-madness-returns-vr proxy d3d9.dll unloading ===
+[12:17:16.770] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=2656 ===
+[12:17:16.773] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=71F54B20 D3DPERF_SetOptions=71FACDE0
+[12:17:19.163] Direct3DCreate9 called: SDKVersion=0x20
+[12:17:19.300]   -> real returned 08F38900
+[12:17:19.301]   -> wrapped as 08FB1B00
+[12:17:19.504] Direct3DCreate9 called: SDKVersion=0x20
+[12:17:19.616]   -> real returned 0C1261A8
+[12:17:19.616]   -> wrapped as 08FB18C0
+[12:17:28.713] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[12:17:28.857]   -> wrapped device 176C2158 (real 1C676D40). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[12:17:28.857] D3DPERF_SetOptions called: dwOptions=0x1
+[12:17:34.567] frame 120 | shaders=6740 (full events=0) vp_writes=0 (camera-shaped 0) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=NOT SEEN YET 0.000000 last=0.000000 range=[0.000000 .. 0.000000] | S=0.000000 | wiggle flips=0
+[12:17:54.793] VP DIAGNOSTIC (first perspective VP):
+[12:17:54.793]    row0 = [-0.917088 -0.630228  0.000853  0.000068]   (produces clip.x)
+[12:17:54.793]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[12:17:54.793]    |row0.xyz| = 1.112762   (this is what p00_cached holds)
+[12:17:54.793]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[12:17:54.793]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112762
+[12:17:54.793]    camera-shaped matrix? YES   (|row3.xyz|==1 and row0 perpendicular to row3)
+[12:17:54.793]    => the view part is RIGID and the matrix is NOT scaled, so p00 for THIS matrix really is 1.112762 (hfov ~ 84 deg) and `convergence` IS in clip.w units. NO scale factor is needed. If a periodic report shows a different p00, that is a DIFFERENT matrix arriving at c0 - not this one being mis-read.
+[12:18:01.431] frame 900 | shaders=6740 (full events=0) vp_writes=4574 (camera-shaped 4347) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:18:30.473] frame 1800 | shaders=6740 (full events=0) vp_writes=24374 (camera-shaped 23247) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0
+[12:18:59.523] frame 2700 | shaders=6740 (full events=0) vp_writes=44174 (camera-shaped 42147) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=0.002210 range=[0.002210 .. 2.747477] | S=0.000000 | wiggle flips=0

@@ -73,6 +73,13 @@ KEYS = {
     "UP": (0x48, True), "DOWN": (0x50, True), "LEFT": (0x4B, True), "RIGHT": (0x4D, True),
     "W": (0x11, False), "A": (0x1E, False), "S": (0x1F, False), "D": (0x20, False),
     "SPACE": (0x39, False),
+    # T enters this game's BUILT-IN first-person camera (2026-09-09). It is not
+    # a mod and needs no rebind: AliceControlLayout.ini ships
+    #   KeyBindArray1=(Name="T",Command="EnterFPSByRS | OnRelease ToggleCloseFollowCamera")
+    # and the same command sits on the pad's right-stick CLICK, which is why no
+    # keyboard probe had ever found it. Verified live 2026-09-09 (n=1 launch):
+    # one press and Alice leaves the frame.
+    "T": (0x14, False),
     # NUMPAD. These share their scancodes with the arrow/nav cluster and are told
     # apart ONLY by the extended flag being ABSENT - which is the same trap the
     # toolkit records in the other direction (arrows NEED the flag). Sending an
