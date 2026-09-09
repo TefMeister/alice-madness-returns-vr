@@ -393,6 +393,56 @@ look-and-adjust loop against the `camtrace` line, not a calculation.
 `BugItForGameController` is the one to try first — 2026-09-08 settled that the console is not
 exposed in this retail build, and this reaches the same `BugIt` pose dump without one.
 
+### ⭐⭐⭐ THE HEAD OFFSET WAS COMPUTED PERFECTLY AND NEVER SENT (2026-09-09g, `/lm`, one launch)
+
+Write-up: `modding-notes/2026-09-09g-the-head-offset-was-computed-perfectly-and-never-sent.md`.
+Evidence: `dev-archive/recon/2026-09-09g-the-head-offset-was-never-sent/`.
+
+**The device hook writes the four matrix registers into a LOCAL COPY. Nothing
+reaches the game until that copy is uploaded, and the upload was gated on the
+stereo shear being non-zero.** With stereo off — the ordinary state while testing
+anything that is not the stereo itself — the eye offset went into the copy, the
+`applied` counter incremented, and the hook then forwarded the caller's untouched
+matrix. **Fixed 2026-09-09g: upload whenever anything changed; shear only when
+there is a shear.** `[compile-verified 2026-09-09]` — ⚠️ **deployed but NOT yet
+run**; the session ended before the verifying launch.
+
+**⚠️ The signature is actively misleading.** `applied=21779 refused=0` reads as
+*"applied every frame, never refused"*, so it points every investigation at the
+arithmetic. **The counter counts the computation, not the delivery.** Two days of
+"the offset does not reach the screen" trace to this one condition.
+
+**The measurement that separated it** — same scene, same matrix, minutes apart
+`[verified-live 2026-09-09, n=1 launch]`:
+
+| stereo | eye offset moved | picture moves |
+|---|---|---|
+| **OFF** | 40 → 400 units | **0 px**, corr 0.999+ |
+| **ON** | 365 → 255 units (110) | **131 px**, corr 0.44 |
+
+A back-to-back no-input control read `dx=+0 px corr=0.9997`, so the null is real
+and not a blind instrument.
+
+#### ⛔️ This DISPROVES the 2026-09-09f rotation theory
+
+§6 previously held that the matrix we edit might be **a pure rotation, not a
+projection**, since `is_camera_vp` cannot tell them apart. The ratio test built
+to settle it has now run: Wonderland reads **`p00cam=1.000000 p11=1.777778`,
+`ratio=1.7778` against a backbuffer of `1.7778`**. That is a genuine
+90°-horizontal projection — `p00 = 1.0` exactly is what 90° looks like, not what
+a rotation looks like. **`[disproved 2026-09-09]`.** The theory was good and
+measurable, and the field added to test it did its job in one launch.
+
+#### ⚠️ `c4` is translated too, and `pos=` now reports OUR offset
+
+- `CameraPosition` at **vs c4** reads `-0.0,0.0,0.0` across **1,497,799** writes
+  `[measured 2026-09-09]`. It is in the same pre-translated space as the
+  vertices. **`PreViewTranslation` at `c5` is the next register** if the game's
+  own world position is wanted — see the `c5` trap already recorded in §6.
+- **`pos=` is recovered AFTER the offset is written into the matrix**, so with
+  `head=255` it printed `pos=-28.2,253.4,0.7`. It reports what we injected, not
+  where the camera is. Harmless at offset 0; misleading otherwise.
+
 ### ⭐⭐ WHAT ELSE WRITES `c0`? NOTHING *BINDS* IT — AND THE MYSTERY WRITE MAY NOT BE A MATRIX (2026-09-09b, `/pd`, no launch)
 
 Write-up: `modding-notes/2026-09-09b-nothing-else-binds-c0-and-the-mystery-write-may-not-be-a-matrix.md`.
