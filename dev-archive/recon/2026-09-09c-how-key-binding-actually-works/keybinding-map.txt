@@ -1,0 +1,46 @@
+GameConfig_PC.CFG
+  2148 bytes, 66 key-name slots
+AliceInput.ini
+  [Engine.KeyCommands] holds 33 actions -> 2 x 33 = 66 slots expected
+  MATCH - the profile is primary[1..n] then secondary[1..n]
+
+  idx primary           secondary         action                      command
+  1   W                 Up                Key_MoveForward             MoveForward
+  2   S                 Down              Key_MoveBackward            MoveBackward
+  3   A                 None              Key_MoveRight               StrafeLeft
+  4   D                 None              Key_MoveLeft                StrafeRight
+  5   T                 None              Key_AimingMode              EnterFPSByRS
+  6   LeftControl       None              Key_Shrink                  ChangeShrinkingMode | OnRelease UnShrinking
+  7   CapsLock          None              Key_LockOn                  ChangeCameraMode true | OnRelease ChangeCameraMode f
+  8   Tab               None              Key_SwitchLockedTargetLeft  SwitchToLeftLockTarget
+  9   LeftShift         None              Key_Dodge                   TriggerDodge true | OnRelease TriggerDodge false
+  10  Q                 None              Key_Clockbomb               CloneButtonPressed | OnRelease CloneButtonReleased |
+  11  SpaceBar          None              Key_Jump                    Jump | CycleFloatInputA
+  12  LeftMouseButton   None              Key_MeleeAttack             MeleeAttack | OnRelease QuitWeaponAttack
+  13  RightMouseButton  None              Key_RangeAttack             RangeWeaponFirePress | OnRelease RangeWeaponFireRele
+  14  R                 None              Key_ToggleMelee             SwitchMeleeWeapon
+  15  MouseScrollUp     None              Key_SwitchPepperGrinder     SwitchToPG
+  16  MouseScrollDown   None              Key_SwitchTeapot            SwitchToTC
+  17  E                 None              Key_Block                   TriggerBlock
+  18  C                 None              Key_CallCat                 TogglePOI true | OnRelease TogglePOI false | Cheshir
+  19  Escape            None              Key_Menu                    ShowJournalMenu
+  20  None              None              Key_SwitchLockedTargetRight SwitchToRightLockTarget
+  21  None              None              Key_PCAttackType            SwitchPCAttackType
+  22  CapsLock          None              Key_LockOn1                 ChangeCameraMode true | OnRelease ChangeCameraMode f
+  23  None              None              Key_ChangeWeaponGroup       SwitchWeaponGroup
+  24  None              None              Key_VorpalBladeAttack       VorpalBladeFirePress | OnRelease VorpalBladeFirePres
+  25  None              None              Key_PepperGrinderAttack     EyeStaffFirePress | OnRelease EyeStaffFireRelease
+  26  None              None              Key_HobbyHorseAttack        HobbyHorseFirePress | OnRelease HobbyHorseFireReleas
+  27  None              None              Key_ArmTeapotCannonAttack   TeapotCannonFirePress | OnRelease TeapotCannonFirePr
+  28  CapsLock          None              Key_LockOn2                 ChangeCameraMode true | OnRelease ChangeCameraMode f
+  29  None              None              Key_Attack                  WeaponAttack|OnRelease QuitWeaponAttack
+  30  One               None              Key_ArmVorpalBlade          SwitchToVorpalBlade
+  31  Two               None              Key_ArmPepperGrinder        SwitchToEyeStaff
+  32  Three             None              Key_ArmHobbyHorse           SwitchToHobbyHorse
+  33  Four              None              Key_ArmTeapotCannon         SwitchToTeapotCannon
+
+  Actions with NO key at all (8): 20:Key_SwitchLockedTargetRight, 21:Key_PCAttackType, 23:Key_ChangeWeaponGroup, 24:Key_VorpalBladeAttack, 25:Key_PepperGrinderAttack, 26:Key_HobbyHorseAttack, 27:Key_ArmTeapotCannonAttack, 29:Key_Attack
+
+  A command can only be changed in the ini; a KEY lives in the
+  profile above and the slot count is fixed, so a NEW action cannot
+  be added by editing any ini. Repoint an existing one instead.
