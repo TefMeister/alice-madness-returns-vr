@@ -1,4 +1,4 @@
-# 2026-09-09c — first person in combat, and the HUD scene is now reachable
+# 2026-09-09c — the built-in first person is gated by the LEVEL, and the HUD scene is now reachable
 
 **⚠️ THIS IS A RECON DROP, NOT THE WRITE-UP.** A `/pd` held the lane claim on this project
 throughout (`LIVE: /pd 2026-09-09 14:35`), so `ENGINE-DOSSIER.md`, `modding-notes/` and
@@ -12,7 +12,7 @@ throughout.*
 
 ---
 
-## 1. ⭐⭐ FIRST PERSON DID NOT ENGAGE IN COMBAT — four presses, three checkpoints
+## 1. ⭐⭐ FIRST PERSON IS GATED BY THE LEVEL — it is a London-hub feature, not a combat question
 
 `T` never produced first person while an enemy was alive and aggroed. What it produced instead was
 the **close-follow camera** (`04-T-gives-CLOSE-FOLLOW-not-first-person.png`): the camera pulls in
@@ -28,25 +28,46 @@ KeyBindArray1=(Name="T",Command="EnterFPSByRS | OnRelease ToggleCloseFollowCamer
 half still fires — so the key always *does something*, and "it did something" must not be read as
 "first person engaged". `[verified-live 2026-09-09, n=4 presses across 3 checkpoint attempts]`
 
-### ⚠️ THE CONFOUND, AND IT IS NOT RESOLVED
+### ⭐⭐ RESOLVED, AND NOT THE WAY IT LOOKED — IT IS THE LEVEL, NOT COMBAT
 
-**It is NOT established that COMBAT is the blocker.** Every press in this session happened with all
-of the following true at once, and none was ever varied independently:
+The confound was real for an hour: level, enemy, motion and low health all varied together. It was
+then resolved by accident and confirmed deliberately. After the third death the checkpoint left
+Alice **alive, idle, at full stop, with no enemy anywhere in the frame, still in Wonderland** — the
+exact state the test needed.
 
-| | state during every test |
-| --- | --- |
-| level | Wonderland (Whitechapel was where first person worked) |
-| enemy | alive and pursuing, every single time |
-| Alice | moving, fighting, or being hit — never idle |
-| health | low after the first death |
+**`T` was pressed four times in that state. Every one stayed in third person.**
+`[verified-live 2026-09-09, n=4 presses, idle and enemy-free]`
+(`07-T-idle-no-enemy-STILL-third-person.png`)
 
-So "combat blocks it", "this level blocks it", "an aggroed enemy blocks it" and "you must be idle"
-all fit the evidence equally. `[hypothesis]`
+So:
 
-**The user's own description points at the last one** — they said first person is available *"when
-standing still though"*. The one test that would separate these is cheap and was attempted and lost:
-**reach an enemy-free spot in Wonderland, stand completely still, then press `T`.** Alice died before
-that state could be held (see §4).
+| where | state | `T` |
+| --- | --- | --- |
+| Whitechapel (London hub) | idle, no enemies | **first person** ✅ |
+| Wonderland | enemy engaged, moving | third person / close-follow ❌ |
+| Wonderland | **idle, no enemy, full stop** | **third person** ❌ |
+
+**⇒ The blocker is the LEVEL, not combat, not motion, and not an aggroed enemy.** Every one of those
+was eliminated by the last row of that table. `[verified-live 2026-09-09, n=1 level each]`
+
+### ⚠️ WHAT THIS MEANS FOR THE VR ROUTE — it is worse news than "combat blocks it"
+
+The board row asked whether the built-in first-person camera "is the route". On this evidence it is
+**not a way to play the game**: it appears to be a **London-hub sightseeing mode**, available where
+there is nothing to fight and absent in the Wonderland levels that are most of the game. A VR mod
+cannot be built on a camera that switches itself off for the actual gameplay.
+
+⚠️ **NOT established, and each would change the conclusion:**
+
+- **Why.** Per-level flag, gameplay-mode gating, or level scripting — untested. `[hypothesis]`
+- **Whether it is really "London vs Wonderland"** or something narrower. `n=1 level on each side`;
+  Whitechapel is one London area and this is one Wonderland area.
+- **Whether the OTHER London areas allow it**, and whether any Wonderland area does.
+- The `EnterFPS` variant (as against `EnterFPSByRS`) has never been reachable, since added binds are
+  ignored — so it is unknown whether the plain command is gated the same way.
+
+**The cheap next test** is one launch that reaches a second area on each side and presses `T` in
+both — no combat needed, no risk to a save.
 
 ---
 
@@ -99,12 +120,14 @@ third-person camera in general is not.
 
 **Alice died three times, all mine.** Once mashing attack without using the game's lock-on, once
 retreating on `S` while being hit, once standing still on low health to run the idle test. The
-checkpoint reloads cleanly each time and no progress beyond the encounter was lost, but the third
-death cost the one measurement that would have resolved §1's confound.
+checkpoint reloads cleanly each time and no progress beyond the encounter was lost. **The third
+death is what produced the answer**: continuing from it dropped Alice into an idle, enemy-free spot,
+which is the state §1's test had needed all along and could not manufacture.
 
 Not established:
 
-- **Whether combat, the level, motion, or an aggroed enemy is what blocks first person.** §1.
+- **WHY the level gates it** — per-level flag, gameplay-mode gating or level scripting. §1.
+- **Whether the gate is really "London vs Wonderland"**, on `n=1` level each side. §1.
 - **Whether the enemy can be beaten by this harness at all.** Focus (`CapsLock`) + attack + dodge
   (`LeftShift`) was tried for four cycles and lost. A harness that cannot win a basic fight cannot
   reach "after combat" states on its own.
