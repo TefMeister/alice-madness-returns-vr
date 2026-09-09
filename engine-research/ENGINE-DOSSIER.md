@@ -150,7 +150,108 @@ before concluding a feature is absent.**
 > binds nothing at runtime. See §6c. The `T` observation above is unaffected — it was
 > `[verified-live]`; only the explanation of *why* it works was wrong.
 
+## 6f. ⚠️ THE PROXY'S HOTKEYS COLLIDE WITH THE GAME'S OWN F-KEY BINDS (2026-09-09e, `/pd`, no launch)
+
+`AliceInput.ini` → `[Engine.PlayerInput]` binds **F1–F9** to engine commands `[measured 2026-09-09]`.
+The proxy uses **F3–F12**. The overlap is seven keys:
+
+| key | the GAME | the PROXY |
+| --- | --- | --- |
+| F1 | `exec commands` | — |
+| F2 | `viewmode unlit` | — *(free — use it as the probe below)* |
+| F3 | `viewmode lit` | head axis → **now Ctrl+F3** |
+| F4 | **`viewmode shadercomplexity`** | head −5 → **now Ctrl+F4** |
+| F5 | **`quicksave`** | head +5 → **now Ctrl+F5** |
+| **F6** | **`quickload`** | wiggle toggle — ⚠️ **unchanged, see below** |
+| F7 / F8 | postprocess off / on | convergence − / + |
+| F9 | `shot` | stereo toggle |
+| F10–F12 | *nothing* | eye / ipd — **the only clean ones** |
+
+⚠️ **`F5 = quicksave` was pressed eight times on 2026-09-09d** before this was found. **`F4 =
+viewmode shadercomplexity`** would have turned the scene into a heat map, which reads as "the mod
+broke the rendering" rather than "I pressed a debug key".
+
+⚠️ **The one still live: `F6 = quickload`.** The proxy has used F6 for the wiggle toggle since
+2026-09-04. If the game's binds fire, toggling the wiggle **loads the last quicksave** and throws
+away play progress. Left unchanged deliberately — those keys carry live history and moving them
+mid-measurement would invalidate the comparisons in progress — so **know it rather than trip it.**
+
+**The three head keys moved behind Ctrl.** UE3 matches modifier state on a binding (the game's own
+F7/F8 lines say `Control=False` explicitly), so `Ctrl+F4` does not fire `viewmode shadercomplexity`.
+`[inferred-static 2026-09-09]`, not measured.
+
+✅ **This also explains a 2026-09-09d observation left as "cause not established":** *"F4 and F5
+both stepped −5, never +5"*. `pressed()` **consumes the edge**, so the original
+`if (pressed(F4) || pressed(F5))` re-testing `pressed(F5)` inside the body always read false and
+every press stepped down. The direction now comes from `GetAsyncKeyState`. Both fixes are deployed.
+
+⚠️ **Whether the game's `[Engine.PlayerInput]` binds fire at all is `[hypothesis]`** — on Enslaved
+that same section turned out to be gamepad-only with added keyboard binds inert. **One press of
+`F2`, which the proxy does not use, settles it:** the scene turning unlit ⇒ they are live and F6 is
+dangerous; nothing ⇒ inert and the whole table is moot.
+
+## 6e. ⭐⭐ THE CAMERA POSITION IS **UPLOADED**, AND A PURE ROTATION PASSES OUR CAMERA TEST (2026-09-09e, `/pd`, no launch)
+
+Write-up: `modding-notes/2026-09-09e-the-camera-position-is-uploaded-and-a-rotation-passes-the-camera-test.md`.
+
+### ⚠️ §6d's headline claim is NARROWED, not withdrawn
+
+§6d says *"the camera's world position is recoverable from the ViewProjection alone"*. **The
+derivation is sound; the SPACE is not world.** UE3 hands the vertex shader **pre-translated** world
+space — Alice ships `PreViewTranslation` at **vs c5** in **486** of 2,807 vertex shaders
+`[measured 2026-09-09]` — so the VP maps *from* a space whose origin **is the eye**. Recovering ~0
+is the correct answer to the question the algebra actually asks.
+
+That is why the 2026-09-09d launch saw `pos=` sit at 0,0,0 while the player walked. Not a bug in
+the arithmetic; the wrong space.
+
+### ⭐ The real route: `CameraPosition` at vs `c4`, in 1,989 of 2,807 shaders (71%) `[measured 2026-09-09]`
+
+A **read**, not a derivation — the engine uploads it every frame. The proxy now captures it by
+**range containment** (`start <= 4 < start+count`), because the write may arrive alone or inside a
+larger block.
+
+⚠️ **Which space `c4` is in is NOT established** — UE3 uses `CameraPosition` against translated
+positions in several material nodes, so it may be translated too. The log distinguishes them:
+`c4=` tracking the player ⇒ world space, done; `c4=` also near zero ⇒ the world offset lives in
+`PreViewTranslation` at **c5**, which is then the next register to read. `NOT-SEEN` until a write
+covering it arrives, so "no data" never reads as "zero".
+
+### ⭐⭐ `alice_stereo_is_camera_vp()` CANNOT TELL A PROJECTION FROM A ROTATION
+
+It tests `|column_3| == 1` and `column_0 ⊥ column_3`. **Every column of a rotation matrix is unit
+length and mutually perpendicular**, so a plain world-to-view matrix — no projection in it at all —
+passes both. A `p00` of **exactly 1.000000** is what that looks like.
+
+**Wonderland reads `p00 = 1.000000`; Whitechapel reads `1.428148`** `[measured 2026-09-09]`. That
+would explain the whole 2026-09-09d result at once: the offset was applied faithfully
+(`applied=78,358`, `refused=0`) to a matrix the game never draws with.
+
+**The separator costs one division.** For a real projection `column_0 = p00·right` with
+`p00 = 1/(aspect·tan(fovY/2))` and `column_1 = p11·up` with `p11 = 1/tan(fovY/2)`, so **`p11/p00`
+IS the aspect ratio**; a rotation gives **1.0**. At 16:9 those are 1.778 apart.
+
+`camtrace` now prints `p11=`, `ratio=` and the **backbuffer's own aspect**, flagging
+`<-- ASPECT MISMATCH: not the game's projection` beyond 10%.
+
+⚠️ **Compared against the backbuffer, never a constant** — on a square target a genuine projection
+also reads 1.0, and there is a test for that case.
+
+`[verified-numerically 2026-09-09]`, and the load-bearing assertion is the second one: **a pure
+rotation is asserted to PASS `is_camera_vp`**, which is what makes the ratio necessary rather than
+decorative. ⚠️ Mutation-checked: making `recover_p00` read column 1 gives **90 failures**.
+
+⚠️ **NOT established: that Wonderland's matrix IS a rotation.** Best explanation, now measurable.
+`ratio ≈ 1.0` on a 16:9 backbuffer confirms it; `ratio ≈ 1.778` kills it and the reason the offset
+does not reach the screen is something else. **Neither does this explain WHY the two levels differ**
+— that stays open.
+
 ## 6d. ⭐⭐ THE EYE POINT IS IN THE MATRIX — camera position out, head offset in (2026-09-09d, `/pd`, no launch)
+
+> ⚠️ **PARTLY SUPERSEDED by §6e (2026-09-09e).** The eye-point *translation* below is unaffected and
+> still correct. The claim that the recovered position is the camera's **WORLD** position is wrong
+> for UE3: the matrix maps from pre-translated world space, so the recovered eye is ~0 by design.
+> The world position is uploaded separately at **vs c4**. Left unedited; read §6e first.
 
 Write-up: `modding-notes/2026-09-09d-the-eye-point-was-in-the-matrix-all-along.md`.
 Evidence: `dev-archive/recon/2026-09-09d-the-eye-point-is-in-the-matrix/`.

@@ -1,0 +1,71 @@
+========================================================================
+RefShaderCache-PC-D3D-SM3.upk
+  45832 CTAB blocks, 16491 distinct tables
+
+  --- ps_3_0  (43025 shaders) ---
+       14557  UniformPixelVector_1                         c4 x1
+        5080  UniformPixelVector_0                         c4 x1
+        4130  WorldIncidentLighting                        c4 x7
+        4122  ViewProjectionMatrix                         c4 x4
+        2843  LightColorAndFalloffExponent                 c4 x1
+        2348  LightMapScale                                c4 x2
+        1668  ForceTranslucencyParameter                   c4 x1
+        1202  UniformPixelVector_2                         c4 x1
+        1054  UniformPixelScalar_0                         c4 x1
+         895  <nothing at c4>                              
+         867  UpperSkyColor                                c4 x1
+         470  AmbientColorAndSkyFactor                     c4 x1
+         415  UniformPixelVector_3                         c4 x1
+         271  ScreenDoorFadeSettings2                      c4 x1
+         247  TextureLookupInfo                            c4 x16
+         213  LightMapScale                                c4 x1
+         185  AttenAllowed                                 c4 x1
+         152  LightMapDensityParameters                    c4 x1
+         125  SpotAngles                                   c4 x1
+         124  UniformPixelScalar_1                         c4 x1
+         124  WorldToViewMatrix                            c4 x3
+         116  LightMapResolutionScale                      c4 x1
+         114  UniformPixelScalar_2                         c4 x1
+         114  UniformPixelScalar_4                         c4 x1
+         112  UniformPixelScalar_3                         c4 x1
+
+  --- vs_3_0  (2807 shaders) ---
+        1989  CameraPosition                               c4 x1
+         818  <nothing at c4>                              
+========================================================================
+GlobalShaderCache-PC-D3D-SM3.bin
+  198 CTAB blocks, 150 distinct tables
+
+  --- ps_3_0  (159 shaders) ---
+          36  <nothing at c4>                              
+          22  ScreenToShadowMatrix                         c4 x4
+          13  ColorBias                                    c4 x1
+          12  RefiningSampleOffsets                        c4 x6
+           8  SampleOffsets                                c4 x8
+           6  ScreenToWorld                                c4 x4
+           4  StepOffsetsOpaque                            c4 x5
+           4  MinMaxBlurClamp                              c4 x1
+           4  ScreenToWorldMatrix                          c4 x4
+           4  RefiningSampleOffsets                        c4 x16
+           4  RefiningSampleOffsets                        c4 x12
+           3  Gamma                                        c4 x1
+           3  g_avSampleOffsets                            c4 x8
+           2  ColorMask                                    c4 x1
+           2  PackedParameters                             c4 x1
+           1  c_WorldToBrushMatrix                         c4 x4
+           1  HeightScale                                  c4 x1
+           1  DampFactor                                   c4 x1
+           1  ForceRadius                                  c4 x1
+           1  SourceTexelOffsets01                         c4 x1
+           1  OverlayColor                                 c4 x1
+           1  SampleWeights                                c4 x16
+           1  SampleWeights                                c4 x15
+           1  SampleWeights                                c4 x14
+           1  SampleWeights                                c4 x13
+
+  --- vs_3_0  (39 shaders) ---
+          37  <nothing at c4>                              
+           2  CameraPosition                               c4 x1
+
+A 4x4 matrix shows as `x4`. Anything marked `x1` is a single vector
+and cannot be the once-per-frame MATRIX the board is asking about.
