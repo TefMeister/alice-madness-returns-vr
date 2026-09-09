@@ -38,11 +38,18 @@ and `convergence` were in different units. `[disproved 2026-09-09]`
 
 ## Why the model was never using 0.0022 for the camera anyway
 
-`device.cpp` has, since the first version on 2026-09-03, recovered `p00` from a write and applied
-the shear **to that same write**, in that order. A previous write cannot contaminate it. That was
-readable in the source but only assertable, so the sequence is now one shipped function,
-`alice_state_observe_vp()`, and the ordering is **tested**: camera → other → camera returns the
-camera's shear both times. `[verified-numerically 2026-09-09]`
+`device.cpp` recovers `p00` from a write and applies the shear **to that same write**, in that
+order. A previous write cannot contaminate it. That was readable in the source but only assertable,
+so the sequence is now one shipped function, `alice_state_observe_vp()`, and the ordering is
+**tested**: camera → other → camera returns the camera's shear both times.
+`[verified-numerically 2026-09-09]`
+
+**And it has been that way since the first version.** This matters, because if the old code had used
+a *stale* `p00` the 380× gap could have been real for the measurements it was derived from. Commit
+`6f16757` (2026-09-03), the original interception, has the same two lines in the same order —
+`recover_p00` → cache → `alice_state_shear` — and the only change since (`06ed7f1`, 2026-09-04) was
+ungating the recovery from `g_st.enabled`, which moved nothing. `[inferred-static 2026-09-09]` — it
+is a read of our own git history, not a live measurement.
 
 So the scene geometry was always sheared with `p00 ≈ 1.11`. The gap was in the analysis, not in the
 renderer.

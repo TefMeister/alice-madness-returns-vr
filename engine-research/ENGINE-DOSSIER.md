@@ -56,10 +56,13 @@ projection scale. It never was. **`|row3.xyz| = 1.000000` exactly ⇒ the camera
 uniform scale ⇒ `convergence` IS in its `clip.w` units and nothing needs multiplying.**
 `[measured 2026-09-08]`
 
-And the shear was never computed from `0.0022` for the camera's matrix: `device.cpp` has recovered
-`p00` from a write and applied the shear **to that same write** since 2026-09-03. That ordering now
-lives in one shipped function, `alice_state_observe_vp()`, and is **tested** — camera → other →
-camera returns the camera's shear both times. `[verified-numerically 2026-09-09]`
+And the shear was never computed from `0.0022` for the camera's matrix: `device.cpp` recovers
+`p00` from a write and applies the shear **to that same write**. That ordering now lives in one
+shipped function, `alice_state_observe_vp()`, and is **tested** — camera → other → camera returns
+the camera's shear both times. `[verified-numerically 2026-09-09]` It has been that way since the
+original interception (`6f16757`, 2026-09-03; the only later change ungated the recovery from
+`g_st.enabled`), which is what stops the 380× gap from having been real for the older measurements.
+`[inferred-static 2026-09-09]`
 
 **The measurements fit the camera's own `p00` with no scale factor**, all driven through the shipped
 `stereo_ue3.c` (23 checks, 0 failures):
