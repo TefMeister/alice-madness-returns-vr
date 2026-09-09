@@ -86,7 +86,41 @@ and harder than it looked, because it wanted `BugIt`, which §9 now shows cannot
 rebinding.
 
 
-### ⭐⭐ THE GAME SHIPS A FIRST-PERSON CAMERA, AND IT IS ALREADY ON THE `T` KEY (2026-09-09, `/lm`, live)
+### ⛔️ CORRECTED 2026-09-09c (live) — THE BUILT-IN FIRST PERSON IS GATED BY THE **LEVEL**, AND IS NOT THE VR ROUTE
+
+Write-up: `modding-notes/2026-09-09c-the-built-in-first-person-is-gated-by-the-level.md`.
+**This supersedes the "what first person is like" table in the sub-section below** — everything
+measured there is still correct **for Whitechapel**, and does not generalise.
+
+| where | state | `T` |
+| --- | --- | --- |
+| Whitechapel (London hub) | idle, no enemies | **first person** ✅ |
+| Wonderland | enemy engaged, moving | third person ❌ |
+| Wonderland | **idle, no enemy, full stop** | **third person** ❌ |
+
+`[verified-live 2026-09-09, n=4 presses in the idle enemy-free state]` The last row eliminates
+combat, motion and an aggroed enemy in one measurement. **The gate is the level.**
+
+⇒ It is a **London-hub look-around mode**, absent from the Wonderland levels that are most of the
+game. **A VR mod cannot be built on it.** First person for this project has to be built from the
+matrices we already control, which is what the North Star always assumed.
+
+⚠️ `n=1` level each side. **NOT established:** why, and whether the split is really "London vs
+Wonderland". One launch touching a second area on each side would settle it.
+
+⚠️ **`T` fires TWO actions** — `EnterFPSByRS | OnRelease ToggleCloseFollowCamera`. When first person
+is refused the close-follow half still fires and the camera visibly pulls in, so **"the key did
+something" is not "first person engaged"**. That is how it was nearly misread.
+
+⚠️ **`p00cam` IS NOT A GENERAL FIRST/THIRD-PERSON DETECTOR** — retracting the claim in the
+sub-section below. Whitechapel third person 1.428148, first person 1.569685, **Wonderland third
+person 1.010590** (hfov 89.4°). The field of view is scene-dependent, so those thresholds hold only
+within one scene. Judge by eye: is Alice in the frame. `[measured 2026-09-09]`
+
+⚠️ **And third-person pitch is NOT always 0** — it read **−8.59°** in Wonderland. The Whitechapel
+follow camera happens to be level; the camera in general is not. `[measured 2026-09-09]`
+
+### ⚠️ [PARTLY SUPERSEDED 2026-09-09c — Whitechapel only] THE GAME SHIPS A FIRST-PERSON CAMERA, AND IT IS ALREADY ON THE `T` KEY (2026-09-09, `/lm`, live)
 
 Write-up: `modding-notes/2026-09-09-the-c0-census-answers-itself-and-alice-ships-a-first-person-camera.md` §3.
 Evidence: `dev-archive/recon/2026-09-09-c0-census-camera-yaw-and-the-built-in-first-person-camera/`.
