@@ -35,6 +35,65 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐⭐ BUILT 2026-09-10c (`/pd`, no launch) — HEAD TRACKING IS WIRED IN, AND IT NEEDED NO NEW KEYS
+
+The proxy reads the HMD's position from SteamVR and writes it into `g_headR/U/F` each `Present`
+— the same three numbers verified to move the rendered camera below. Build `ad093b5cc177`,
+723,968 B, deployed, backup `d3d9.dll.bak-2026-09-10c-pre-tracker` `[compile-verified 2026-09-10]`.
+**Nothing has been run against a headset.** Detail: `modding-notes/2026-09-10c-head-tracking-is-wired-in.md`.
+
+**A pose reader, not a VR bridge.** `far-cry-2-vr`'s `vr_bridge.c` supplied the OpenVR plumbing
+(exports to resolve, where `openvr_api.dll` lives, the `FnTable:` string, the matrix layout) but
+was not ported wholesale. Two differences, both deliberate `[inferred-static 2026-09-10]`:
+
+- **`VRApplication_Background`, not `_Scene`.** Background takes no scene ownership and will not
+  launch SteamVR; it fails cleanly with `Init_NoServerForBackgroundApp` when the runtime is not
+  already up — the right behaviour on a dev PC with no headset.
+- **`IVRSystem::GetDeviceToAbsoluteTrackingPose`, not `IVRCompositor::WaitGetPoses`.**
+  `WaitGetPoses` **blocks** to pace the caller to the HMD and is only legitimate for the scene
+  application; from Alice's `Present` it would throttle the game to headset cadence for no
+  benefit, because Alice submits no frames.
+
+Alice needs none of the bridge's D3D11 device, backbuffer readback or compositor submission, so
+none was taken: 250 lines against 421, no D3D11 dependency. **Nothing links against OpenVR** —
+`openvr_capi.h` is header-only and the runtime DLL is `LoadLibrary`'d, so the proxy's imports are
+still system-only, `ADVAPI32` aside (the registry read that locates SteamVR).
+
+**⭐ THE KEYPAD PROBLEM DISSOLVED.** The row asked for a re-centre key and the keypad is full.
+It did not need one: **once the head drives the offset, picking an axis by hand and stepping it
+by hand are both meaningless**, so those three keys change meaning while a tracker is live and
+nothing is displaced.
+
+| key | no tracker | tracker live |
+| --- | --- | --- |
+| NumPad5 | cycle axis right/up/forward | **re-centre** |
+| NumPad+ | step axis by +5 | **scale ×1.25** |
+| NumPad− | step axis by −5 | **scale ×0.8** |
+
+**⭐⭐ THE HANDEDNESS TRAP IS DESIGNED OUT, NOT NAVIGATED.** Crossing OpenVR's right-handed Y-up
+−Z-forward space into UE3's by permuting and negating components is three independent sign
+decisions, each invisible until someone wears the headset. Instead, re-centre stores the head's
+position **and the basis it was facing**, and each frame projects the world delta onto it:
+`right = dot(d, origin.right)`, `up = dot(d, origin.up)`, `forward = −dot(d, origin.back)`, times
+the scale. A dot product of two vectors in one consistent space is a plain number, so the outputs
+are handedness-free by construction and **exactly one sign is chosen by hand, `forward = −back`**.
+**33 numeric checks, 0 failures**, linking the shipped `vr_pose.c` rather than a transcription —
+covering the column-vs-row matrix layout with an asymmetric matrix, both signs of forward, and a
+re-centre taken at 90° to the world axes `[verified-numerically 2026-09-10, n=33]`.
+
+**⚠️ THE UNIT SCALE IS A GUESS.** `50.0` game units per metre is `[hypothesis]`: UE3's usual
+1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
+the third-person boom (4 m, an ordinary boom). **`DefaultGravityZ=-750.0` does NOT settle it** —
+gravity conflates unit scale with jump feel; at 2 cm/unit it is 15 m/s², normal platformer
+over-gravity, while a real-gravity calibration would give 76 units/m. Both fit `[measured
+2026-09-10, not decisive]`. **To measure it:** enter first person (`T`) and step the head offset
+down on the UP axis until the view reaches floor level; that N is eye height in game units, so
+units-per-metre = N ÷ 1.6.
+
+**⚠️ This is POSITION only.** The player's head *turns* will not move the view, only their
+leaning will. That is the next increment, not a defect, and it is why orientation is the row
+that follows.
+
 ### ⭐⭐⭐ VERIFIED 2026-09-10 (`/lm`, two launches) — THE HEAD OFFSET MOVES THE CAMERA ON ALL THREE AXES, AND `c5` WAS NEVER A SUSPECT
 
 The 2026-09-09g send fix (upload whenever anything changed, shear only when there is a
