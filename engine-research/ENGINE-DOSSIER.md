@@ -224,6 +224,61 @@ before concluding a feature is absent.**
 
 ## 6f. ⚠️ THE PROXY'S HOTKEYS COLLIDE WITH THE GAME'S OWN F-KEY BINDS (2026-09-09e, `/pd`, no launch)
 
+### ✅ RESOLVED 2026-09-10 (`/pd`, no launch) — THE PROXY NO LONGER POLLS A SINGLE F-KEY
+
+Every stereo hotkey moved to the numpad; `VK_F6`…`VK_F12` appear nowhere in the built DLL
+(`ade1d41d34b7`, 718,848 B, deployed, backup `d3d9.dll.bak-2026-09-10b-pre-numpad`)
+`[compile-verified 2026-09-10]`. The collision table below is kept because it is still the record
+of *why*, and because the game's own F-key binds are unchanged — it is our side that moved.
+
+**The keypad is genuinely free on this game, and that was checked rather than assumed**
+`[measured 2026-09-10]`:
+
+- **`AliceControlLayout.ini` names no numpad key at all.** Its entire key set is `C, CapsLock, E,
+  Enter, Escape, Four, L, LeftControl, LeftMouseButton, LeftShift, MouseScrollDown, MouseScrollUp,
+  One, Q, R, RightMouseButton, SpaceBar, T, Tab, Three, Two, U`.
+- **The only numpad `Bindings=` rows in `AliceInput.ini` are the six camera axes we added
+  ourselves** on 2026-09-08 (NumPad 2/4/6/7/8/9).
+
+| function | was | now |
+| --- | --- | --- |
+| stereo ON/OFF | F9 | **NumPad0** |
+| eye mode — LEFT → RIGHT → WIGGLE | F10 + F6 | **NumPad1** |
+| ipd − / + | F11 / F12 | **NumPad/ · NumPad\*** |
+| convergence − / + | F7 / F8 | **NumPad3 · NumPad.** |
+| head offset axis / step | (unchanged) | NumPad5 · NumPad− · NumPad+ |
+
+**Two keys became one, and that removed a wart rather than a feature.** Eye-swap used to be
+*refused* whenever the wiggle was on, because the wiggle owns the eye. A single three-state cycle
+has no state in which a press does nothing.
+
+**⚠️ Ctrl is NOT available as a modifier on this game, and the earlier plan to use it was wrong.**
+`AliceControlLayout.ini` ships `KeyBindArray1=(Name="LeftControl",Command="ChangeShrinkingMode |
+OnRelease UnShrinking")`, so holding Ctrl is a gameplay action — it makes Alice shrink
+`[measured 2026-09-10]`. The `ctrlPressed()` helper written on 2026-09-09 was already dead code by
+then; it has been deleted along with the reasoning that would have brought it back.
+
+**⚠️ NUMLOCK NOW GATES FOUR OF THE HOTKEYS, AND THE FAILURE IS SILENT.** `GetAsyncKeyState` reads
+*virtual* keys, and with NumLock OFF the numpad digits deliver the navigation VKs instead —
+NumPad0→`VK_INSERT`, NumPad1→`VK_END`, NumPad3→`VK_NEXT`, NumPad.→`VK_DELETE` — so stereo, eye mode
+and convergence-down go quiet with no error, reading exactly like "this build ignores the keyboard"
+`[inferred-static 2026-09-10]`. `VK_DIVIDE`, `VK_MULTIPLY`, `VK_ADD` and `VK_SUBTRACT` are
+NumLock-independent, so ipd and the head offset keep working — which would make a partial failure
+look like a *selective* one. The proxy therefore prints NumLock state in its startup banner, with a
+loud warning when it is off. Deliberately **not** aliased to the navigation VKs: that would give the
+grey Insert/End/PageDown/Delete keys a second way to fire them.
+
+**⚠️ One overlap survives, and it is menu-only.** `AliceInput.ini` maps `Add`/`Subtract` to the
+`UISlider` Increment/DecrementSliderValue aliases and to the `ShiftUp`/`ShiftDown` button prompts,
+so stepping the head offset while a settings screen is open also drags whatever slider has focus
+`[measured 2026-09-10]`. Harmless in gameplay, which is the only place the offset is used.
+
+**⚠️ Numpad `/` is an EXTENDED scancode** (`E0 35`); bare `0x35` is the main-row slash key. This is
+the mirror of the trap already recorded for the numpad digits, which need the flag *absent*. The
+harness key is `NPDIV` and it is the only one of the six with `ext=True`.
+
+---
+
 `AliceInput.ini` → `[Engine.PlayerInput]` binds **F1–F9** to engine commands `[measured 2026-09-09]`.
 The proxy uses **F3–F12**. The overlap is seven keys:
 

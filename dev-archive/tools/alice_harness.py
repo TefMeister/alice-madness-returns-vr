@@ -92,6 +92,21 @@ KEYS = {
     # make 0x4A/0x4E something else entirely.
     "NP5": (0x4C, False), "NPSUB": (0x4A, False), "NPADD": (0x4E, False),
     "NP9": (0x49, False), "NP8": (0x48, False), "NP2": (0x50, False),
+    # The STEREO hotkeys, moved off the F-keys onto the numpad 2026-09-10.
+    # These six were the only keys left that nothing binds: the game names no
+    # numpad key anywhere (AliceControlLayout.ini has none at all, and the only
+    # numpad rows in AliceInput.ini are the six camera axes we added ourselves).
+    #   NP0 stereo on/off   NP1 eye mode (left/right/wiggle)
+    #   NPDIV / NPMUL ipd -/+          NP3 / NPDEC convergence -/+
+    # !! NPDIV IS EXTENDED and the other five are not. Numpad "/" is E0 35;
+    # bare 0x35 is the main-row slash key. Getting it wrong is silent, exactly
+    # like the numpad-vs-arrow trap above, only in the other direction.
+    # !! NumLock must be ON for NP0/NP1/NP3/NPDEC to reach the proxy at all -
+    # with it off those four deliver Insert/End/PageDown/Delete and the proxy
+    # never sees them. NPDIV/NPMUL/NPADD/NPSUB are NumLock-independent. The
+    # proxy reports NumLock state in its startup banner for exactly this reason.
+    "NP0": (0x52, False), "NP1": (0x4F, False), "NP3": (0x51, False),
+    "NPDEC": (0x53, False), "NPMUL": (0x37, False), "NPDIV": (0x35, True),
     "F1": (0x3B, False), "F2": (0x3C, False), "F3": (0x3D, False),
     "F4": (0x3E, False), "F5": (0x3F, False),
     "F6": (0x40, False), "F7": (0x41, False), "F8": (0x42, False),
