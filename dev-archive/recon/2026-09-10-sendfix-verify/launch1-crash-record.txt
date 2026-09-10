@@ -1,0 +1,4 @@
+Launch 1, 2026-09-10 16:27-16:29: crashed during the CONTINUE GAME level load.
+Faulting module AliceMadnessReturns.exe (not d3d9.dll), c0000005, fault offset 0x00be0f63.
+Previous occurrence 2026-09-09: offset 0x00067d48. Different offset, same phase (level load).
+Proxy log: last camtrace frame 2790 at 16:29:30, no error lines from the proxy, head=0 applied=0.
