@@ -35,6 +35,53 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐⭐ BUILT 2026-09-10d (`/pd`, no launch) — THE CAMERA NOW TURNS WITH THE HEAD, AND THE DEPTH COLUMN IS WHY IT PRE-MULTIPLIES
+
+Build `648a44e15b47`, 727,040 B, deployed, backup `d3d9.dll.bak-2026-09-10d-pre-headrot`
+`[compile-verified 2026-09-10]`. Suite: **63 checks, 0 failures**
+`[verified-numerically 2026-09-10, n=63]`. **Nothing has been run against a headset.**
+Detail: `modding-notes/2026-09-10d-head-rotation-and-the-handedness-that-never-bit.md`.
+
+**⭐ THE PREDICTED HANDEDNESS ERROR DOES NOT EXIST.** The 2026-09-10c row warned that "unlike the
+offset, a rotation cannot be reduced to dot products". **It can.** Build both orthonormal triples
+with `forward = −back` — the one stored at re-centre and the one the head has now — and take the
+nine pairwise dot products, `L[i][j] = A_i · A′_j`; column *j* is *where axis j went*, expressed
+in the origin's own axes, which is what a rotation in that frame is. Nothing is permuted or
+negated beyond the single documented `forward = −back`, no coordinate handedness is named, and
+`det(L) = +1` falls out rather than being imposed — each triple has determinant −1 against
+OpenVR's right-handed axes and the two signs cancel `[verified-numerically 2026-09-10]`.
+**Generalises:** when a conversion between two conventions looks like it needs sign decisions,
+check whether it can be written as projections onto a basis you already hold.
+
+**⚠️ THE REAL TRAP IS THE DEPTH COLUMN, AND IT IS WHY THIS PRE-MULTIPLIES.** Decompose, rotate the
+basis, write the columns back — the obvious approach — would break here. The VP's columns are
+`p00·right`, `p11·up`, **(column 2)**, `forward`, and **column 2 has never been inspected by any
+code in this project**; the VP diagnostic prints only rows 0 and 3 `[measured 2026-09-10]`.
+Rebuilding three columns and leaving the fourth would compute `clip.x`/`clip.y` from the new
+facing while `clip.z` kept the old one — the picture turns, the depth does not, and it reads as
+z-fighting and wrong occlusion rather than as a rotation bug. Rotating the **world about the eye**
+needs to know nothing about any column, because the matrix product carries all four through
+consistently. It is the eye offset's own trick (translating the eye by *d* = translating the world
+by −*d*) generalised from a translation to a rotation. Two checks pin it: after a 25° turn the
+depth column is still exactly parallel to forward, and its length ratio is unchanged. Both fail
+under decompose-and-rebuild.
+
+**What the checks pin**, linking the shipped `stereo_ue3.c` and `vr_pose.c`: identity changes the
+matrix **bit for bit nothing**; `p00` and `p11` unchanged (the projection is untouched); the eye
+does not move; the matrix still passes `is_camera_vp`, so the shear afterwards still sees what it
+expects; and a 25° head turn left turns the camera 25° left, with forward moving toward −right.
+
+**⚠️ ORDER: offset first, rotation second.** The tracker reports head *position* in the frame the
+player faced at re-centre, not the one they face now, so the offset belongs in the unrotated
+basis and the rotation then turns the view about the eye it just placed. The other order steers
+the positional offset with the player's head. Both still land **before** the shear, which destroys
+the orthonormal basis they both need.
+
+**⚠️ Position and rotation cannot be switched independently** — they engage together the moment a
+tracker is live. The camtrace line distinguishes them (`headrot=on|identity` with its own
+applied/refused counters beside the offset's), but there is no key: the keypad is full and a chord
+was judged worse than the log.
+
 ### ⭐⭐⭐ BUILT 2026-09-10c (`/pd`, no launch) — HEAD TRACKING IS WIRED IN, AND IT NEEDED NO NEW KEYS
 
 The proxy reads the HMD's position from SteamVR and writes it into `g_headR/U/F` each `Present`
