@@ -35,6 +35,78 @@
 
 ## 6. Camera & projection delivery (the crucial section)
 
+### ⭐⭐⭐ VERIFIED 2026-09-10 (`/lm`, two launches) — THE HEAD OFFSET MOVES THE CAMERA ON ALL THREE AXES, AND `c5` WAS NEVER A SUSPECT
+
+The 2026-09-09g send fix (upload whenever anything changed, shear only when there is a
+shear) is confirmed live. Build `7a9dd234e9bc`, rebuilt from `staging/` at session start and
+hash-identical to the install. Same Wonderland scene, third person, stereo OFF, BitBlt captures,
+no-input control first. `[verified-live 2026-09-10, n=2 launches for the right axis, n=1 up/forward]`
+
+| step | offset | picture |
+|---|---|---|
+| no-input control | 0 | 0 px, corr 0.9995 |
+| right = 100 | NumPad+ ×20 | **−62 px** (both launches, corr 0.76 / 0.73) |
+| back to 0 | NumPad− ×20 | 0 px, corr 0.9992 |
+| right = 200 | NumPad+ ×40 | further, direction held; a single global shift stops fitting a frame with parallax |
+| up = 100 | NumPad5, NumPad+ ×20 | dy = −74 px, dx = 0 |
+| forward = 200 | NumPad5 ×2, NumPad+ ×40 | camera ends up at the back of Alice's head |
+
+By eye: near things move more than far things — a translation with parallax, not a shear. The
+`HOTKEY NumPad±` log line was read back after every step, so the 2026-09-09g silent-key trap is
+excluded by construction. **A head-tracked camera is now one tracker away: the three numbers the
+hotkeys step are the three a tracker supplies per frame.**
+
+**The working half still works.** Stereo ON, eye L, convergence 300, same scene: ipd 6.5→16.5
+slides −7 px, 6.5→31.5 slides −19 px (twice) — linear at ~0.75 px/unit `[verified-live
+2026-09-10, n=2]`. The `OPEN` row's "~44 px" was 24.5 ipd units in **London** (2026-09-07, dominant
+surface at z≈171, 70° camera); Wonderland's third-person camera is a 90° projection down a long
+tunnel, so the slope is scene-dependent by design, not a regression.
+
+**Depth is correct and convergence behaves.** Left/right pair (F10) at ipd 20.5, tiled phase
+correlation (`dev-archive/tools/tiled_disparity.py`; use tile ≥ 320 — at 160 the far tiles wrap
+past ±80 and read as a sign flip) `[verified-numerically 2026-09-10, n=2 convergence settings]`:
+far tree tunnel +28…+39 px at conv 300 and +91…+105 at conv 123; mid-distance ground 0…+10 and
++59…+77; Alice −7 and ~+65. Nearer = smaller at both settings, and halving the convergence pushes
+the map positive by what the shipped model predicts (`K/C` with K≈12,000: 40 vs 98 predicted,
+36 vs 97 measured).
+
+**`pos=` is fixed and is a canary, not a position.** The reader's diff (the camera-position read
+moved above the head-offset apply, no logic change) is built into `4b973e9eb89b` (718,336 B,
+backup `d3d9.dll.bak-2026-09-10-pre-posfix`), deployed and verified: with `head=100` the line now
+reads `pos=0.0,0.0,0.0` and the picture still moves −62 px `[verified-live 2026-09-10, n=1]`. For
+this UE3 build the value the game sends is the eye in its own translated space — zero by
+construction — so a non-zero reading would mean the game moved its origin.
+
+**`c5` (`PreViewTranslation`) cannot swallow the offset, and must not be edited** — the reader's
+static result, folded from `inbox/2026-09-10-reader-c5-preview-translation.md`
+`[measured 2026-09-10]` for the bytecode usage, `[inferred-static 2026-09-10]` for the
+interpretation: all 367 distinct vertex shaders that bind `c5` use it in one form only,
+`add r, r, -c5` — subtracted from the `LocalToWorld` product to hand materials the ABSOLUTE
+world position for WorldPositionOffset animation, then added back onto the untouched product
+before the `c0..c3` multiply. Zero shaders add `c5` to a position. UE3's own `.usf` (Enslaved's
+shipped copy, same generation; Alice's bytecode matches it line for line) has exactly one line
+touching it: `Result.WorldPosition = WorldPosition - PreViewTranslation.xyz`. Editing `c5` would
+only shift the phase/pivot of foliage sway, water and rotating props. Consistent with `c4 = 0`
+(it is `ViewOrigin + PreViewTranslation`, the eye in its own space) and `pos= = 0`.
+
+**What a COHERENT offset would still want, ranked** (usage `[measured 2026-09-10]`, edits
+`[inferred-static 2026-09-10]`, visibility `[hypothesis]`):
+
+| constant | where | shaders | why it matters | edit |
+|---|---|---|---|---|
+| `ViewProjectionMatrix` | **ps c4** (4 at c11) | 4,090 | re-projects the pixel position for scene-depth / scene-colour lookups (depth fade, soft particles, refraction) | the SAME register-3 translation; guard by bit-identity with the frame's vs `c0` write, not by register number (`ps c4` is `UniformPixelVector_0` in 5,080 others) |
+| `CameraPosition` | vs c4 | 1,510 | camera vector and vertex fog only | set to `+d` in world axes (cosmetic: specular, fresnel, fog direction) |
+| `CameraWorldPos` | ps c0 | 93 | absolute world position for pixel material nodes | leave alone (world origin) |
+| `PreViewTranslation`, `InstancedPreViewTranslation` | vs c5, c6/c10 | 367, 74 | world-origin constants | leave alone |
+| `ScreenPositionScaleBias`, `MinZ_MaxZRatio` | ps c1, c2 | 14,495 / 17,061 | viewport / depth unpack | nothing |
+
+Nothing looked wrong by eye at 200 units in one frame; that is `[hypothesis]`, not a measurement.
+Tool and raw census outputs: `staging/alice-madness-returns-vr/proxy-d3d9/proposals/2026-09-10-reader-*`.
+
+**The load crash, second sighting.** Launch 1 died in the CONTINUE GAME load: exe module,
+`c0000005`, offset `0x00be0f63` — different from 2026-09-09's `0x00067d48`, same phase, proxy
+silent, head offset 0. Launch 2 and 3 loaded cleanly. `[measured 2026-09-10, n=2 of ~8 launches]`
+
 ### ⭐⭐ SETTLED 2026-09-09b (`/lm`, live) — THE MYSTERY `c0` WRITE WAS NEVER A MATRIX, AND THE SHEAR WAS CORRUPTING IT
 
 Write-up: `modding-notes/2026-09-09b-the-mystery-write-was-never-a-matrix-and-added-key-binds-are-ignored.md` §1.

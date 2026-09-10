@@ -1,0 +1,112 @@
+[16:27:42.488] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=18876 ===
+[16:27:42.491] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73A14B20 D3DPERF_SetOptions=73A6CDE0
+[16:27:45.297] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=20508 ===
+[16:27:45.300] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73A44B20 D3DPERF_SetOptions=73A9CDE0
+[16:27:47.455] Direct3DCreate9 called: SDKVersion=0x20
+[16:27:47.578]   -> real returned 09057AE8
+[16:27:47.579]   -> wrapped as 08FF3578
+[16:27:47.759] Direct3DCreate9 called: SDKVersion=0x20
+[16:27:47.859]   -> real returned 0C24CA80
+[16:27:47.859]   -> wrapped as 08FF3B48
+[16:27:56.752] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[16:27:57.005]   -> wrapped device 176F90D0 (real 1CA8DCE0). Stereo is OFF; F9 toggles, F6 TWO-EYE wiggle, F10 swaps eye (when wiggle is off), F11/F12 ipd, F7/F8 convergence.
+[16:27:57.005] D3DPERF_SetOptions called: dwOptions=0x1
+[16:28:02.679] frame 120 | shaders=6740 (full events=0) vp_writes=0 (camera-shaped 0) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=NOT SEEN YET 0.000000 last=0.000000 range=[0.000000 .. 0.000000] | S=0.000000 | wiggle flips=0
+[16:28:22.922] VP DIAGNOSTIC (first perspective VP):
+[16:28:22.922]    row0 = [-0.917092 -0.630231  0.000853  0.000000]   (produces clip.x)
+[16:28:22.922]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[16:28:22.922]    |row0.xyz| = 1.112767   (this is what p00_cached holds)
+[16:28:22.922]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[16:28:22.922]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112767
+[16:28:22.922]    camera-shaped matrix? YES   (|row3.xyz|==1 and row0 perpendicular to row3)
+[16:28:22.922]    => the view part is RIGID and the matrix is NOT scaled, so p00 for THIS matrix really is 1.112767 (hfov ~ 84 deg) and `convergence` IS in clip.w units. NO scale factor is needed. If a periodic report shows a different p00, that is a DIFFERENT matrix arriving at c0 - not this one being mis-read.
+[16:28:23.080] camtrace frame=690 yaw=+10.591 pitch=+0.000 total=-113.91 dmax=101.01 spread=0.000 n=21 p00cam=1.955654 p11=3.476719 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=130) | pos=-0.0,0.0,0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:24.013] camtrace frame=720 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=1.34 spread=0.000 n=21 p00cam=2.726724 p11=4.847509 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=790) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:24.980] camtrace frame=750 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747060 p11=4.883662 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=1450) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:25.948] camtrace frame=780 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747469 p11=4.884390 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=2110) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:26.915] camtrace frame=810 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=2770) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:27.884] camtrace frame=840 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=3430) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:28.852] camtrace frame=870 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=4090) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:29.820] frame 900 | shaders=6740 (full events=0) vp_writes=4750 (camera-shaped 4515) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112767 .. 2.747477] | S=0.000000 | wiggle flips=0
+[16:28:29.820] camtrace frame=900 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=4750) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:30.788] camtrace frame=930 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=5410) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:31.756] camtrace frame=960 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=6070) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:32.723] camtrace frame=990 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=6730) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:33.691] camtrace frame=1020 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=7390) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:34.659] camtrace frame=1050 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=8050) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:35.627] camtrace frame=1080 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=8710) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:36.595] camtrace frame=1110 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=9370) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:37.568] camtrace frame=1140 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=10030) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:38.536] camtrace frame=1170 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=10690) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:39.504] camtrace frame=1200 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=11350) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:40.472] camtrace frame=1230 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=12010) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:41.440] camtrace frame=1260 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=12670) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:42.407] camtrace frame=1290 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=13330) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:43.376] camtrace frame=1320 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=13990) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:44.343] camtrace frame=1350 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=14650) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:45.311] camtrace frame=1380 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=15310) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:46.279] camtrace frame=1410 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=15970) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:47.247] camtrace frame=1440 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=16630) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:48.215] camtrace frame=1470 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=17290) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:49.183] camtrace frame=1500 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=17950) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:50.151] camtrace frame=1530 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=18610) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:51.118] camtrace frame=1560 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=19270) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:52.086] camtrace frame=1590 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=19930) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:53.054] camtrace frame=1620 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=20590) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:54.022] camtrace frame=1650 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=21250) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:54.990] camtrace frame=1680 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=21910) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:55.958] camtrace frame=1710 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=22570) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:56.926] camtrace frame=1740 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=23230) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:57.893] camtrace frame=1770 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=23890) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:58.861] frame 1800 | shaders=6740 (full events=0) vp_writes=24550 (camera-shaped 23415) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112767 .. 2.747477] | S=0.000000 | wiggle flips=0
+[16:28:58.861] c0dump 1/6 frame 1800  backbuffer 1280x720
+[16:28:58.861]   CAMERA CAMERA  Vector4fCount=4  p00=2.747477 |row3|=1.000000 perp=0.000000 c3.w=0.000122
+[16:28:58.861]      row0 -0.303879  2.730610  0.007375  0.000000
+[16:28:58.861]      row1  0.001450 -0.013032  4.884385  0.000149
+[16:28:58.861]      row2  0.992871  0.110493  0.000000 -9.989878
+[16:28:58.861]      row3  0.993865  0.110603  0.000000  0.000122
+[16:28:58.861]      -> camera-shaped: rigid view, symmetric projection, hfov 40.00 deg.
+[16:28:58.861]   OTHER  SKEWED  Vector4fCount=8  p00=0.002210 |row3|=0.001353 perp=0.816497 c3.w=0.000781
+[16:28:58.861]      -> WARNING: count 8 > 4, so this is NOT a 4x4 matrix at all. The one shipped vertex shader binding a non-view constant at c0 is a filter/blur pass with SampleOffsets as an 8-register array. If count == 8 the shear has been corrupting blur offsets, not a matrix.
+[16:28:58.861]      row0 -0.001563  0.000000 -0.001563  0.000000
+[16:28:58.861]      row1 -0.002778 -0.002778 -0.001389 -0.001389
+[16:28:58.861]      row2 -0.002778 -0.002778 -0.001389 -0.001389
+[16:28:58.861]      row3 -0.000781  0.000781 -0.000781  0.000781
+[16:28:58.861]      -> row0 is NOT perpendicular to row3 (perp=0.816497 > 0.01), so something non-rigid is baked in after the projection - a fused local-to-clip, or a non-uniform scale. No FOV is meaningful.
+[16:28:58.861]   c0 writes by Vector4fCount: 4=23435 5=0 6=0 7=0 8+=1115
+[16:28:58.861]   c0 writes by kind: camera=23415 affine=20 scaled=0 skewed=1115 degenerate=0
+[16:28:58.861] camtrace frame=1800 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=24550) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:28:59.829] camtrace frame=1830 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=25210) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:00.797] camtrace frame=1860 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=25870) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:01.766] camtrace frame=1890 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=26530) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:02.733] camtrace frame=1920 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=27190) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:03.701] camtrace frame=1950 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=27850) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:04.668] camtrace frame=1980 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=28510) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:05.637] camtrace frame=2010 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=29170) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:06.604] camtrace frame=2040 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=29830) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:07.572] camtrace frame=2070 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=30490) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:08.541] camtrace frame=2100 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=31150) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:09.508] camtrace frame=2130 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=31810) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:10.476] camtrace frame=2160 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=32470) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:11.445] camtrace frame=2190 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=33130) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:12.412] camtrace frame=2220 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=33790) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:13.379] camtrace frame=2250 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=34450) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:14.348] camtrace frame=2280 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=35110) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:15.315] camtrace frame=2310 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=35770) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:16.289] camtrace frame=2340 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=36430) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:17.256] camtrace frame=2370 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=37090) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:18.224] camtrace frame=2400 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=37750) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:19.193] camtrace frame=2430 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=38410) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:20.160] camtrace frame=2460 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=39070) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:21.129] camtrace frame=2490 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=39730) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:22.096] camtrace frame=2520 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=40390) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:23.063] camtrace frame=2550 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=41050) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:24.032] camtrace frame=2580 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=41710) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:24.999] camtrace frame=2610 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=42370) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:25.968] camtrace frame=2640 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=43030) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:26.936] camtrace frame=2670 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=43690) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:27.904] frame 2700 | shaders=6740 (full events=0) vp_writes=44350 (camera-shaped 42315) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112767 .. 2.747477] | S=0.000000 | wiggle flips=0
+[16:29:27.904] camtrace frame=2700 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=44350) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:28.871] camtrace frame=2730 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=45010) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:29.839] camtrace frame=2760 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=45670) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
+[16:29:30.807] camtrace frame=2790 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=46330) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0
