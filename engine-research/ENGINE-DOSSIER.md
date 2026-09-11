@@ -128,7 +128,28 @@ are handedness-free by construction and **exactly one sign is chosen by hand, `f
 covering the column-vs-row matrix layout with an asymmetric matrix, both signs of forward, and a
 re-centre taken at 90° to the world axes `[verified-numerically 2026-09-10, n=33]`.
 
-**⚠️ THE UNIT SCALE IS A GUESS.** `50.0` game units per metre is `[hypothesis]`: UE3's usual
+**✅ MEASURED 2026-09-11 — ABOUT 95 UNITS PER METRE, NOT 50.** Two independent routes agree:
+- **Live** `[verified-live 2026-09-11, n=2 camera distances]` (first person would not engage this
+  launch, so it was done in third person): lowering the camera with the head offset (UP axis,
+  camera-local, pitch 0.000) moves Alice's image linearly at **2.465 px per unit** (−20/−40/−60/−80
+  → 47/95/150/198 px); she stands **392 px** tall (hair crown 312.5 → soles 704.5) ⇒ **159.0 units**.
+  From 100 units closer: she scales ×1.57 and moves 3.825 px/unit ⇒ **160.9 units** (and 1.55 ≈ 1.57,
+  as shift ∝ 1/distance requires — the boom is ~275 units). The ratio is independent of distance and
+  field of view, so no projection assumption enters. Scripts and frames:
+  `dev-archive/recon/2026-09-11-alice-is-160-units-tall/`.
+- **Static** `[measured 2026-09-11]` (reader, decompressing the LZO-packed `AliceGame.u`; positive
+  controls: stock `Default__Pawn` values and the live-measured 65°/70° FOVs read back exactly): the
+  player is spawned from `ArcheType_AliceLondon` / `ArcheType_AliceWonderland` — **collision
+  half-height 79 (158 tall)**, and the skeleton `SK_AliceL/W` puts the **eye bones at 152.6**,
+  eyebrows 155.0, head top ~160–165, toes 0.1. Reading only the class defaults would have given the
+  stock 78/64 — a trap.
+- So **Alice ≈ 160 units tall ⇒ ≈ 95 units/m (1 unit ≈ 1 cm)** for a 1.60–1.75 m character; the
+  band (91–103) is "how tall is Alice", which no file says. Every other anchor fits 95 and none fits
+  50: step-up 35 = 37 cm, auto-climb 0.67–2.06 m, gravity −750 = 7.9 m/s² (floaty) `[inferred-static]`.
+- The 2026-09-10e headset feel ("left it on 50") was with stereo OFF, where translation scale is very
+  hard to judge `[hypothesis]`. A stereo-ON headset check at 95 is the remaining `[VR]` step.
+
+~~**⚠️ THE UNIT SCALE IS A GUESS.**~~ *(superseded 2026-09-11 by the measurement above)* `50.0` game units per metre is `[hypothesis]`: UE3's usual
 1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
 the third-person boom (4 m, an ordinary boom). **`DefaultGravityZ=-750.0` does NOT settle it** —
 gravity conflates unit scale with jump feel; at 2 cm/unit it is 15 m/s², normal platformer
