@@ -75,3 +75,16 @@ view −4 px, swapping eyes +8 px — symmetric ±4 about centre.
 - Alice's intended real-world height (the 91–103 band).
 - Why `T` did not enter first person here.
 - How 95 feels in the headset with stereo ON — the remaining `[VR]` step.
+
+## 5. Later the same evening: 95 shipped, and the pixel-shader fix run twice
+
+- **`T` is not broken.** The reader read the controller's own bytecode: outside London, `T` is the
+  ranged-weapon *aim* key and does nothing until Alice owns a ranged weapon; Wonderland's "FPS"
+  camera is over the shoulder anyway. London is the game's only real first person
+  `[inferred-static]`.
+- **Scale 95 is now the default** (`vr_pose.c`), build `380329e8`, deployed on the dev PC.
+- **The pixel-shader fix, run 1:** the camera-position half fires (8,908 fixes in 40 s); the
+  pixel-copy half never matched once. **Run 2** (build `84eca4ff`, bigger memory + diagnostic): the
+  diagnostic says this Wonderland spot never draws anything that uses the pixel copy — it is used by
+  dynamic-light (shadow) passes, and there are none here. It needs a scene with dynamic lights.
+- Both runs: no crash, the picture looked normal with the head moved up and forward.

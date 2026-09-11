@@ -170,8 +170,21 @@ replaced with the head-moved one when it is a bit-exact copy of the frame's vert
 `CameraPosition` (vs `c4`) gets `+d`. **Live** `[verified-live 2026-09-11, n=1]`, head offset up 50 /
 forward 50, stereo off: no crash, picture normal; **`CameraPosition fix=8908`** — that half fires —
 but **`ps VP rewritten c4=0 c11=0 other=0 (of 10275 armed scans)`**: the pixel copy never matched the
-guard. The upload order, or a different matrix in the pixel copy, is the open question; with the
-reader. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/reader-coherent-view-built.md`.
+guard. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/reader-coherent-view-built.md`.
+- **Why, and a second run** (reader drop `reader-why-the-pixel-vp-never-matched.md` in the same
+  folder): the 4-slot memory of recent vertex VPs read `armed=4` with the camera standing still — the
+  game sends **at least four variants of one view per frame** — so a pixel copy's partner could be
+  evicted before it arrived `[measured 2026-09-11]`. The pixel copy is in the same translated space
+  as vs `c0` (4,053 of 4,090 pixel shaders multiply it by `texcoord7`), and **3,933 of those 4,090
+  are dynamic-light passes** that use it for the shadow / light-attenuation lookup — so an unfixed
+  copy would make **shadows slide against geometry as the head moves** `[hypothesis]`. Build
+  **`84eca4ff7a98`** (738,304 B): 16 slots, exact / origin / near match tiers, split skip reasons,
+  and a read-only diagnostic (`alice_vr_psdiag_on.txt`), 89 checks `[compile-verified 2026-09-11]`.
+  **Live** `[verified-live 2026-09-11, n=1]`: slots settle (`inserts=19`), but in this Wonderland spot
+  **no pixel shader that uses the copy is ever bound** (`VP-shader-bound=0 camera-shaped=0` across
+  4.6 million pixel-constant writes) — nothing here draws dynamic lights. **The ps half needs a
+  dynamic-light scene to test.** The CameraPosition skips are mostly harmless (13,312 of 17,408 are
+  shaders with no CameraPosition).
 
 ~~**⚠️ THE UNIT SCALE IS A GUESS.**~~ *(superseded 2026-09-11 by the measurement above)* `50.0` game units per metre is `[hypothesis]`: UE3's usual
 1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
