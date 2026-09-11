@@ -193,6 +193,15 @@ guard. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/r
   exists but warns it deletes saved data** — the user's call; back up the `CheckPoint/tefa/` save folder first. If a
   lit scene still shows no camera matrix, the next suspect is the copy arriving in uploads smaller
   than 4 registers, which the fix skips `[hypothesis]`.
+- **The Duchess's kitchen false alarm** (reader, `reader-kitchen-dumps-are-lighting-not-a-matrix.md`):
+  Tefa played on into the kitchen, where the diagnostic's "camera-shaped" count rose to 608 and all
+  8 dumps filled — but the block is **`WorldIncidentLighting`**, the only 7-register constant at ps
+  `c4` among 4,130 pixel shaders: per-object lighting, not a matrix `[measured 2026-09-11]`; removing
+  each dump's own camera from two dumps leaves two unrelated matrices, which a "camera × fixed light"
+  would not `[verified-numerically 2026-09-11, n=2]`. World-space, so it needs no head correction. The
+  diagnostic's shape test lets such data through (608 of ~357,000 windows); a strict version that
+  records only real events to an append-mode capture file, so normal play can gather the evidence,
+  was requested from the reader the same evening.
 
 ~~**⚠️ THE UNIT SCALE IS A GUESS.**~~ *(superseded 2026-09-11 by the measurement above)* `50.0` game units per metre is `[hypothesis]`: UE3's usual
 1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
