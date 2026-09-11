@@ -149,6 +149,30 @@ re-centre taken at 90° to the world axes `[verified-numerically 2026-09-10, n=3
 - The 2026-09-10e headset feel ("left it on 50") was with stereo OFF, where translation scale is very
   hard to judge `[hypothesis]`. A stereo-ON headset check at 95 is the remaining `[VR]` step.
 
+**Shipped:** `vr_pose.c` line 33 now defaults to **`g_scale = 95.0f`** (NumPad± still ×1.25/×0.8),
+64 checks passing `[verified-numerically 2026-09-11]`; build **`380329e876bc`** (730,624 B),
+deployed on the dev PC 2026-09-11 (backup `d3d9.dll.bak-2026-09-11-was-648a44e1`).
+
+**Why `T` gave no first person in Wonderland** `[measured 2026-09-11]` for the script code,
+`[inferred-static]` for its meaning in play (reader, from the controller's own bytecode): **outside
+London, `T` is the ranged-weapon AIM key**, returning at once unless Alice owns a ranged weapon
+(Pepper Grinder / Teapot Cannon) and aiming is enabled — Wonderland's archetype starts with aiming
+off. Without one only the key's release half fires, which pulls the camera in (the 2026-09-09
+"pull-in"). Even with a weapon, Wonderland's "FPS" camera is **over the shoulder** (100 back, 70 to
+the side, 75° FOV); London's is distance 0 at 65° with the mesh hidden — **London is the game's only
+real first person**. So VR first person must come from the matrices, as planned; any measurement
+needing the game's own first person must be done in London.
+
+**The coherent-view fix (the board's `[PD]` pixel-shader row) — built, run, half working.** Opt-in
+by `alice_vr_coherent_on.txt` beside the exe (banner prints ON/OFF), in the same `380329e8` build
+`[compile-verified 2026-09-11]`, 59 checks: the pixel-shader copy of `ViewProjectionMatrix` is to be
+replaced with the head-moved one when it is a bit-exact copy of the frame's vertex `c0` write, and
+`CameraPosition` (vs `c4`) gets `+d`. **Live** `[verified-live 2026-09-11, n=1]`, head offset up 50 /
+forward 50, stereo off: no crash, picture normal; **`CameraPosition fix=8908`** — that half fires —
+but **`ps VP rewritten c4=0 c11=0 other=0 (of 10275 armed scans)`**: the pixel copy never matched the
+guard. The upload order, or a different matrix in the pixel copy, is the open question; with the
+reader. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/reader-coherent-view-built.md`.
+
 ~~**⚠️ THE UNIT SCALE IS A GUESS.**~~ *(superseded 2026-09-11 by the measurement above)* `50.0` game units per metre is `[hypothesis]`: UE3's usual
 1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
 the third-person boom (4 m, an ordinary boom). **`DefaultGravityZ=-750.0` does NOT settle it** —
