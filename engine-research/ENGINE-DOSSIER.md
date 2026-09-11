@@ -185,6 +185,14 @@ guard. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/r
   4.6 million pixel-constant writes) — nothing here draws dynamic lights. **The ps half needs a
   dynamic-light scene to test.** The CameraPosition skips are mostly harmless (13,312 of 17,408 are
   shaders with no CameraPosition).
+- **Where the dynamic lights are** (reader, `reader-where-dynamic-lights-are-drawn.md`) `[measured 2026-09-11]`:
+  only **17 of the game's 858 map pieces** contain a movable or switchable light, and none a
+  sun-type light. The save is at the start of Chapter 1's Vale of Tears; the nearest light is one
+  moving point light in the **"TMaker" part of the same Chapter 1 area** (its order after the Vale
+  pieces is `[inferred-static]`); the most (7) are in Chapter 5's London "Hyde". **Chapter Select
+  exists but warns it deletes saved data** — the user's call; back up `CheckPoint	efa\` first. If a
+  lit scene still shows no camera matrix, the next suspect is the copy arriving in uploads smaller
+  than 4 registers, which the fix skips `[hypothesis]`.
 
 ~~**⚠️ THE UNIT SCALE IS A GUESS.**~~ *(superseded 2026-09-11 by the measurement above)* `50.0` game units per metre is `[hypothesis]`: UE3's usual
 1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
