@@ -88,3 +88,8 @@ view −4 px, swapping eyes +8 px — symmetric ±4 about centre.
   diagnostic says this Wonderland spot never draws anything that uses the pixel copy — it is used by
   dynamic-light (shadow) passes, and there are none here. It needs a scene with dynamic lights.
 - Both runs: no crash, the picture looked normal with the head moved up and forward.
+- **Last of the evening:** Tefa played on into the Duchess's kitchen; the diagnostic's samples there
+  turned out to be per-object lighting colours, not a matrix (a false alarm the reader explained). A
+  stricter "capture while you play" build (`7af3b5f5`) is installed: it writes its evidence to a file
+  that survives restarts. Its first run spent all 8 samples on the main menu, so it needs one more
+  tweak to wait for real gameplay. The game was closed at the end, as asked.

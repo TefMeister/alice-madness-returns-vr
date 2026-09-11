@@ -1,0 +1,114 @@
+
+=== launch 2026-09-11 19:42:29  d3d9.dll sha256=7af3b5f53a7d9da7dbd3ea97e80219e417646599e30d6784a55072db3c7507b2 (744448 bytes)  coherent view ON  dumps already in this file: 0/32 ===
+DUMP #1 (launch 1/8) frame=687 camtrace yaw=+124.497 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=1.000000 |lane3|=0.999989
+  ps lane0  1  0 -7.15092938e-06  0.000122070312
+  ps lane1  0  1  3.7829202e-06 -6.10351562e-05
+  ps lane2  2.98023224e-08  0  0.998989463 -9.98986816
+  ps lane3  2.98023224e-08  1.45519152e-11  0.99998945  0.000122070312
+  vs lane0 -0.917088449 -0.6302284  0.000853477803  6.79176155e-05   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00125048554  0.000859340769  1.97824323 -6.03712106e-05   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2 -0.565797746  0.823330998  0 -9.98999977   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3 -0.56636411  0.824155152  0  0   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=1.98, max rel=1e+03, per register 1.92 0.999 1.98 0.000132, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1155.5166  832.51123 -274.816437  1
+DUMP #2 (launch 2/8) frame=689 camtrace yaw=+27.268 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=1.000000 |lane3|=0.999990
+  ps lane0  0.99999994  0  5.36441803e-06  0
+  ps lane1 -4.65661287e-10  1 -2.16532499e-08 -6.10351562e-05
+  ps lane2  0  2.91038305e-11  0.998990417 -9.98986816
+  ps lane3  0  2.91038305e-11  0.999990344  0.000183105469
+  vs lane0 -0.728013635  1.4124316  0.00365628256  0.000193971995   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00297802896 -0.00577772409  2.82491446  0   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.887983859  0.45769605  0 -9.98993874   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.888872743  0.458154202  0  6.10351562e-05   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=2.82, max rel=1e+03, per register 1.73 1.41 2.82 0.000194, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1066.08118  833.533508 -277.449188  1
+DUMP #3 (launch 3/8) frame=698 camtrace yaw=+6.987 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=0.975690 |lane3|=0.999987
+  ps lane0  0.975627065  1.82772055e-08 -0.01105709  0.136230469
+  ps lane1  5.86733222e-08  0.975639224  4.523389e-05  0.0616455078
+  ps lane2  0.00218675286 -3.30203329e-06  0.998984635 -10.5192871
+  ps lane3  0.0021889396 -3.30533658e-06  0.999984562 -0.529846191
+  vs lane0 -0.27706027  2.26061559  0.00611396879  0   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00132224127 -0.0107885534  4.04894352  0.000123564387   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.991580606  0.121527769  0 -9.98999977   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.992573142  0.121649414  0  0   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=4.05, max rel=1e+03, per register 1.25 2.26 4.05 0.53, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1040.78052  833.822876 -278.194  1
+DUMP #4 (launch 4/8) frame=699 camtrace yaw=+6.790 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=0.978633 |lane3|=0.999997
+  ps lane0  0.978601456  8.96397978e-09 -0.0078561902  0.0952148438
+  ps lane1  2.7474016e-08  0.978607476  3.74927185e-05  0.0446777344
+  ps lane2  0.00148151815 -2.23711686e-06  0.998995841 -10.3654175
+  ps lane3  0.00148300454 -2.23935058e-06  0.999995828 -0.375854492
+  vs lane0 -0.275142252  2.31099701  0.00624762196 -0.000142048739   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00131308776 -0.0110289911  4.13745451 -0.000126265542   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.991994143  0.118104659  0 -9.98999977   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.992987096  0.118222877  0  0   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=4.14, max rel=1e+03, per register 1.25 2.31 4.14 0.376, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1040.40234  833.827209 -278.205078  1
+DUMP #5 (launch 5/8) frame=700 camtrace yaw=+6.636 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=0.980945 |lane3|=1.000018
+  ps lane0  0.980925262  5.23868948e-09 -0.00629389891  0.0681152344
+  ps lane1  1.72294676e-08  0.980928779  4.58203867e-05  0.0329589844
+  ps lane2  0.00113031641 -1.70679414e-06  0.999017656 -10.2613525
+  ps lane3  0.00113144889 -1.70850399e-06  1.00001764 -0.271606445
+  vs lane0 -0.274166167  2.35667157  0.00636908831  0   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.0013084294 -0.0112469699  4.21789455  0   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.992307544  0.115441255  0 -9.98999977   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.993300855  0.115556814  0  0   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=4.22, max rel=1e+03, per register 1.26 2.36 4.22 0.272, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1040.12927  833.830261 -278.213135  1
+DUMP #6 (launch 6/8) frame=701 camtrace yaw=+6.548 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=0.983038 |lane3|=1.000006
+  ps lane0  0.983030736  1.74622983e-09 -0.00365110021  0.048828125
+  ps lane1  5.58793545e-09  0.983031929  2.54693423e-05  0.0242919922
+  ps lane2  0.000634934753 -9.58774763e-07  0.999005795 -10.1856689
+  ps lane3  0.000635571778 -9.59727913e-07  1.00000584 -0.195861816
+  vs lane0 -0.275220692  2.39777517  0.00647902489 -0.000147310013   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00131346227 -0.0114431325  4.29069996  0   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.992483497  0.113918945  0 -9.9898777   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.993476987  0.114032976  0  0.000122070312   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=4.29, max rel=1e+03, per register 1.26 2.4 4.29 0.196, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1039.93237  833.83252 -278.218933  1
+DUMP #7 (launch 7/8) frame=702 camtrace yaw=+6.482 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=0.984923 |lane3|=1.000006
+  ps lane0  0.984919608  9.31322575e-10 -0.00277318317  0.0354003906
+  ps lane1  3.7252903e-09  0.984920263  2.14187694e-05  0.017578125
+  ps lane2  0.000469025224 -7.08241714e-07  0.999006212 -10.1312256
+  ps lane3  0.000469490886 -7.08940206e-07  1.00000632 -0.141418457
+  vs lane0 -0.276633531  2.43480682  0.00657822378  0   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00132020458 -0.0116198622  4.35639334 -0.000132947054   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.992613912  0.112777025  0 -9.9898777   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.993607521  0.112889916  0  0.000122070312   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=4.36, max rel=1e+03, per register 1.26 2.43 4.36 0.142, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1039.79016  833.834106 -278.223083  1
+DUMP #8 (launch 8/8) frame=703 camtrace yaw=+6.438 pitch=+0.000  why: STRICT CAMERA MATRIX
+  ps write start=c24 count=4, view at c24 | bound PS hash=8a7d43f8 bytes=2328 declares NO ViewProjectionMatrix, 11 constants
+  window: kind=CAMERA strict-camera=YES p00=0.986617 |lane3|=0.999997
+  ps lane0  0.986614943  4.65661287e-10 -0.0018751449  0.025390625
+  ps lane1  9.31322575e-10  0.986615062  6.39568498e-07  0.0133056641
+  ps lane2  0.00030849129 -4.65821358e-07  0.998996615 -10.0918579
+  ps lane3  0.000308800489 -4.66294296e-07  0.999996603 -0.102050781
+  vs lane0 -0.278493583  2.4680531  0.00666746777 -0.000303189066   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane1  0.00132908183 -0.0117785269  4.4154954  0.000134750706   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane2  0.9927001  0.112015672  0 -9.9898777   (last camera VP at vs c0, 0 frame(s) ago)
+  vs lane3  0.993693769  0.112127796  0  0.000122070312   (last camera VP at vs c0, 0 frame(s) ago)
+  BIT-IDENTICAL to the last vs c0 camera VP: NO  (bits equal 0/16, max|d|=4.42, max rel=1e+03, per register 1.27 2.47 4.42 0.102, transposed 11)
+  coherent view ON, head offset 0.0,0.0,0.0 rotation identity, 0 stored: tier none (head at rest or view off: nothing to match - read BIT-IDENTICAL above instead)
+  vs c5 PreViewTranslation -1039.6875  833.835388 -278.226166  1
