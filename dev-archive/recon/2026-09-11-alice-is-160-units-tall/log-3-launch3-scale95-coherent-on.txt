@@ -1,0 +1,622 @@
+[18:44:48.083] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=17800 ===
+[18:44:48.087] real d3d9.dll loaded from C:\Windows\system32\d3d9.dll; Direct3DCreate9=73A04B20 D3DPERF_SetOptions=73A5CDE0
+[18:44:48.988] Direct3DCreate9 called: SDKVersion=0x20
+[18:44:49.112]   -> real returned 09023868
+[18:44:49.113]   -> wrapped as 0909A168
+[18:44:49.284] Direct3DCreate9 called: SDKVersion=0x20
+[18:44:49.387]   -> real returned 0C1DFE58
+[18:44:49.387]   -> wrapped as 09099F88
+[18:44:55.425] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[18:44:55.561]   -> wrapped device 17708148 (real 1CB286C0). Stereo is OFF. NUMPAD HOTKEYS: 0 stereo on/off, 1 eye mode (left/right/wiggle), / and * ipd -/+, 3 and . convergence -/+, 5 head axis, - and + head offset step. NumLock is ON.
+[18:44:55.562]   -> coherent view (head edit carried into the pixel VP copy and CameraPosition) is ON  [alice_vr_coherent_on.txt present]
+[18:44:55.562] D3DPERF_SetOptions called: dwOptions=0x1
+[18:44:56.511] vr: openvr_api.dll loaded from the SteamVR install
+[18:44:57.704] vr: VR_InitInternal failed: 121 (Not starting vrserver for background app (121)) - is SteamVR running? head tracking stays off
+[18:45:02.155] frame 120 | shaders=6740 (full events=0) vp_writes=0 (camera-shaped 0) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=NOT SEEN YET 0.000000 last=0.000000 range=[0.000000 .. 0.000000] | S=0.000000 | wiggle flips=0
+[18:45:22.156] VP DIAGNOSTIC (first perspective VP):
+[18:45:22.156]    row0 = [-0.917089 -0.630229  0.000853  0.000068]   (produces clip.x)
+[18:45:22.156]    row3 = [-0.566364  0.824155  0.000000  0.000000]   (produces clip.w)
+[18:45:22.156]    |row0.xyz| = 1.112763   (this is what p00_cached holds)
+[18:45:22.156]    |row3.xyz| = 1.000000   (1.0 => a RIGID view part, no scale)
+[18:45:22.156]    SCALE-FREE p00 = |row0.xyz|/|row3.xyz| = 1.112763
+[18:45:22.156]    camera-shaped matrix? YES   (|row3.xyz|==1 and row0 perpendicular to row3)
+[18:45:22.156]    => the view part is RIGID and the matrix is NOT scaled, so p00 for THIS matrix really is 1.112763 (hfov ~ 84 deg) and `convergence` IS in clip.w units. NO scale factor is needed. If a periodic report shows a different p00, that is a DIFFERENT matrix arriving at c0 - not this one being mis-read.
+[18:45:22.475] camtrace frame=690 yaw=+7.515 pitch=+0.000 total=-116.98 dmax=83.56 spread=0.000 n=21 p00cam=2.188707 p11=3.891034 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=240) | pos=-0.0,-0.0,0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:22.475] coherent frame=690 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:23.412] camtrace frame=720 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.37 spread=0.000 n=21 p00cam=2.733922 p11=4.860306 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=900) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:23.412] coherent frame=720 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:24.380] camtrace frame=750 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747205 p11=4.883920 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=1560) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:24.380] coherent frame=750 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:25.348] camtrace frame=780 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747472 p11=4.884395 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=2220) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:25.348] coherent frame=780 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:26.315] camtrace frame=810 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=2880) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:26.315] coherent frame=810 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:27.283] camtrace frame=840 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=3540) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:27.283] coherent frame=840 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:28.251] camtrace frame=870 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=4200) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:28.251] coherent frame=870 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:29.219] frame 900 | shaders=6740 (full events=0) vp_writes=4860 (camera-shaped 4620) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112763 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:45:29.219] camtrace frame=900 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=4860) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:29.219] coherent frame=900 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:30.186] camtrace frame=930 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=5520) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:30.186] coherent frame=930 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:31.154] camtrace frame=960 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=6180) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:31.154] coherent frame=960 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:32.121] camtrace frame=990 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=6840) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:32.122] coherent frame=990 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:33.090] camtrace frame=1020 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=7500) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:33.090] coherent frame=1020 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:34.057] camtrace frame=1050 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=8160) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:34.057] coherent frame=1050 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:35.025] camtrace frame=1080 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=8820) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:35.025] coherent frame=1080 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:35.992] camtrace frame=1110 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=9480) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:35.993] coherent frame=1110 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:36.961] camtrace frame=1140 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=10140) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:36.961] coherent frame=1140 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:37.929] camtrace frame=1170 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=10800) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:37.929] coherent frame=1170 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:38.896] camtrace frame=1200 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=11460) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:38.896] coherent frame=1200 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:39.864] camtrace frame=1230 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=12120) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:39.864] coherent frame=1230 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:40.832] camtrace frame=1260 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=12780) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:40.832] coherent frame=1260 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:41.799] camtrace frame=1290 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=13440) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:41.799] coherent frame=1290 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:42.768] camtrace frame=1320 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=14100) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:42.768] coherent frame=1320 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:43.736] camtrace frame=1350 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=14760) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:43.736] coherent frame=1350 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:44.703] camtrace frame=1380 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884402 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=15420) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:44.703] coherent frame=1380 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:45.678] camtrace frame=1410 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=16080) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:45.678] coherent frame=1410 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:46.645] camtrace frame=1440 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=16740) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:46.646] coherent frame=1440 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:47.613] camtrace frame=1470 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=17400) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:47.613] coherent frame=1470 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:48.580] camtrace frame=1500 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=18060) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:48.580] coherent frame=1500 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:49.548] camtrace frame=1530 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=18720) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:49.549] coherent frame=1530 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:50.517] camtrace frame=1560 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=19380) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:50.517] coherent frame=1560 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:51.485] camtrace frame=1590 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=20040) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:51.485] coherent frame=1590 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:52.452] camtrace frame=1620 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=20700) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:52.452] coherent frame=1620 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:53.420] camtrace frame=1650 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=21360) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:53.421] coherent frame=1650 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:54.392] camtrace frame=1680 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=22020) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:54.392] coherent frame=1680 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:55.359] camtrace frame=1710 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=22680) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:55.359] coherent frame=1710 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:56.327] camtrace frame=1740 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=23340) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:56.327] coherent frame=1740 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:57.295] camtrace frame=1770 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=24000) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:57.295] coherent frame=1770 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:58.262] frame 1800 | shaders=6740 (full events=0) vp_writes=24660 (camera-shaped 23520) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112763 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:45:58.263] c0dump 1/6 frame 1800  backbuffer 1280x720
+[18:45:58.263]   CAMERA CAMERA  Vector4fCount=4  p00=2.747477 |row3|=1.000000 perp=0.000000 c3.w=0.000122
+[18:45:58.263]      row0 -0.303879  2.730610  0.007375  0.000000
+[18:45:58.263]      row1  0.001450 -0.013032  4.884385  0.000149
+[18:45:58.263]      row2  0.992871  0.110493  0.000000 -9.989878
+[18:45:58.263]      row3  0.993865  0.110603  0.000000  0.000122
+[18:45:58.263]      -> camera-shaped: rigid view, symmetric projection, hfov 40.00 deg.
+[18:45:58.263]   OTHER  SKEWED  Vector4fCount=8  p00=0.002210 |row3|=0.001353 perp=0.816497 c3.w=0.000781
+[18:45:58.263]      -> WARNING: count 8 > 4, so this is NOT a 4x4 matrix at all. The one shipped vertex shader binding a non-view constant at c0 is a filter/blur pass with SampleOffsets as an 8-register array. If count == 8 the shear has been corrupting blur offsets, not a matrix.
+[18:45:58.263]      row0 -0.001563  0.000000 -0.001563  0.000000
+[18:45:58.263]      row1 -0.002778 -0.002778 -0.001389 -0.001389
+[18:45:58.263]      row2 -0.002778 -0.002778 -0.001389 -0.001389
+[18:45:58.263]      row3 -0.000781  0.000781 -0.000781  0.000781
+[18:45:58.263]      -> row0 is NOT perpendicular to row3 (perp=0.816497 > 0.01), so something non-rigid is baked in after the projection - a fused local-to-clip, or a non-uniform scale. No FOV is meaningful.
+[18:45:58.263]   c0 writes by Vector4fCount: 4=23540 5=0 6=0 7=0 8+=1120
+[18:45:58.263]   c0 writes by kind: camera=23520 affine=20 scaled=0 skewed=1120 degenerate=0
+[18:45:58.263] camtrace frame=1800 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=24660) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:58.263] coherent frame=1800 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:45:59.231] camtrace frame=1830 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=25320) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:45:59.231] coherent frame=1830 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:00.198] camtrace frame=1860 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=25980) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:00.198] coherent frame=1860 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:01.166] camtrace frame=1890 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=26640) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:01.166] coherent frame=1890 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:02.133] camtrace frame=1920 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=27300) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:02.134] coherent frame=1920 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:03.101] camtrace frame=1950 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=27960) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:03.101] coherent frame=1950 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:04.069] camtrace frame=1980 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=28620) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:04.069] coherent frame=1980 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:05.037] camtrace frame=2010 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=29280) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:05.037] coherent frame=2010 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:06.005] camtrace frame=2040 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=29940) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:06.005] coherent frame=2040 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:06.973] camtrace frame=2070 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=30600) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:06.973] coherent frame=2070 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:07.940] camtrace frame=2100 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=31260) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:07.940] coherent frame=2100 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:08.908] camtrace frame=2130 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=31920) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:08.908] coherent frame=2130 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:09.876] camtrace frame=2160 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=32580) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:09.876] coherent frame=2160 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:10.843] camtrace frame=2190 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=33240) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:10.843] coherent frame=2190 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:11.811] camtrace frame=2220 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=33900) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:11.811] coherent frame=2220 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:12.779] camtrace frame=2250 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=34560) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:12.779] coherent frame=2250 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:13.748] camtrace frame=2280 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=35220) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:13.748] coherent frame=2280 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:14.719] camtrace frame=2310 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=35880) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:14.719] coherent frame=2310 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:15.686] camtrace frame=2340 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=36540) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:15.687] coherent frame=2340 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:16.654] camtrace frame=2370 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=37200) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:16.654] coherent frame=2370 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:17.622] camtrace frame=2400 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=37860) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:17.622] coherent frame=2400 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:18.589] camtrace frame=2430 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=38520) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:18.589] coherent frame=2430 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:19.558] camtrace frame=2460 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=39180) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:19.558] coherent frame=2460 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:20.525] camtrace frame=2490 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=39840) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:20.525] coherent frame=2490 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:21.493] camtrace frame=2520 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=40500) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:21.493] coherent frame=2520 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:22.460] camtrace frame=2550 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=41160) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:22.461] coherent frame=2550 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:23.429] camtrace frame=2580 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=41820) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:23.429] coherent frame=2580 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:24.396] camtrace frame=2610 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=42480) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:24.396] coherent frame=2610 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:25.364] camtrace frame=2640 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=43140) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:25.364] coherent frame=2640 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:26.331] camtrace frame=2670 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=43800) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:26.331] coherent frame=2670 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:27.300] frame 2700 | shaders=6740 (full events=0) vp_writes=44460 (camera-shaped 42420) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112763 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:46:27.300] camtrace frame=2700 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=44460) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:27.300] coherent frame=2700 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:28.267] camtrace frame=2730 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=45120) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:28.267] coherent frame=2730 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:29.236] camtrace frame=2760 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=45780) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:29.236] coherent frame=2760 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:30.203] camtrace frame=2790 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=46440) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:30.203] coherent frame=2790 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:31.170] camtrace frame=2820 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=47100) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:31.170] coherent frame=2820 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:32.138] camtrace frame=2850 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=47760) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:32.138] coherent frame=2850 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:33.105] camtrace frame=2880 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=48420) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:33.106] coherent frame=2880 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:34.074] camtrace frame=2910 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=49080) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:34.074] coherent frame=2910 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:35.041] camtrace frame=2940 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=49740) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:35.041] coherent frame=2940 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:36.010] camtrace frame=2970 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=50400) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:36.010] coherent frame=2970 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:36.978] camtrace frame=3000 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=51060) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:36.978] coherent frame=3000 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:37.945] camtrace frame=3030 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=51720) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:37.945] coherent frame=3030 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:38.913] camtrace frame=3060 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=52380) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:38.913] coherent frame=3060 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:39.880] camtrace frame=3090 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=53040) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:39.880] coherent frame=3090 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:40.848] camtrace frame=3120 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=53700) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:40.848] coherent frame=3120 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:41.816] camtrace frame=3150 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=54360) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:41.816] coherent frame=3150 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:42.784] camtrace frame=3180 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=55020) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:42.784] coherent frame=3180 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:43.752] camtrace frame=3210 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=55680) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:43.752] coherent frame=3210 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:44.720] camtrace frame=3240 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=56340) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:44.720] coherent frame=3240 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:45.686] camtrace frame=3270 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=57000) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:45.686] coherent frame=3270 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:46.655] camtrace frame=3300 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=57660) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:46.655] coherent frame=3300 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:47.623] camtrace frame=3330 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=58320) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:47.623] coherent frame=3330 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:48.591] camtrace frame=3360 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=58980) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:48.591] coherent frame=3360 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:49.558] camtrace frame=3390 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=59640) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:49.558] coherent frame=3390 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:50.526] camtrace frame=3420 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=60300) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:50.527] coherent frame=3420 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:51.494] camtrace frame=3450 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=60960) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:51.494] coherent frame=3450 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:52.461] camtrace frame=3480 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=61620) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:52.461] coherent frame=3480 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:53.429] camtrace frame=3510 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=62280) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:53.429] coherent frame=3510 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:54.397] camtrace frame=3540 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=62940) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:54.397] coherent frame=3540 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:55.364] camtrace frame=3570 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=63600) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:55.364] coherent frame=3570 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:56.332] frame 3600 | shaders=6740 (full events=0) vp_writes=64260 (camera-shaped 61320) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112763 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:46:56.332] c0dump 2/6 frame 3600  backbuffer 1280x720
+[18:46:56.332]   CAMERA CAMERA  Vector4fCount=4  p00=2.747477 |row3|=1.000000 perp=0.000000 c3.w=0.000122
+[18:46:56.332]      row0 -0.303879  2.730610  0.007375  0.000000
+[18:46:56.332]      row1  0.001450 -0.013032  4.884385  0.000149
+[18:46:56.332]      row2  0.992871  0.110493  0.000000 -9.989878
+[18:46:56.332]      row3  0.993865  0.110603  0.000000  0.000122
+[18:46:56.332]      -> camera-shaped: rigid view, symmetric projection, hfov 40.00 deg.
+[18:46:56.332]   OTHER  SKEWED  Vector4fCount=8  p00=0.002210 |row3|=0.001353 perp=0.816497 c3.w=0.000781
+[18:46:56.332]      -> WARNING: count 8 > 4, so this is NOT a 4x4 matrix at all. The one shipped vertex shader binding a non-view constant at c0 is a filter/blur pass with SampleOffsets as an 8-register array. If count == 8 the shear has been corrupting blur offsets, not a matrix.
+[18:46:56.332]      row0 -0.001563  0.000000 -0.001563  0.000000
+[18:46:56.332]      row1 -0.002778 -0.002778 -0.001389 -0.001389
+[18:46:56.332]      row2 -0.002778 -0.002778 -0.001389 -0.001389
+[18:46:56.332]      row3 -0.000781  0.000781 -0.000781  0.000781
+[18:46:56.332]      -> row0 is NOT perpendicular to row3 (perp=0.816497 > 0.01), so something non-rigid is baked in after the projection - a fused local-to-clip, or a non-uniform scale. No FOV is meaningful.
+[18:46:56.332]   c0 writes by Vector4fCount: 4=61340 5=0 6=0 7=0 8+=2920
+[18:46:56.332]   c0 writes by kind: camera=61320 affine=20 scaled=0 skewed=2920 degenerate=0
+[18:46:56.332] camtrace frame=3600 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=64260) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:56.332] coherent frame=3600 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:57.300] camtrace frame=3630 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=64920) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:57.300] coherent frame=3630 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:58.267] camtrace frame=3660 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=65580) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:58.268] coherent frame=3660 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:46:59.236] camtrace frame=3690 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=66240) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:46:59.236] coherent frame=3690 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:00.204] camtrace frame=3720 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=66900) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:00.204] coherent frame=3720 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:01.172] camtrace frame=3750 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=67560) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:01.172] coherent frame=3750 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:02.140] camtrace frame=3780 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=68220) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:02.140] coherent frame=3780 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:03.107] camtrace frame=3810 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=68880) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:03.107] coherent frame=3810 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:04.074] camtrace frame=3840 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=69540) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:04.074] coherent frame=3840 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:05.042] camtrace frame=3870 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=70200) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:05.042] coherent frame=3870 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:06.010] camtrace frame=3900 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=70860) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:06.010] coherent frame=3900 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:06.978] camtrace frame=3930 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=71520) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:06.978] coherent frame=3930 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:07.946] camtrace frame=3960 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=72180) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:07.946] coherent frame=3960 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:08.914] camtrace frame=3990 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=72840) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:08.914] coherent frame=3990 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:09.882] camtrace frame=4020 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=73500) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:09.882] coherent frame=4020 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:10.849] camtrace frame=4050 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=74160) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:10.849] coherent frame=4050 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:11.817] camtrace frame=4080 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=74820) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:11.817] coherent frame=4080 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:12.785] camtrace frame=4110 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=75480) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:12.785] coherent frame=4110 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:13.752] camtrace frame=4140 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=76140) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:13.753] coherent frame=4140 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:14.721] camtrace frame=4170 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=76800) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:14.721] coherent frame=4170 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:15.689] camtrace frame=4200 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=77460) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:15.689] coherent frame=4200 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:16.656] camtrace frame=4230 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=78120) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:16.656] coherent frame=4230 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:17.624] camtrace frame=4260 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=78780) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:17.624] coherent frame=4260 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:18.592] camtrace frame=4290 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=79440) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:18.592] coherent frame=4290 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:19.560] camtrace frame=4320 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=80100) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:19.560] coherent frame=4320 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:20.528] camtrace frame=4350 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=80760) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:20.528] coherent frame=4350 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:21.495] camtrace frame=4380 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=81420) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:21.495] coherent frame=4380 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:22.463] camtrace frame=4410 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=21 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=82080) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:22.463] coherent frame=4410 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:23.439] camtrace frame=4440 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=0 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=82608) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:23.439] coherent frame=4440 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:24.492] camtrace frame=4470 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=0 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=82608) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:24.492] coherent frame=4470 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:25.636] frame 4500 | shaders=8141 (full events=0) vp_writes=82608 (camera-shaped 78834) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=2.747477 last=2.747477 range=[1.112763 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:47:25.636] camtrace frame=4500 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=0 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=82608) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:25.636] coherent frame=4500 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:26.643] camtrace frame=4530 yaw=+6.350 pitch=+0.000 total=-118.15 dmax=0.00 spread=0.000 n=0 p00cam=2.747477 p11=4.884403 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=82608) | pos=-0.0,-0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:26.643] coherent frame=4530 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:27.807] camtrace frame=4560 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=40.96 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=82669) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:27.807] coherent frame=4560 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:28.761] camtrace frame=4590 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=83569) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:28.762] coherent frame=4590 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:29.730] camtrace frame=4620 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=84469) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:29.730] coherent frame=4620 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:30.698] camtrace frame=4650 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=85369) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:30.698] coherent frame=4650 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:31.665] camtrace frame=4680 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=86269) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:31.665] coherent frame=4680 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:32.633] camtrace frame=4710 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=87169) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:32.633] coherent frame=4710 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:33.600] camtrace frame=4740 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=88069) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:33.600] coherent frame=4740 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:34.569] camtrace frame=4770 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=88969) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:34.569] coherent frame=4770 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:35.536] camtrace frame=4800 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=89869) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:35.536] coherent frame=4800 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:36.504] camtrace frame=4830 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=90769) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:36.504] coherent frame=4830 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:37.471] camtrace frame=4860 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=91669) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:37.471] coherent frame=4860 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:38.439] camtrace frame=4890 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=92569) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:38.439] coherent frame=4890 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:39.407] camtrace frame=4920 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=93469) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:39.407] coherent frame=4920 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:40.375] camtrace frame=4950 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=94369) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:40.375] coherent frame=4950 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:41.343] camtrace frame=4980 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=95269) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:41.343] coherent frame=4980 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:42.311] camtrace frame=5010 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=96169) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:42.311] coherent frame=5010 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:43.279] camtrace frame=5040 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=97069) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:43.280] coherent frame=5040 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:44.246] camtrace frame=5070 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=97969) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:44.246] coherent frame=5070 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:45.214] camtrace frame=5100 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=98869) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:45.214] coherent frame=5100 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:45.956] HOTKEY NumPad5: head axis -> UP (step 5.0, offset now 0.0,0.0,0.0)
+[18:47:46.182] camtrace frame=5130 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=99769) | pos=-0.0,0.0,-0.0 head=0.0,0.0,0.0 applied=0 refused=0 | headrot=identity applied=0 refused=0
+[18:47:46.182] coherent frame=5130 armed=0 d=0.0,0.0,0.0 | ps VP rewritten c4=0 c11=0 other=0 (of 0 armed scans) | vs c4 CameraPosition fix=0 skip=0
+[18:47:46.343] HOTKEY NumPad+: head offset now right=0.0 up=5.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:46.570] HOTKEY NumPad+: head offset now right=0.0 up=10.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:46.794] HOTKEY NumPad+: head offset now right=0.0 up=15.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:47.020] HOTKEY NumPad+: head offset now right=0.0 up=20.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:47.150] camtrace frame=5160 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=100669) | pos=-0.0,0.0,-0.0 head=0.0,20.0,0.0 applied=725 refused=0 | headrot=identity applied=0 refused=0
+[18:47:47.150] coherent frame=5160 armed=1 d=0.0,0.0,20.0 | ps VP rewritten c4=0 c11=0 other=0 (of 375 armed scans) | vs c4 CameraPosition fix=325 skip=425
+[18:47:47.247] HOTKEY NumPad+: head offset now right=0.0 up=25.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:47.504] HOTKEY NumPad+: head offset now right=0.0 up=30.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:47.731] HOTKEY NumPad+: head offset now right=0.0 up=35.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:47.955] HOTKEY NumPad+: head offset now right=0.0 up=40.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:48.117] camtrace frame=5190 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=101569) | pos=-0.0,0.0,-0.0 head=0.0,40.0,0.0 applied=1595 refused=0 | headrot=identity applied=0 refused=0
+[18:47:48.117] coherent frame=5190 armed=1 d=0.0,0.0,40.0 | ps VP rewritten c4=0 c11=0 other=0 (of 825 armed scans) | vs c4 CameraPosition fix=715 skip=935
+[18:47:48.182] HOTKEY NumPad+: head offset now right=0.0 up=45.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:48.407] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=0.0 (camera pos -0.0,0.0,-0.0)
+[18:47:49.085] camtrace frame=5220 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=102469) | pos=-0.0,0.0,-0.0 head=0.0,50.0,0.0 applied=2465 refused=0 | headrot=identity applied=0 refused=0
+[18:47:49.085] coherent frame=5220 armed=1 d=0.0,0.0,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 1275 armed scans) | vs c4 CameraPosition fix=1105 skip=1445
+[18:47:49.311] HOTKEY NumPad5: head axis -> FORWARD (step 5.0, offset now 0.0,50.0,0.0)
+[18:47:49.698] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=5.0 (camera pos -0.0,0.0,-0.0)
+[18:47:49.923] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=10.0 (camera pos -0.0,0.0,-0.0)
+[18:47:50.053] camtrace frame=5250 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=103369) | pos=-0.0,0.0,-0.0 head=0.0,50.0,10.0 applied=3335 refused=0 | headrot=identity applied=0 refused=0
+[18:47:50.053] coherent frame=5250 armed=1 d=8.2,-5.7,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 1725 armed scans) | vs c4 CameraPosition fix=1495 skip=1955
+[18:47:50.150] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=15.0 (camera pos -0.0,0.0,-0.0)
+[18:47:50.375] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=20.0 (camera pos -0.0,0.0,-0.0)
+[18:47:50.601] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=25.0 (camera pos -0.0,0.0,-0.0)
+[18:47:50.859] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=30.0 (camera pos -0.0,0.0,-0.0)
+[18:47:51.020] camtrace frame=5280 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=104269) | pos=-0.0,0.0,-0.0 head=0.0,50.0,30.0 applied=4205 refused=0 | headrot=identity applied=0 refused=0
+[18:47:51.020] coherent frame=5280 armed=1 d=24.7,-17.0,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 2175 armed scans) | vs c4 CameraPosition fix=1885 skip=2465
+[18:47:51.085] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=35.0 (camera pos -0.0,0.0,-0.0)
+[18:47:51.311] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=40.0 (camera pos -0.0,0.0,-0.0)
+[18:47:51.537] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=45.0 (camera pos -0.0,0.0,-0.0)
+[18:47:51.763] HOTKEY NumPad+: head offset now right=0.0 up=50.0 forward=50.0 (camera pos -0.0,0.0,-0.0)
+[18:47:51.988] camtrace frame=5310 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=105169) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=5075 refused=0 | headrot=identity applied=0 refused=0
+[18:47:51.988] coherent frame=5310 armed=1 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 2625 armed scans) | vs c4 CameraPosition fix=2275 skip=2975
+[18:47:52.956] camtrace frame=5340 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=106069) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=5945 refused=0 | headrot=identity applied=0 refused=0
+[18:47:52.956] coherent frame=5340 armed=1 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 3075 armed scans) | vs c4 CameraPosition fix=2665 skip=3485
+[18:47:53.924] camtrace frame=5370 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=106969) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=6815 refused=0 | headrot=identity applied=0 refused=0
+[18:47:53.924] coherent frame=5370 armed=1 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 3525 armed scans) | vs c4 CameraPosition fix=3055 skip=3995
+[18:47:54.893] frame 5400 | shaders=8141 (full events=0) vp_writes=107869 (camera-shaped 103253) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.000000 last=1.000000 range=[1.000000 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:47:54.893] c0dump 3/6 frame 5400  backbuffer 1280x720
+[18:47:54.893]   CAMERA CAMERA  Vector4fCount=4  p00=1.000000 |row3|=1.000000 perp=0.000000 c3.w=0.000000
+[18:47:54.893]      row0  0.567943  0.823068  0.000000  0.000000
+[18:47:54.893]      row1  0.000000  0.000000  1.777778  0.000000
+[18:47:54.893]      row2  0.822245 -0.567375  0.000000 -9.990000
+[18:47:54.893]      row3  0.823068 -0.567943  0.000000  0.000000
+[18:47:54.893]      -> camera-shaped: rigid view, symmetric projection, hfov 90.00 deg.
+[18:47:54.893]   OTHER  SKEWED  Vector4fCount=8  p00=0.002210 |row3|=0.001353 perp=0.816497 c3.w=0.000781
+[18:47:54.893]      -> WARNING: count 8 > 4, so this is NOT a 4x4 matrix at all. The one shipped vertex shader binding a non-view constant at c0 is a filter/blur pass with SampleOffsets as an 8-register array. If count == 8 the shear has been corrupting blur offsets, not a matrix.
+[18:47:54.893]      row0 -0.001563  0.000000 -0.001563  0.000000
+[18:47:54.893]      row1 -0.002778 -0.002778 -0.001389 -0.001389
+[18:47:54.893]      row2 -0.002778 -0.002778 -0.001389 -0.001389
+[18:47:54.893]      row3 -0.000781  0.000781 -0.000781  0.000781
+[18:47:54.893]      -> row0 is NOT perpendicular to row3 (perp=0.816497 > 0.01), so something non-rigid is baked in after the projection - a fused local-to-clip, or a non-uniform scale. No FOV is meaningful.
+[18:47:54.893]   c0 writes by Vector4fCount: 4=103273 5=0 6=0 7=0 8+=4596
+[18:47:54.893]   c0 writes by kind: camera=103253 affine=20 scaled=0 skewed=4596 degenerate=0
+[18:47:54.893] camtrace frame=5400 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=107869) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=7685 refused=0 | headrot=identity applied=0 refused=0
+[18:47:54.893] coherent frame=5400 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 3975 armed scans) | vs c4 CameraPosition fix=3445 skip=4505
+[18:47:55.860] camtrace frame=5430 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=108772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=8558 refused=0 | headrot=identity applied=0 refused=0
+[18:47:55.860] coherent frame=5430 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 4425 armed scans) | vs c4 CameraPosition fix=3838 skip=5015
+[18:47:56.828] camtrace frame=5460 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=109672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=9428 refused=0 | headrot=identity applied=0 refused=0
+[18:47:56.828] coherent frame=5460 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 4875 armed scans) | vs c4 CameraPosition fix=4228 skip=5525
+[18:47:57.795] camtrace frame=5490 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=110572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=10298 refused=0 | headrot=identity applied=0 refused=0
+[18:47:57.795] coherent frame=5490 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 5325 armed scans) | vs c4 CameraPosition fix=4618 skip=6035
+[18:47:58.763] camtrace frame=5520 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=111472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=11168 refused=0 | headrot=identity applied=0 refused=0
+[18:47:58.763] coherent frame=5520 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 5775 armed scans) | vs c4 CameraPosition fix=5008 skip=6545
+[18:47:59.730] camtrace frame=5550 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=112372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=12038 refused=0 | headrot=identity applied=0 refused=0
+[18:47:59.730] coherent frame=5550 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 6225 armed scans) | vs c4 CameraPosition fix=5398 skip=7055
+[18:48:00.698] camtrace frame=5580 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=113272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=12908 refused=0 | headrot=identity applied=0 refused=0
+[18:48:00.698] coherent frame=5580 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 6675 armed scans) | vs c4 CameraPosition fix=5788 skip=7565
+[18:48:01.665] camtrace frame=5610 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=114172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=13778 refused=0 | headrot=identity applied=0 refused=0
+[18:48:01.665] coherent frame=5610 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 7125 armed scans) | vs c4 CameraPosition fix=6178 skip=8075
+[18:48:02.634] camtrace frame=5640 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=115072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=14648 refused=0 | headrot=identity applied=0 refused=0
+[18:48:02.634] coherent frame=5640 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 7575 armed scans) | vs c4 CameraPosition fix=6568 skip=8585
+[18:48:03.601] camtrace frame=5670 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=115972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=15518 refused=0 | headrot=identity applied=0 refused=0
+[18:48:03.601] coherent frame=5670 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 8025 armed scans) | vs c4 CameraPosition fix=6958 skip=9095
+[18:48:04.569] camtrace frame=5700 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=116872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=16388 refused=0 | headrot=identity applied=0 refused=0
+[18:48:04.569] coherent frame=5700 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 8475 armed scans) | vs c4 CameraPosition fix=7348 skip=9605
+[18:48:05.537] camtrace frame=5730 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=117772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=17258 refused=0 | headrot=identity applied=0 refused=0
+[18:48:05.537] coherent frame=5730 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 8925 armed scans) | vs c4 CameraPosition fix=7738 skip=10115
+[18:48:06.505] camtrace frame=5760 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=118672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=18128 refused=0 | headrot=identity applied=0 refused=0
+[18:48:06.505] coherent frame=5760 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 9375 armed scans) | vs c4 CameraPosition fix=8128 skip=10625
+[18:48:07.472] camtrace frame=5790 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=119572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=18998 refused=0 | headrot=identity applied=0 refused=0
+[18:48:07.472] coherent frame=5790 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 9825 armed scans) | vs c4 CameraPosition fix=8518 skip=11135
+[18:48:08.439] camtrace frame=5820 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=120472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=19868 refused=0 | headrot=identity applied=0 refused=0
+[18:48:08.440] coherent frame=5820 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 10275 armed scans) | vs c4 CameraPosition fix=8908 skip=11645
+[18:48:09.409] camtrace frame=5850 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=121372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=20738 refused=0 | headrot=identity applied=0 refused=0
+[18:48:09.409] coherent frame=5850 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 10725 armed scans) | vs c4 CameraPosition fix=9298 skip=12155
+[18:48:10.376] camtrace frame=5880 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=122272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=21608 refused=0 | headrot=identity applied=0 refused=0
+[18:48:10.376] coherent frame=5880 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 11175 armed scans) | vs c4 CameraPosition fix=9688 skip=12665
+[18:48:11.343] camtrace frame=5910 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=123172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=22478 refused=0 | headrot=identity applied=0 refused=0
+[18:48:11.343] coherent frame=5910 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 11625 armed scans) | vs c4 CameraPosition fix=10078 skip=13175
+[18:48:12.312] camtrace frame=5940 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=124072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=23348 refused=0 | headrot=identity applied=0 refused=0
+[18:48:12.312] coherent frame=5940 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 12075 armed scans) | vs c4 CameraPosition fix=10468 skip=13685
+[18:48:13.279] camtrace frame=5970 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=124972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=24218 refused=0 | headrot=identity applied=0 refused=0
+[18:48:13.279] coherent frame=5970 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 12525 armed scans) | vs c4 CameraPosition fix=10858 skip=14195
+[18:48:14.247] camtrace frame=6000 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=125872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=25088 refused=0 | headrot=identity applied=0 refused=0
+[18:48:14.247] coherent frame=6000 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 12975 armed scans) | vs c4 CameraPosition fix=11248 skip=14705
+[18:48:15.215] camtrace frame=6030 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=126772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=25958 refused=0 | headrot=identity applied=0 refused=0
+[18:48:15.215] coherent frame=6030 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 13425 armed scans) | vs c4 CameraPosition fix=11638 skip=15215
+[18:48:16.182] camtrace frame=6060 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=127672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=26828 refused=0 | headrot=identity applied=0 refused=0
+[18:48:16.183] coherent frame=6060 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 13875 armed scans) | vs c4 CameraPosition fix=12028 skip=15725
+[18:48:17.149] camtrace frame=6090 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=128572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=27698 refused=0 | headrot=identity applied=0 refused=0
+[18:48:17.150] coherent frame=6090 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 14325 armed scans) | vs c4 CameraPosition fix=12418 skip=16235
+[18:48:18.118] camtrace frame=6120 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=129472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=28568 refused=0 | headrot=identity applied=0 refused=0
+[18:48:18.118] coherent frame=6120 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 14775 armed scans) | vs c4 CameraPosition fix=12808 skip=16745
+[18:48:19.085] camtrace frame=6150 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=130372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=29438 refused=0 | headrot=identity applied=0 refused=0
+[18:48:19.085] coherent frame=6150 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 15225 armed scans) | vs c4 CameraPosition fix=13198 skip=17255
+[18:48:20.053] camtrace frame=6180 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=131272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=30308 refused=0 | headrot=identity applied=0 refused=0
+[18:48:20.053] coherent frame=6180 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 15675 armed scans) | vs c4 CameraPosition fix=13588 skip=17765
+[18:48:21.021] camtrace frame=6210 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=132172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=31178 refused=0 | headrot=identity applied=0 refused=0
+[18:48:21.021] coherent frame=6210 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 16125 armed scans) | vs c4 CameraPosition fix=13978 skip=18275
+[18:48:21.989] camtrace frame=6240 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=133072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=32048 refused=0 | headrot=identity applied=0 refused=0
+[18:48:21.989] coherent frame=6240 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 16575 armed scans) | vs c4 CameraPosition fix=14368 skip=18785
+[18:48:22.957] camtrace frame=6270 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=133972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=32918 refused=0 | headrot=identity applied=0 refused=0
+[18:48:22.957] coherent frame=6270 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 17025 armed scans) | vs c4 CameraPosition fix=14758 skip=19295
+[18:48:23.924] frame 6300 | shaders=8141 (full events=0) vp_writes=134872 (camera-shaped 129356) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.000000 last=1.000000 range=[1.000000 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:48:23.924] camtrace frame=6300 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=134872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=33788 refused=0 | headrot=identity applied=0 refused=0
+[18:48:23.924] coherent frame=6300 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 17475 armed scans) | vs c4 CameraPosition fix=15148 skip=19805
+[18:48:24.893] camtrace frame=6330 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=135772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=34658 refused=0 | headrot=identity applied=0 refused=0
+[18:48:24.893] coherent frame=6330 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 17925 armed scans) | vs c4 CameraPosition fix=15538 skip=20315
+[18:48:25.863] camtrace frame=6360 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=136672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=35528 refused=0 | headrot=identity applied=0 refused=0
+[18:48:25.863] coherent frame=6360 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 18375 armed scans) | vs c4 CameraPosition fix=15928 skip=20825
+[18:48:26.827] camtrace frame=6390 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=137572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=36398 refused=0 | headrot=identity applied=0 refused=0
+[18:48:26.827] coherent frame=6390 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 18825 armed scans) | vs c4 CameraPosition fix=16318 skip=21335
+[18:48:27.795] camtrace frame=6420 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=138472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=37268 refused=0 | headrot=identity applied=0 refused=0
+[18:48:27.795] coherent frame=6420 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 19275 armed scans) | vs c4 CameraPosition fix=16708 skip=21845
+[18:48:28.763] camtrace frame=6450 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=139372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=38138 refused=0 | headrot=identity applied=0 refused=0
+[18:48:28.763] coherent frame=6450 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 19725 armed scans) | vs c4 CameraPosition fix=17098 skip=22355
+[18:48:29.730] camtrace frame=6480 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=140272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=39008 refused=0 | headrot=identity applied=0 refused=0
+[18:48:29.731] coherent frame=6480 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 20175 armed scans) | vs c4 CameraPosition fix=17488 skip=22865
+[18:48:30.699] camtrace frame=6510 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=141172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=39878 refused=0 | headrot=identity applied=0 refused=0
+[18:48:30.699] coherent frame=6510 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 20625 armed scans) | vs c4 CameraPosition fix=17878 skip=23375
+[18:48:31.667] camtrace frame=6540 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=142072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=40748 refused=0 | headrot=identity applied=0 refused=0
+[18:48:31.667] coherent frame=6540 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 21075 armed scans) | vs c4 CameraPosition fix=18268 skip=23885
+[18:48:32.634] camtrace frame=6570 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=142972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=41618 refused=0 | headrot=identity applied=0 refused=0
+[18:48:32.634] coherent frame=6570 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 21525 armed scans) | vs c4 CameraPosition fix=18658 skip=24395
+[18:48:33.602] camtrace frame=6600 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=143872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=42488 refused=0 | headrot=identity applied=0 refused=0
+[18:48:33.602] coherent frame=6600 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 21975 armed scans) | vs c4 CameraPosition fix=19048 skip=24905
+[18:48:34.570] camtrace frame=6630 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=144772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=43358 refused=0 | headrot=identity applied=0 refused=0
+[18:48:34.570] coherent frame=6630 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 22425 armed scans) | vs c4 CameraPosition fix=19438 skip=25415
+[18:48:35.538] camtrace frame=6660 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=145672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=44228 refused=0 | headrot=identity applied=0 refused=0
+[18:48:35.538] coherent frame=6660 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 22875 armed scans) | vs c4 CameraPosition fix=19828 skip=25925
+[18:48:36.505] camtrace frame=6690 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=146572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=45098 refused=0 | headrot=identity applied=0 refused=0
+[18:48:36.505] coherent frame=6690 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 23325 armed scans) | vs c4 CameraPosition fix=20218 skip=26435
+[18:48:37.473] camtrace frame=6720 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=147472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=45968 refused=0 | headrot=identity applied=0 refused=0
+[18:48:37.473] coherent frame=6720 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 23775 armed scans) | vs c4 CameraPosition fix=20608 skip=26945
+[18:48:38.440] camtrace frame=6750 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=148372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=46838 refused=0 | headrot=identity applied=0 refused=0
+[18:48:38.440] coherent frame=6750 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 24225 armed scans) | vs c4 CameraPosition fix=20998 skip=27455
+[18:48:39.409] camtrace frame=6780 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=149272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=47708 refused=0 | headrot=identity applied=0 refused=0
+[18:48:39.409] coherent frame=6780 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 24675 armed scans) | vs c4 CameraPosition fix=21388 skip=27965
+[18:48:40.377] camtrace frame=6810 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=150172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=48578 refused=0 | headrot=identity applied=0 refused=0
+[18:48:40.377] coherent frame=6810 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 25125 armed scans) | vs c4 CameraPosition fix=21778 skip=28475
+[18:48:41.345] camtrace frame=6840 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=151072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=49448 refused=0 | headrot=identity applied=0 refused=0
+[18:48:41.345] coherent frame=6840 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 25575 armed scans) | vs c4 CameraPosition fix=22168 skip=28985
+[18:48:42.312] camtrace frame=6870 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=151972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=50318 refused=0 | headrot=identity applied=0 refused=0
+[18:48:42.312] coherent frame=6870 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 26025 armed scans) | vs c4 CameraPosition fix=22558 skip=29495
+[18:48:43.280] camtrace frame=6900 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=152872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=51188 refused=0 | headrot=identity applied=0 refused=0
+[18:48:43.280] coherent frame=6900 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 26475 armed scans) | vs c4 CameraPosition fix=22948 skip=30005
+[18:48:44.248] camtrace frame=6930 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=153772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=52058 refused=0 | headrot=identity applied=0 refused=0
+[18:48:44.248] coherent frame=6930 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 26925 armed scans) | vs c4 CameraPosition fix=23338 skip=30515
+[18:48:45.216] camtrace frame=6960 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=154672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=52928 refused=0 | headrot=identity applied=0 refused=0
+[18:48:45.216] coherent frame=6960 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 27375 armed scans) | vs c4 CameraPosition fix=23728 skip=31025
+[18:48:46.183] camtrace frame=6990 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=155572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=53798 refused=0 | headrot=identity applied=0 refused=0
+[18:48:46.183] coherent frame=6990 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 27825 armed scans) | vs c4 CameraPosition fix=24118 skip=31535
+[18:48:47.151] camtrace frame=7020 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=156472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=54668 refused=0 | headrot=identity applied=0 refused=0
+[18:48:47.151] coherent frame=7020 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 28275 armed scans) | vs c4 CameraPosition fix=24508 skip=32045
+[18:48:48.118] camtrace frame=7050 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=157372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=55538 refused=0 | headrot=identity applied=0 refused=0
+[18:48:48.118] coherent frame=7050 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 28725 armed scans) | vs c4 CameraPosition fix=24898 skip=32555
+[18:48:49.087] camtrace frame=7080 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=158272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=56408 refused=0 | headrot=identity applied=0 refused=0
+[18:48:49.087] coherent frame=7080 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 29175 armed scans) | vs c4 CameraPosition fix=25288 skip=33065
+[18:48:50.055] camtrace frame=7110 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=159172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=57278 refused=0 | headrot=identity applied=0 refused=0
+[18:48:50.055] coherent frame=7110 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 29625 armed scans) | vs c4 CameraPosition fix=25678 skip=33575
+[18:48:51.023] camtrace frame=7140 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=160072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=58148 refused=0 | headrot=identity applied=0 refused=0
+[18:48:51.023] coherent frame=7140 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 30075 armed scans) | vs c4 CameraPosition fix=26068 skip=34085
+[18:48:51.990] camtrace frame=7170 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=160972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=59018 refused=0 | headrot=identity applied=0 refused=0
+[18:48:51.990] coherent frame=7170 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 30525 armed scans) | vs c4 CameraPosition fix=26458 skip=34595
+[18:48:52.959] frame 7200 | shaders=8141 (full events=0) vp_writes=161872 (camera-shaped 155456) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.000000 last=1.000000 range=[1.000000 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:48:52.959] c0dump 4/6 frame 7200  backbuffer 1280x720
+[18:48:52.959]   CAMERA CAMERA  Vector4fCount=4  p00=1.000000 |row3|=1.000000 perp=0.000000 c3.w=0.000000
+[18:48:52.959]      row0  0.567943  0.823068  0.000000  0.000000
+[18:48:52.959]      row1  0.000000  0.000000  1.777778  0.000000
+[18:48:52.959]      row2  0.822245 -0.567375  0.000000 -9.990000
+[18:48:52.959]      row3  0.823068 -0.567943  0.000000  0.000000
+[18:48:52.959]      -> camera-shaped: rigid view, symmetric projection, hfov 90.00 deg.
+[18:48:52.959]   OTHER  SKEWED  Vector4fCount=8  p00=0.002210 |row3|=0.001353 perp=0.816497 c3.w=0.000781
+[18:48:52.959]      -> WARNING: count 8 > 4, so this is NOT a 4x4 matrix at all. The one shipped vertex shader binding a non-view constant at c0 is a filter/blur pass with SampleOffsets as an 8-register array. If count == 8 the shear has been corrupting blur offsets, not a matrix.
+[18:48:52.959]      row0 -0.001563  0.000000 -0.001563  0.000000
+[18:48:52.959]      row1 -0.002778 -0.002778 -0.001389 -0.001389
+[18:48:52.959]      row2 -0.002778 -0.002778 -0.001389 -0.001389
+[18:48:52.959]      row3 -0.000781  0.000781 -0.000781  0.000781
+[18:48:52.959]      -> row0 is NOT perpendicular to row3 (perp=0.816497 > 0.01), so something non-rigid is baked in after the projection - a fused local-to-clip, or a non-uniform scale. No FOV is meaningful.
+[18:48:52.959]   c0 writes by Vector4fCount: 4=155476 5=0 6=0 7=0 8+=6396
+[18:48:52.959]   c0 writes by kind: camera=155456 affine=20 scaled=0 skewed=6396 degenerate=0
+[18:48:52.959] camtrace frame=7200 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=161872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=59888 refused=0 | headrot=identity applied=0 refused=0
+[18:48:52.959] coherent frame=7200 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 30975 armed scans) | vs c4 CameraPosition fix=26848 skip=35105
+[18:48:53.926] camtrace frame=7230 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=162772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=60758 refused=0 | headrot=identity applied=0 refused=0
+[18:48:53.926] coherent frame=7230 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 31425 armed scans) | vs c4 CameraPosition fix=27238 skip=35615
+[18:48:54.896] camtrace frame=7260 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=163672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=61628 refused=0 | headrot=identity applied=0 refused=0
+[18:48:54.896] coherent frame=7260 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 31875 armed scans) | vs c4 CameraPosition fix=27628 skip=36125
+[18:48:55.862] camtrace frame=7290 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=164572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=62498 refused=0 | headrot=identity applied=0 refused=0
+[18:48:55.862] coherent frame=7290 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 32325 armed scans) | vs c4 CameraPosition fix=28018 skip=36635
+[18:48:56.829] camtrace frame=7320 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=165472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=63368 refused=0 | headrot=identity applied=0 refused=0
+[18:48:56.829] coherent frame=7320 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 32775 armed scans) | vs c4 CameraPosition fix=28408 skip=37145
+[18:48:57.796] camtrace frame=7350 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=166372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=64238 refused=0 | headrot=identity applied=0 refused=0
+[18:48:57.796] coherent frame=7350 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 33225 armed scans) | vs c4 CameraPosition fix=28798 skip=37655
+[18:48:58.764] camtrace frame=7380 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=167272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=65108 refused=0 | headrot=identity applied=0 refused=0
+[18:48:58.765] coherent frame=7380 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 33675 armed scans) | vs c4 CameraPosition fix=29188 skip=38165
+[18:48:59.732] camtrace frame=7410 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=168172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=65978 refused=0 | headrot=identity applied=0 refused=0
+[18:48:59.732] coherent frame=7410 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 34125 armed scans) | vs c4 CameraPosition fix=29578 skip=38675
+[18:49:00.699] camtrace frame=7440 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=169072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=66848 refused=0 | headrot=identity applied=0 refused=0
+[18:49:00.699] coherent frame=7440 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 34575 armed scans) | vs c4 CameraPosition fix=29968 skip=39185
+[18:49:01.668] camtrace frame=7470 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=169972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=67718 refused=0 | headrot=identity applied=0 refused=0
+[18:49:01.668] coherent frame=7470 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 35025 armed scans) | vs c4 CameraPosition fix=30358 skip=39695
+[18:49:02.636] camtrace frame=7500 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=170872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=68588 refused=0 | headrot=identity applied=0 refused=0
+[18:49:02.636] coherent frame=7500 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 35475 armed scans) | vs c4 CameraPosition fix=30748 skip=40205
+[18:49:03.604] camtrace frame=7530 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=171772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=69458 refused=0 | headrot=identity applied=0 refused=0
+[18:49:03.604] coherent frame=7530 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 35925 armed scans) | vs c4 CameraPosition fix=31138 skip=40715
+[18:49:04.572] camtrace frame=7560 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=172672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=70328 refused=0 | headrot=identity applied=0 refused=0
+[18:49:04.572] coherent frame=7560 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 36375 armed scans) | vs c4 CameraPosition fix=31528 skip=41225
+[18:49:05.539] camtrace frame=7590 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=173572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=71198 refused=0 | headrot=identity applied=0 refused=0
+[18:49:05.539] coherent frame=7590 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 36825 armed scans) | vs c4 CameraPosition fix=31918 skip=41735
+[18:49:06.507] camtrace frame=7620 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=174472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=72068 refused=0 | headrot=identity applied=0 refused=0
+[18:49:06.507] coherent frame=7620 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 37275 armed scans) | vs c4 CameraPosition fix=32308 skip=42245
+[18:49:07.475] camtrace frame=7650 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=175372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=72938 refused=0 | headrot=identity applied=0 refused=0
+[18:49:07.475] coherent frame=7650 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 37725 armed scans) | vs c4 CameraPosition fix=32698 skip=42755
+[18:49:08.442] camtrace frame=7680 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=176272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=73808 refused=0 | headrot=identity applied=0 refused=0
+[18:49:08.442] coherent frame=7680 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 38175 armed scans) | vs c4 CameraPosition fix=33088 skip=43265
+[18:49:09.410] camtrace frame=7710 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=177172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=74678 refused=0 | headrot=identity applied=0 refused=0
+[18:49:09.410] coherent frame=7710 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 38625 armed scans) | vs c4 CameraPosition fix=33478 skip=43775
+[18:49:10.378] camtrace frame=7740 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=178072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=75548 refused=0 | headrot=identity applied=0 refused=0
+[18:49:10.378] coherent frame=7740 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 39075 armed scans) | vs c4 CameraPosition fix=33868 skip=44285
+[18:49:11.346] camtrace frame=7770 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=178972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=76418 refused=0 | headrot=identity applied=0 refused=0
+[18:49:11.346] coherent frame=7770 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 39525 armed scans) | vs c4 CameraPosition fix=34258 skip=44795
+[18:49:12.314] camtrace frame=7800 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=179872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=77288 refused=0 | headrot=identity applied=0 refused=0
+[18:49:12.314] coherent frame=7800 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 39975 armed scans) | vs c4 CameraPosition fix=34648 skip=45305
+[18:49:13.281] camtrace frame=7830 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=180772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=78158 refused=0 | headrot=identity applied=0 refused=0
+[18:49:13.281] coherent frame=7830 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 40425 armed scans) | vs c4 CameraPosition fix=35038 skip=45815
+[18:49:14.249] camtrace frame=7860 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=181672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=79028 refused=0 | headrot=identity applied=0 refused=0
+[18:49:14.249] coherent frame=7860 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 40875 armed scans) | vs c4 CameraPosition fix=35428 skip=46325
+[18:49:15.217] camtrace frame=7890 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=182572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=79898 refused=0 | headrot=identity applied=0 refused=0
+[18:49:15.217] coherent frame=7890 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 41325 armed scans) | vs c4 CameraPosition fix=35818 skip=46835
+[18:49:16.184] camtrace frame=7920 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=183472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=80768 refused=0 | headrot=identity applied=0 refused=0
+[18:49:16.184] coherent frame=7920 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 41775 armed scans) | vs c4 CameraPosition fix=36208 skip=47345
+[18:49:17.152] camtrace frame=7950 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=184372) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=81638 refused=0 | headrot=identity applied=0 refused=0
+[18:49:17.152] coherent frame=7950 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 42225 armed scans) | vs c4 CameraPosition fix=36598 skip=47855
+[18:49:18.120] camtrace frame=7980 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=185272) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=82508 refused=0 | headrot=identity applied=0 refused=0
+[18:49:18.120] coherent frame=7980 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 42675 armed scans) | vs c4 CameraPosition fix=36988 skip=48365
+[18:49:19.088] camtrace frame=8010 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=186172) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=83378 refused=0 | headrot=identity applied=0 refused=0
+[18:49:19.088] coherent frame=8010 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 43125 armed scans) | vs c4 CameraPosition fix=37378 skip=48875
+[18:49:20.055] camtrace frame=8040 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=187072) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=84248 refused=0 | headrot=identity applied=0 refused=0
+[18:49:20.055] coherent frame=8040 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 43575 armed scans) | vs c4 CameraPosition fix=37768 skip=49385
+[18:49:21.023] camtrace frame=8070 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=187972) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=85118 refused=0 | headrot=identity applied=0 refused=0
+[18:49:21.023] coherent frame=8070 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 44025 armed scans) | vs c4 CameraPosition fix=38158 skip=49895
+[18:49:21.992] frame 8100 | shaders=8141 (full events=0) vp_writes=188872 (camera-shaped 181556) draws_fixed=0 | stereo off eye=L ipd=6.50 conv=300.0 | p00 camera=1.000000 last=1.000000 range=[1.000000 .. 2.747477] | S=0.000000 | wiggle flips=0
+[18:49:21.992] camtrace frame=8100 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=188872) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=85988 refused=0 | headrot=identity applied=0 refused=0
+[18:49:21.992] coherent frame=8100 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 44475 armed scans) | vs c4 CameraPosition fix=38548 skip=50405
+[18:49:22.959] camtrace frame=8130 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=189772) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=86858 refused=0 | headrot=identity applied=0 refused=0
+[18:49:22.959] coherent frame=8130 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 44925 armed scans) | vs c4 CameraPosition fix=38938 skip=50915
+[18:49:23.928] camtrace frame=8160 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=190672) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=87728 refused=0 | headrot=identity applied=0 refused=0
+[18:49:23.928] coherent frame=8160 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 45375 armed scans) | vs c4 CameraPosition fix=39328 skip=51425
+[18:49:24.894] camtrace frame=8190 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=191572) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=88598 refused=0 | headrot=identity applied=0 refused=0
+[18:49:24.894] coherent frame=8190 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 45825 armed scans) | vs c4 CameraPosition fix=39718 skip=51935
+[18:49:25.862] camtrace frame=8220 yaw=-34.607 pitch=+0.000 total=-159.10 dmax=0.00 spread=0.000 n=29 p00cam=1.000000 p11=1.777778 ratio=1.7778 vs bb 1.7778 | c4=-0.0,0.0,0.0 (n=192472) | pos=-0.0,0.0,-0.0 head=0.0,50.0,50.0 applied=89468 refused=0 | headrot=identity applied=0 refused=0
+[18:49:25.862] coherent frame=8220 armed=4 d=41.2,-28.4,50.0 | ps VP rewritten c4=0 c11=0 other=0 (of 46275 armed scans) | vs c4 CameraPosition fix=40108 skip=52445
