@@ -202,6 +202,18 @@ guard. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/r
   diagnostic's shape test lets such data through (608 of ~357,000 windows); a strict version that
   records only real events to an append-mode capture file, so normal play can gather the evidence,
   was requested from the reader the same evening.
+- **The capture build, deployed and smoke-tested** (`7af3b5f53a7d`, 744,448 B, 103 checks
+  `[compile-verified 2026-09-11]`; reader note `reader-psdiag-capture-build.md`): a strict five-point
+  camera test (the kitchen's lighting blocks rejected, real camera matrices accepted), counts of
+  uploads while a VP-declaring pixel shader is bound (partial uploads included), and dumps appended
+  to **`alice_vr_psdiag_capture.txt`** beside the exe — 8 per launch, 32 total, a header per launch
+  with the running DLL's own SHA-256. **Live** `[verified-live 2026-09-11, n=1 launch]`: the header
+  wrote with the right hash; the game played normally; but **all 8 dumps were spent in the main menu**
+  (frames 687–703, before the level), on strict-camera matrices that are **not** bit-identical to the
+  last vs `c0` VP (the menu's 3D background). In the level, `VP-shader-bound` stayed 0 and
+  `strict-camera=5508 (bit-identical to vs c0: 0)`. **Next:** hold the dump budget until app state /
+  first in-level `camtrace` (or dump only VP-shader-bound events), so a player's normal session
+  captures the lit-scene evidence. Saved: `psdiag-capture-first-8-dumps.txt`.
 
 ~~**⚠️ THE UNIT SCALE IS A GUESS.**~~ *(superseded 2026-09-11 by the measurement above)* `50.0` game units per metre is `[hypothesis]`: UE3's usual
 1 unit = 2 cm, consistent with a 200-unit forward offset reaching the back of Alice's head from
