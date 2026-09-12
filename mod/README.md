@@ -4,9 +4,18 @@ A VR conversion mod for **Alice: Madness Returns (2011)** — the goal is stereo
 rendering and 6DOF head tracking, and ideally motion-controlled combat, built
 on the game's **Unreal Engine 3** foundation.
 
-> **Status: work in progress — nothing playable released yet, no code written
-> yet.** This folder holds releases only; watch it if you want to know
-> the moment there is something to try.
+> ### ⚠️ Status: **v0.1.0-alpha released — EARLY DEVELOPMENT, not ready for a playthrough.**
+>
+> Stereo rendering and 6DOF head tracking work in a headset, and the head-tracking
+> scale is now measured (95 game units per metre) rather than guessed. The new scale
+> has not been worn yet, there are no motion controls, and nothing is calibrated for
+> comfort.
+>
+> 🤢 **Caution: may cause severe motion sickness and discomfort.** Play seated,
+> keep it short, take the headset off at the first sign of discomfort. This
+> caution stays until the mod is confirmed genuinely comfortable to play.
+>
+> Get it from the [**Releases page**](https://github.com/TefMeister/alice-madness-returns-vr/releases).
 
 ## What this will be
 
