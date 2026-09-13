@@ -192,7 +192,9 @@ guard. Its design notes: `dev-archive/recon/2026-09-11-alice-is-160-units-tall/r
   pieces is `[inferred-static]`); the most (7) are in Chapter 5's London "Hyde". **Chapter Select
   exists but warns it deletes saved data** — the user's call; back up the `CheckPoint/tefa/` save folder first. If a
   lit scene still shows no camera matrix, the next suspect is the copy arriving in uploads smaller
-  than 4 registers, which the fix skips `[hypothesis]`.
+  than 4 registers, which the fix skips ~~`[hypothesis]`~~ — **`[disproved 2026-09-13]`: all 4,126
+  such pixel shaders declare it four registers wide (§6g), and the live priority is now
+  `ScreenToShadowMatrix`.**
 - **The Duchess's kitchen false alarm** (reader, `reader-kitchen-dumps-are-lighting-not-a-matrix.md`):
   Tefa played on into the kitchen, where the diagnostic's "camera-shaped" count rose to 608 and all
   8 dumps filled — but the block is **`WorldIncidentLighting`**, the only 7-register constant at ps
@@ -1561,6 +1563,66 @@ Write-up: `modding-notes/2026-09-07-both-eyes-are-real-the-rock-scales-with-ipd-
 Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
 `dev-archive/tools/alice_harness.py` (validated 7/7 on synthetic offsets before being trusted).
 
+## 6g. ⭐⭐ THREE MORE VIEW MATRICES REACH PIXEL SHADERS — and `ScreenToShadowMatrix` is the better suspect for sliding shadows (2026-09-13, `/lm` reader, static only)
+
+Found while answering "what would a **mis-handled** SSAO pass look like" — a question about breakage,
+not about what was broken. Note: `modding-notes/2026-09-13-the-shadow-matrix-nobody-was-watching.md`.
+
+| constant | pixel shaders declaring it | at registers |
+| --- | --- | --- |
+| **`ScreenToShadowMatrix`** | **56** | c4, c8, c10, c12, c16, c20 |
+| `ScreenToWorld` / `ScreenToWorldMatrix` | 28 / 5 | c4…c28 |
+| `PrevViewProjMatrix` | 4 | c4, c24, c28 |
+
+`[measured 2026-09-13]` — from the shipped shader cache, same parser that reproduced the project's own
+4,126 VP-declaring count exactly.
+
+**The mechanism.** The shadow-projection pass reads scene depth **rendered with our head-edited
+camera** and maps it into shadow space with a matrix built from the game's **unedited** inverse view.
+Our edit is a rigid world transform on the left, `R_edited = E · R_game`, so a screen point comes back
+as `(p·E)·WorldToShadow` instead of `p·WorldToShadow` `[inferred-static 2026-09-13]`.
+
+⭐ **Three reasons it beats the pixel-VP-copy row as the explanation of "shadows slide as the head
+moves":** it needs **no dynamic light** (it runs wherever a shadow does, so it reproduces in the save
+on disk); it covers **56 shaders** against a VP copy never once bound in 4.6 M writes; and **the error
+is exactly zero at head offset 0** and grows with the offset, which makes the live A/B clean without a
+special scene.
+
+**The correction is a CONJUGATION, not the ±d the coherent-view fix uses:**
+
+```
+M_correct = K · M        K = inv(R_edited) · R_game
+```
+
+The coherent-view fix edits a matrix that *starts* in world space — a translation into one register.
+This one starts in **screen** space, so the same movement must be carried through the projection.
+⚠️ **As a ±d it would be nearly right at the screen centre and wrong at the edges** — the failure mode
+that looks almost fixed. Inverting the other matrix, and multiplying on the other side, are each
+pinned by their own failing test.
+
+⚠️ **Unverified assumption, and why the rewrite ships OFF:** that the shader's screen input is the clip
+vector our matrix produces. If UE3 folds a viewport scale/bias in on the left, `K` must be conjugated
+by it too. **Only a live run settles it** — and the tell is diagnostic either way: if the error scales
+with the offset and vanishes at 0 but the fix does not correct it, the algebra is right and the
+screen-input convention is what is wrong.
+
+**Built (`8dea5b9ce191`, deployed, never run):** counters `otherview binds/writes/regs` for all three
+families plus an AO-pass counter keyed on the `AmbientOcclusionTexture` sampler; the rewrite behind
+`alice_vr_shadowfix_on.txt`, independent of the other markers, recomputed once a frame in double, with
+the inverse **verifying itself by round-trip** and refusing rather than shipping a wrong matrix. 169
+checks / 0 failures, 15 mutants killed `[compile-verified 2026-09-13]`.
+**`ScreenToShadow binds=0` on the first run is a RESULT, not a dud** — it would mean the pass is not
+reached the way this derivation predicts, and the mechanism needs re-deriving rather than the fix
+debugging.
+
+**⛔ `[disproved 2026-09-13]` while in there:** the dossier's "next suspect is the copy arriving in
+uploads smaller than 4 registers". **All 4,126** pixel shaders that declare this matrix declare it
+**four registers wide**; a four-register-only guard misses 0.000 %, and the live `PARTIAL=` counter has
+never incremented. Only an engine-level split of a single upload survives, which no file can settle, so
+it is now **counted** (`partial-asm`, observe-only unless its own marker is present) rather than
+assumed. ⚠️ Pieces from different frames are deliberately never stitched — that would manufacture a
+matrix the game never sent.
+
 ## 7. Constant-buffer fill mechanism
 - Map/DISCARD ring / UpdateSubresource / D3D11.1 offset / **persistent map +
   memcpy** (trap):
@@ -1570,9 +1632,29 @@ Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
 
 ## 8. Pass inventory (by render target)
 - Main scene (res/formats):
-- Shadow passes (depth-only sizes):
-- Post / AA chain (SMAA/TAA/motion vectors; downscale sizes):
-- UI / HUD (how it's kept separate):
+- **Shadow passes:** projection is a **screen-space pass** reading scene depth through
+  `ScreenToShadowMatrix` (56 pixel shaders) — see §6g, including why our head edit corrupts it and what
+  the correction is `[measured 2026-09-13]`.
+- **Dynamic lights are rare:** **27 dynamic light actors in all 858 map pieces** (13
+  `PointLightToggleable`, 12 `PointLightMovable`, 2 `SpotLightMovable`, **zero Dominant**) against
+  7,621 static `PointLight` `[measured 2026-09-13]`. **95 % of the pixel shaders that declare
+  `ViewProjectionMatrix` also declare `LightColorAndFalloffExponent`** (3,935 of 4,126) — so with no
+  dynamic light in view, nothing that uses the pixel VP copy is ever bound, which closes the
+  2026-09-11 puzzle from the shader side. Nearest from the Chapter 1 save: **"Always Elevenses"**
+  (`Chapter1_W1_TMaker_02_S`, same persistent map, no load). Densest: **Hide Park, Chapter 5 London —
+  7**, and the only listed area whose lights carry `ModShadowColor` +
+  `bCanAffectDynamicPrimitivesOutsideDynamicChannel`, i.e. moving shadows on characters.
+- **Post / AA chain — SSAO:** shipped `DefaultEngine.ini` has `AmbientOcclusion=False`; **this PC's
+  live `AliceEngine.ini` has it True** `[measured 2026-09-13]`. ⚠️ A fresh profile or the home PC is
+  therefore **off** by default — check before calling an SSAO result reproducible. The chain is
+  **global** shaders (generation → temporal history with `AOHistoryTexture` / `PrevViewProjMatrix` →
+  blend), and **none of them declares `ViewProjectionMatrix`**, so `VP-shader-bound=0` can never say
+  anything about SSAO.
+- **UI / HUD:** Scaleform, drawn after the scene, so it should be unaffected by the head edit — the
+  tell would be the opposite, a HUD that doubles or shifts with the offset. Two separate overlays:
+  the **combat HUD** (in combat) and the **Focus reticle** (needs `Lockon`, which the save has); the
+  **aiming crosshair** needs a ranged weapon and appears in **one map of 858**, past "Always
+  Elevenses" `[measured 2026-09-13]`.
 
 ## 9. cvar / console cheat sheet
 
