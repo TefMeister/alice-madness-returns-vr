@@ -30,3 +30,19 @@ marker on would have "shown" that the fix does nothing. The next build moves the
   identical build hash (`8dea5b9ce191`) before anything new went in. Tag `pre-split-2026-09-29-alice`.
 - Offset 0 vs 200 pictures were taken, but at 200 Alice's feet are on the bottom edge of the screen, so
   her shadow is out of shot. The next picture pair needs a spot with the floor under her in view.
+
+## Later the same day: the fix moved to the draw, and it fires
+
+Build `99f74b4b13e8` remembers the game's last upload of the four shadow-matrix registers and, just
+before a draw with the shadow pass bound, sends the corrected matrix. Live in the start room, fix on:
+
+- head offset 0: nothing sent, picture unchanged apart from the animated characters;
+- head offset 200: 7,401 corrections sent, 0 refused, and the floor-shadow areas change;
+- back to 0: the count stops rising.
+
+It also fixed a latent fault: the head pair the correction uses was never cleared when the head came
+back to rest, so the last non-zero edit would have kept being applied.
+
+Not yet known: whether the shadows now sit in the right place. The start room's shadows are soft, and
+at offset 200 Alice's feet are on the screen edge. The next pictures need a spot with a crisp shadow on
+open floor, which Tefa walks Alice to.
