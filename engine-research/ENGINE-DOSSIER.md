@@ -1565,6 +1565,9 @@ Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
 
 ## 6g. ⭐⭐ THREE MORE VIEW MATRICES REACH PIXEL SHADERS — and `ScreenToShadowMatrix` is the better suspect for sliding shadows (2026-09-13, `/lm` reader, static only)
 
+**⭐ 2026-09-29 LIVE ANSWER: the matrix is uploaded BEFORE its pass is bound.** In the save's start room `ScreenToShadow` was bound ~25,000 times and its register c8 written 0 times while it was bound. A watcher (build `edf5c7829111`) stamped every pixel-constant write with the shader bound at the time: at all 2,136 binds counted, c8 had been written that same frame while ANOTHER pixel shader was bound, never with none, never stale `[verified-live 2026-09-29, n=1]`. So `shadowFix()`, which only rewrites writes made with the pass bound, can never fire. The rewrite belongs at the draw: keep the last c8..c11 upload and send K·M just before a draw with the pass bound. The derivation below is unchanged. `[hypothesis]`: the write belongs to this pass (fresh every bind, age 0) rather than being another shader's c8 that happens to sit there; the draw-time fix's A/B pictures settle it.
+
+
 Found while answering "what would a **mis-handled** SSAO pass look like" — a question about breakage,
 not about what was broken. Note: `modding-notes/2026-09-13-the-shadow-matrix-nobody-was-watching.md`.
 
