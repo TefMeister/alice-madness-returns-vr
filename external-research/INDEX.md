@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox empty. One topic for the stuck shadow fix: in the Unreal lineage ScreenToShadowMatrix takes (screen x·w, y·w, w, 1), not a camera-space point, so the correction must be built in that space; check Alice's own compiled shader.
+**Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the shadow-fix row is a re-derivation of our own pass (Fable), not a public question. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox empty. One topic for the stuck shadow fix: in the Unreal lineage ScreenToShadowMatrix takes (screen x·w, y·w, w, 1), not a camera-space point, so the correction must be built in that space; check Alice's own compiled shader._
 
 _Previous: Last `/gr` pass: 2026-09-23 (estate sweep) — CHECK-IN.** Checked phunkaeg's *VR Modding Playbook*: no Alice entry. Its BioShock shadow-mask case (a mono screen-space buffer read per eye makes shading swim) corroborates our ScreenToShadowMatrix suspicion; UE3 leads went to /sr.
 
