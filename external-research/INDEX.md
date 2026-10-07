@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the shadow-fix row is a re-derivation of our own pass (Fable), not a public question. Nothing new.
+**Last `/gr` pass: 2026-10-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check only: no other Alice VR mod found. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-10-04 (estate sweep, second pass) — CHECK-IN.** Inbox empty; board `OPEN` rows read: the shadow-fix row is a re-derivation of our own pass (Fable), not a public question. Nothing new._
 
 _Previous: **Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox empty. One topic for the stuck shadow fix: in the Unreal lineage ScreenToShadowMatrix takes (screen x·w, y·w, w, 1), not a camera-space point, so the correction must be built in that space; check Alice's own compiled shader._
 
