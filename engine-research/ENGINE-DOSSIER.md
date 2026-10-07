@@ -1565,6 +1565,8 @@ Evidence: `dev-archive/recon/2026-09-07-two-eye-wiggle-test/`. Harness:
 
 ## 6g. ⭐⭐ THREE MORE VIEW MATRICES REACH PIXEL SHADERS — and `ScreenToShadowMatrix` is the better suspect for sliding shadows (2026-09-13, `/lm` reader, static only)
 
+> ⚠️ **Partly superseded 2026-10-07**: the claim below that the screen-input packing D "cancels" is `[disproved 2026-10-07]` (numerically). The shader's real input is u = (x·W, y·W, W, 1); the right correction is K_u = inv(U(edited))·U(game). See "Inbox folds, 2026-10-07" at the end.
+
 **⭐ 2026-09-29 LIVE ANSWER: the matrix is uploaded BEFORE its pass is bound.** In the save's start room `ScreenToShadow` was bound ~25,000 times and its register c8 written 0 times while it was bound. A watcher (build `edf5c7829111`) stamped every pixel-constant write with the shader bound at the time: at all 2,136 binds counted, c8 had been written that same frame while ANOTHER pixel shader was bound, never with none, never stale `[verified-live 2026-09-29, n=1]`. So `shadowFix()`, which only rewrites writes made with the pass bound, can never fire. The rewrite belongs at the draw: keep the last c8..c11 upload and send K·M just before a draw with the pass bound. The derivation below is unchanged. `[hypothesis]`: the write belongs to this pass (fresh every bind, age 0) rather than being another shader's c8 that happens to sit there; the draw-time fix's A/B pictures settle it.
  **Built the same day (`99f74b4b13e8`) and firing:** 7,401 corrections at offset 200, 0 refused, silent at 0 `[verified-live 2026-09-29, n=1]`; correctness not yet judged (no crisp shadow in the start room).
 
@@ -1952,3 +1954,33 @@ requires four things — the last three would prove nothing without the first:
 ## Inbox folds, 2026-09-29
 
 **⭐ 2026-09-29 (`/gr`, folded): the input to `ScreenToShadowMatrix` is probably a SCREEN position times depth.** In the Unreal lineage the lookup is `mul(float4(ScreenPosition.xy * SceneW, SceneW, 1), ScreenToShadowMatrix)`: (x·w, y·w, w, 1), w in the third slot, a fix-up folded into the matrix `[reported]`. If Alice does the same `[hypothesis]`, the draw-time build's rigid view-space K is in the wrong space, which fits the live "moves, but wrong" shadows. Settle it statically from one ScreenToShadow pixel shader in `GlobalShaderCache-PC-D3D-SM3.bin` (how the vector multiplied by `c8..c11` is built), then build K in that space. Topic: `external-research/topics/2026-09-29-screen-to-shadow-takes-screen-position-times-depth.md`.
+
+## Inbox folds, 2026-10-07 (`/lm` reader, static; one live run)
+
+Sources (folded and deleted): `2026-10-07-pd-shadow-fix-rederived.md`, `-screentoworld.md`, `-shear-fold.md`,
+`-device-split.md`. Builds in staging `alice-madness-returns-vr/proxy-d3d9` (main, `1360b44`).
+
+- **What the lighting shaders really feed their matrices** `[measured 2026-10-07]`: all 56 ScreenToShadowMatrix and
+  all 33 ScreenToWorld/ScreenToWorldMatrix ps_3_0 shaders compute W = 1/(sceneDepth·MinZ_MaxZRatio.z − .w) and
+  multiply u = (ndc.x·W, ndc.y·W, W, 1) by the matrix rows (mad chain, same row layout as the vertex VP; no transpose
+  bug). 16 shadow shaders declare NvStereoEnabled and un-shear x themselves; for ScreenToWorld that un-shear never
+  reaches the ScreenToWorld input, so all 33 see the sheared position.
+- **Why the 2026-09-29 fix looked wrong** `[verified-numerically 2026-10-07, n=2]`: it used a clip-space K, which
+  divides by the wrong number per pixel. Worst lookup error at head offset 200: fix off 3.4, old fix 110–209, new
+  input-space K below 4e-6. The straight light edge is probably where that wrong divisor crosses zero `[hypothesis]`.
+- **Per-eye shear** `[verified-numerically 2026-10-07]` / look `[inferred-static]`: the non-aware shaders rebuild
+  points off sideways by dx·|W/C − 1| (dx 3.04 units/eye at 95 units/m, 64 mm; C 300), so in the headset their
+  shadows and light falloff would appear to lie at the convergence depth (~3.2 m). Fix: K = inv(U(sent))·U(target),
+  target = game matrix (with the head fix) or pre-shear matrix (without).
+- **Runtime switches** (all re-read every draw, poke-able; build `080ed4a06f9f`, RVAs): `g_shadowOn` 0x4cb9a0 (head
+  fix for shadows, marker `alice_vr_shadowfix_on.txt`), `g_shadowSpace` 0x4b008 (1 new / 0 old K), `g_s2wOn`
+  0x4cb9a4 (ScreenToWorld head fix, OFF, marker `alice_vr_screentoworld_on.txt`), `g_foldOn` 0x4cb9b0 (shadow shear
+  fold for the 40, OFF, `alice_vr_shearfold_on.txt`), `g_s2wFoldOn` 0x4cb9c4 (ScreenToWorld fold for all 33, OFF,
+  `alice_vr_s2w_shearfold_on.txt`). Addresses move with every build: re-read with llvm-nm.
+- **Live** `[verified-live 2026-10-07, n=1]`: `91faf14b965c` and `5d3ce56be320` load and play; at offset 200 the new
+  fix is sent at the draw. The kitchen at the save point gives no clear Alice shadow, so no verdict; the A/B needs the
+  2026-09-29 mushroom spot.
+- **device.cpp split** move-only, rebuilt DLL byte-identical to `ff91356a6beb` `[compile-verified 2026-10-07]`
+  (tag `pre-split-2026-10-07-alice`; merged to main). device.cpp now 1,037 lines.
+- Not handled: the motion-blur shader's PrevViewProjMatrix; whether the last captured camera is the one each lighting
+  pass used `[hypothesis]`.
