@@ -9,7 +9,8 @@ on the game's **Unreal Engine 3** foundation.
 > Stereo rendering and 6DOF head tracking work in a headset, and the head-tracking
 > scale is now measured (95 game units per metre) rather than guessed. The new scale
 > has not been worn yet, there are no motion controls, and nothing is calibrated for
-> comfort.
+> comfort. Since the release (2026-09-29): a fix for shadows in 3D now runs in the game, still to be
+> judged, and is not in a release yet.
 >
 > 🤢 **Caution: may cause severe motion sickness and discomfort.** Play seated,
 > keep it short, take the headset off at the first sign of discomfort. This
