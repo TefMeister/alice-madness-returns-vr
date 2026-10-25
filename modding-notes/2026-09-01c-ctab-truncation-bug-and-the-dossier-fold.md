@@ -7,7 +7,7 @@
 
 ## ⚠️ Read `2026-09-01b-the-real-toggle-is-Stereo3D-in-the-options-menu.md` first
 
-**This note does not discover Alice's stereo path — the earlier `/pd` pass (commit `35e93ca`, 14:29)
+**This note does not discover Alice's stereo path — the earlier `/pd` pass (commit `da30b58`, 14:29)
 did**, and it got the headline right: 45,832 CTAB tables, `NvStereoEnabled` at `c3` in 28,017
 shaders, `NvStereoFixTexture` in 14,479, and the `Stereo3D` entry in the options list. I re-derived
 those independently before realising the work existed, which is worth recording as a cheap
