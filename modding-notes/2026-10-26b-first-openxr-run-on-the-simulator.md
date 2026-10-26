@@ -51,3 +51,12 @@ break the height formula `[hypothesis]`; the window rule keeps it 1280x720 on bo
 
 `alice_xr.ini` back to `enable=0` (an ordinary launch is unchanged), `Fullscreen=False` kept (windowed is the rule).
 Installed files unchanged since the morning's record (`deployed.sh check`: all 4 match).
+
+## BeG0nE camera report of this run (read after the write-up)
+
+`[measured 2026-10-26, n=1 session]`: 60 headset pictures and 60 pose reads a second, but only **15.3 camera writes
+a second** (0.24 per picture). That is the expected shape on the dev PC: the game draws about 30 frames a second
+here, and with one eye per frame the head pose is renewed every second frame. On the home PC the rate should rise
+with the game's frame rate; it is the first thing to read if Tefa calls the headset jittery. Its "98% stale pose"
+line is an artifact of this test: the simulated head was moved in two sudden steps, not a smooth turn, so the pose
+really was the same between steps. The jitter cut frames were not made (ffmpeg is not installed on the dev PC).
