@@ -58,6 +58,9 @@ ourselves.
 | Steamless — SteamStub DRM unpacker (supported variants, purpose, licence; nothing taken from it) | atom0s | https://github.com/atom0s/Steamless |
 | Steamstub-v3-Unpacker (v3 unpack/rebuild behaviour and options; nothing taken from it) | GHFear | https://github.com/GHFear/Steamstub-v3-Unpacker |
 | "Cube World Reversing — Unpack the game" (the `.bind` section, entry-point redirection and runtime `.text` decryption, explained on a different game) | Adam Hlt | https://adamhlt.com/cube-world-reversing-unpack-the-game/ |
+| Gamedev Guide, "Useful command line arguments" (override-INI table, 2026-10-26) | ikrima | https://ikrima.dev/ue4guide/wip/useful-command-line-arguments/ |
+| UDK "Command-line Arguments" (UE3) | Epic Games | https://docs.unrealengine.com/udk/Three/CommandLineArguments.html |
+| Forum thread "Launching a server with specific ini values" (2026-10-26) | Epic Games forum community | https://answers.unrealengine.com/questions/707407/view.html |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
