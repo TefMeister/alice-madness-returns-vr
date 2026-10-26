@@ -1984,3 +1984,18 @@ Sources (folded and deleted): `2026-10-07-pd-shadow-fix-rederived.md`, `-screent
   (tag `pre-split-2026-10-07-alice`; merged to main). device.cpp now 1,037 lines.
 - Not handled: the motion-blur shader's PrevViewProjMatrix; whether the last captured camera is the one each lighting
   pass used `[hypothesis]`.
+
+## OpenXR output, 2026-10-26 (`/pd`, no launch)
+
+- **The VR output path is now OpenXR** (Tefa's 2026-10-17 decision), off by default: `ALICE_OPENXR=1` or `enable=1`
+  in `alice_xr.ini`. Hard Reset's headset thread (`src/xr/`, from `82b18ba`) plus `src/xr_bridge.c`; the head pose
+  reaches the camera through `vr_pose.c`'s new reader hook, so the offset-and-turn code proven in the headset on
+  2026-09-10 is reused unchanged. `[compile-verified 2026-10-26]`
+- **One eye per frame means a headset picture is a PAIR of frames.** The head pose is renewed only before a left
+  frame and held for the right, so both halves share one pose. Cost: half-rate eyes and half-rate pose renewal; if
+  the headset ever looks jittery, suspect this rate first. Pairing `[verified-numerically 2026-10-26]` by
+  `xr_selftest.exe` on the OpenXR Simulator (151 pairs in 6 s, all red-left/blue-right, 0 failed), no game.
+- **Drawn angles:** half-width `1/p00`, half-height `(1/p00)*h/w`, eye window centre at tangent `-eye_dx/convergence`
+  `[inferred-static 2026-10-26]`; `drawn_fov=0` is the A/B if the picture size looks wrong in the headset.
+- Not known until a launch: the back buffer format (must be 8-bit BGRA) and the Reset path.
+  Note: `modding-notes/2026-10-26-alice-can-reach-an-openxr-headset.md`.
