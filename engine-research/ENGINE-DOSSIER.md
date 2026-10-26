@@ -1999,3 +1999,19 @@ Sources (folded and deleted): `2026-10-07-pd-shadow-fix-rederived.md`, `-screent
   `[inferred-static 2026-10-26]`; `drawn_fov=0` is the A/B if the picture size looks wrong in the headset.
 - Not known until a launch: the back buffer format (must be 8-bit BGRA) and the Reset path.
   Note: `modding-notes/2026-10-26-alice-can-reach-an-openxr-headset.md`.
+
+## First OpenXR run in the game, 2026-10-26 (`/lm`, OpenXR Simulator) + reader fold
+
+- **Works on the simulator:** picture format 21 (A8R8G8B8), 1280x720 per eye; in the level 4,607 pairs handed over,
+  0 failed or dropped; both eyes shown; simulator stereo check PASS (5 px, expected 2-30); a 20° left head turn
+  turns the view left `[verified-live 2026-10-26, n=1 run]`. Note: `modding-notes/2026-10-26b-first-openxr-run-on-the-simulator.md`.
+- **Square pixels hold at 1280x720:** p11/p00 = 1.7778 = 1280/720 in all 106 camera dumps on disk, four FOVs seen
+  (40, 65, 70, 90 deg horizontal) `[measured 2026-10-26]` (reader). Only 16:9 has ever been measured; another aspect
+  may letterbox or keep a 16:9 projection `[hypothesis]`.
+- **Reset is rare:** once in all older logs and once today, both around a FULLSCREEN start; zero in windowed launches
+  `[measured 2026-10-26]` (reader + this run). A display-mode Reset costs a burst of failed readbacks (80 today), then
+  none.
+- **Hazards for driving it with the simulator:** the preview window opens on top of the game (move it off, or the
+  menu replay loses its place); `Fullscreen=True` can come back in `AliceEngine.ini` (set False with the game closed).
+- `AliceEngine.ini` has `MaxMultisamples=4`, but the back buffer itself is NOT multisampled: the bridge's
+  `readback made` line carries no "resolved first" note `[measured 2026-10-26, n=2 launches]`.

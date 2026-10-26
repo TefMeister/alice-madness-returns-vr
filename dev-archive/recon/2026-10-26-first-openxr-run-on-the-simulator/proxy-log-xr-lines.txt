@@ -1,0 +1,196 @@
+[11:49:43.508] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=1364 ===
+[11:49:57.340] CreateDevice: adapter=0 type=1 flags=0x142 windowed=0 1280x720
+[11:50:00.107] XRBridge: DISABLE_HAND_FREEZE_LAYER=1 for this process (its 64-bit layer stops 32-bit OpenXR)
+[11:50:00.107] xr: ON - headset thread started (own D3D11 device, projection layers, CPU handover)
+[11:50:00.107] XRBridge: OpenXR ON (ALICE_OPENXR=1 or enable=1 in alice_xr.ini): the head pose comes from the OpenXR headset thread, and each finished picture goes to the headset. Two-eye start: yes. Drawn angles: on (each eye goes out with the angles it was drawn with).
+[11:50:00.107] XRBridge: headset loading | frames submitted 0, empty 0, pictures uploaded 0, with own pose 0 | handed 0, not ready 0, failed 0, pairs dropped 0 | poses 0
+[11:50:00.107] XRBridge: two-eye mode on at start (stereo=1)
+[11:50:00.107] vr: HEAD TRACKING from OpenXR, not OpenVR. Scale 95.0 game units per metre. The first valid pose becomes the origin; NumPad5 re-centres; NumPad+ / NumPad- change the scale.
+[11:50:00.108] xr: runtime for this game only: D:\claude video game stuff\tools\OpenXR-Simulator\openxr_simulator-32.json
+[11:50:00.828] xr: controllers ON: grip and aim poses asked for every frame (5 of 5 controller families accepted, 5 with buttons and sticks)
+[11:50:00.828] xr: session created on the headset thread's own D3D11 device; waiting for the runtime to start it
+[11:50:01.102] xr: session running
+[11:50:01.148] XRBridge: readback made, 2 slots x 2 eyes of 1280x720 format 21
+[11:50:01.148] vr: first OpenXR pose - RE-CENTRED on it (origin 0.000,1.700,0.000 m)
+[11:50:01.244] xr: two 1280x720 eye swapchains, format 91
+[11:50:01.267] xr: 1 headset frames submitted
+[11:50:05.133] XRBridge: headset running | frames submitted 232, empty 8, pictures uploaded 60, with own pose 233 | handed 60, not ready 0, failed 0, pairs dropped 0 | poses 241
+[11:50:10.143] XRBridge: headset running | frames submitted 538, empty 8, pictures uploaded 133, with own pose 539 | handed 133, not ready 0, failed 0, pairs dropped 0 | poses 547
+[11:50:15.150] XRBridge: headset running | frames submitted 839, empty 8, pictures uploaded 201, with own pose 840 | handed 201, not ready 0, failed 0, pairs dropped 0 | poses 848
+[11:50:16.160] xr: 900 headset frames submitted
+[11:50:20.169] XRBridge: headset running | frames submitted 1140, empty 8, pictures uploaded 266, with own pose 1141 | handed 266, not ready 0, failed 0, pairs dropped 0 | poses 1149
+[11:50:25.195] XRBridge: headset running | frames submitted 1400, empty 8, pictures uploaded 284, with own pose 1401 | handed 284, not ready 0, failed 41, pairs dropped 0 | poses 1409
+[11:50:29.259] Reset() hr=0x00000000 - registry (6740 shaders) and fix texture kept, both survive Reset
+[11:50:30.195] XRBridge: headset running | frames submitted 1675, empty 8, pictures uploaded 292, with own pose 1676 | handed 292, not ready 0, failed 80, pairs dropped 0 | poses 1684
+[11:50:32.272] xr: 1800 headset frames submitted
+[11:50:35.197] XRBridge: headset running | frames submitted 1974, empty 8, pictures uploaded 365, with own pose 1975 | handed 365, not ready 0, failed 80, pairs dropped 0 | poses 1983
+[11:50:40.201] XRBridge: headset running | frames submitted 2274, empty 8, pictures uploaded 440, with own pose 2275 | handed 440, not ready 0, failed 80, pairs dropped 0 | poses 2283
+[11:50:45.220] XRBridge: headset running | frames submitted 2579, empty 8, pictures uploaded 518, with own pose 2580 | handed 518, not ready 0, failed 80, pairs dropped 0 | poses 2588
+[11:50:47.177] xr: 2700 headset frames submitted
+[11:50:50.236] XRBridge: headset running | frames submitted 2883, empty 8, pictures uploaded 595, with own pose 2884 | handed 595, not ready 0, failed 80, pairs dropped 0 | poses 2892
+[11:50:55.254] XRBridge: headset running | frames submitted 3186, empty 8, pictures uploaded 673, with own pose 3187 | handed 673, not ready 0, failed 80, pairs dropped 0 | poses 3195
+[11:51:00.254] XRBridge: headset running | frames submitted 3486, empty 8, pictures uploaded 750, with own pose 3487 | handed 750, not ready 0, failed 80, pairs dropped 0 | poses 3495
+[11:51:02.145] xr: 3600 headset frames submitted
+[11:51:05.244] XRBridge: headset running | frames submitted 3785, empty 8, pictures uploaded 827, with own pose 3786 | handed 827, not ready 0, failed 80, pairs dropped 0 | poses 3794
+[11:51:10.246] XRBridge: headset running | frames submitted 4086, empty 8, pictures uploaded 904, with own pose 4087 | handed 904, not ready 0, failed 80, pairs dropped 0 | poses 4095
+[11:51:15.253] XRBridge: headset running | frames submitted 4386, empty 8, pictures uploaded 982, with own pose 4387 | handed 982, not ready 0, failed 80, pairs dropped 0 | poses 4395
+[11:51:17.144] xr: 4500 headset frames submitted
+[11:51:20.269] XRBridge: headset running | frames submitted 4687, empty 8, pictures uploaded 1059, with own pose 4688 | handed 1059, not ready 0, failed 80, pairs dropped 0 | poses 4696
+[11:51:25.270] XRBridge: headset running | frames submitted 4987, empty 8, pictures uploaded 1137, with own pose 4988 | handed 1137, not ready 0, failed 80, pairs dropped 0 | poses 4996
+[11:51:30.270] XRBridge: headset running | frames submitted 5287, empty 8, pictures uploaded 1214, with own pose 5288 | handed 1214, not ready 0, failed 80, pairs dropped 0 | poses 5296
+[11:51:32.144] xr: 5400 headset frames submitted
+[11:51:35.271] XRBridge: headset running | frames submitted 5587, empty 8, pictures uploaded 1292, with own pose 5588 | handed 1292, not ready 0, failed 80, pairs dropped 0 | poses 5596
+[11:51:40.271] XRBridge: headset running | frames submitted 5887, empty 8, pictures uploaded 1369, with own pose 5888 | handed 1369, not ready 0, failed 80, pairs dropped 0 | poses 5896
+[11:51:45.272] XRBridge: headset running | frames submitted 6187, empty 8, pictures uploaded 1447, with own pose 6188 | handed 1447, not ready 0, failed 80, pairs dropped 0 | poses 6196
+[11:51:47.145] xr: 6300 headset frames submitted
+[11:51:50.271] XRBridge: headset running | frames submitted 6487, empty 8, pictures uploaded 1524, with own pose 6488 | handed 1524, not ready 0, failed 80, pairs dropped 0 | poses 6496
+[11:51:55.273] XRBridge: headset running | frames submitted 6787, empty 8, pictures uploaded 1602, with own pose 6788 | handed 1602, not ready 0, failed 80, pairs dropped 0 | poses 6796
+[11:52:00.275] XRBridge: headset running | frames submitted 7089, empty 8, pictures uploaded 1679, with own pose 7090 | handed 1679, not ready 0, failed 80, pairs dropped 0 | poses 7098
+[11:52:02.111] xr: 7200 headset frames submitted
+[11:52:05.275] XRBridge: headset running | frames submitted 7389, empty 8, pictures uploaded 1757, with own pose 7390 | handed 1757, not ready 0, failed 80, pairs dropped 0 | poses 7398
+[11:52:10.280] XRBridge: headset running | frames submitted 7690, empty 8, pictures uploaded 1834, with own pose 7691 | handed 1834, not ready 0, failed 80, pairs dropped 0 | poses 7699
+[11:52:15.283] XRBridge: headset running | frames submitted 7990, empty 8, pictures uploaded 1912, with own pose 7991 | handed 1912, not ready 0, failed 80, pairs dropped 0 | poses 7999
+[11:52:17.111] xr: 8100 headset frames submitted
+[11:52:20.294] XRBridge: headset running | frames submitted 8290, empty 8, pictures uploaded 1989, with own pose 8291 | handed 1989, not ready 0, failed 80, pairs dropped 0 | poses 8299
+[11:52:25.299] XRBridge: headset running | frames submitted 8591, empty 8, pictures uploaded 2067, with own pose 8592 | handed 2067, not ready 0, failed 80, pairs dropped 0 | poses 8600
+[11:52:30.303] XRBridge: headset running | frames submitted 8891, empty 8, pictures uploaded 2144, with own pose 8892 | handed 2144, not ready 0, failed 80, pairs dropped 0 | poses 8900
+[11:52:32.111] xr: 9000 headset frames submitted
+[11:52:35.314] XRBridge: headset running | frames submitted 9192, empty 8, pictures uploaded 2222, with own pose 9193 | handed 2222, not ready 0, failed 80, pairs dropped 0 | poses 9201
+[11:52:40.321] XRBridge: headset running | frames submitted 9492, empty 8, pictures uploaded 2299, with own pose 9493 | handed 2299, not ready 0, failed 80, pairs dropped 0 | poses 9501
+[11:52:45.325] XRBridge: headset running | frames submitted 9792, empty 8, pictures uploaded 2377, with own pose 9793 | handed 2377, not ready 0, failed 80, pairs dropped 0 | poses 9801
+[11:52:47.112] xr: 9900 headset frames submitted
+[11:52:50.337] XRBridge: headset running | frames submitted 10093, empty 8, pictures uploaded 2454, with own pose 10094 | handed 2454, not ready 0, failed 80, pairs dropped 0 | poses 10102
+[11:52:55.337] XRBridge: headset running | frames submitted 10393, empty 8, pictures uploaded 2532, with own pose 10394 | handed 2532, not ready 0, failed 80, pairs dropped 0 | poses 10402
+[11:53:00.326] XRBridge: headset running | frames submitted 10694, empty 8, pictures uploaded 2609, with own pose 10695 | handed 2609, not ready 0, failed 80, pairs dropped 0 | poses 10703
+[11:53:02.079] xr: 10800 headset frames submitted
+[11:53:05.326] XRBridge: headset running | frames submitted 10994, empty 8, pictures uploaded 2686, with own pose 10995 | handed 2686, not ready 0, failed 80, pairs dropped 0 | poses 11003
+[11:53:10.326] XRBridge: headset running | frames submitted 11294, empty 8, pictures uploaded 2764, with own pose 11295 | handed 2764, not ready 0, failed 80, pairs dropped 0 | poses 11303
+[11:53:15.328] XRBridge: headset running | frames submitted 11594, empty 8, pictures uploaded 2841, with own pose 11595 | handed 2841, not ready 0, failed 80, pairs dropped 0 | poses 11603
+[11:53:17.084] xr: 11700 headset frames submitted
+[11:53:20.329] XRBridge: headset running | frames submitted 11894, empty 8, pictures uploaded 2919, with own pose 11895 | handed 2919, not ready 0, failed 80, pairs dropped 0 | poses 11903
+[11:53:43.099] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=29072 ===
+[11:53:51.055] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[11:53:52.300] XRBridge: DISABLE_HAND_FREEZE_LAYER=1 for this process (its 64-bit layer stops 32-bit OpenXR)
+[11:53:52.300] xr: ON - headset thread started (own D3D11 device, projection layers, CPU handover)
+[11:53:52.300] XRBridge: OpenXR ON (ALICE_OPENXR=1 or enable=1 in alice_xr.ini): the head pose comes from the OpenXR headset thread, and each finished picture goes to the headset. Two-eye start: yes. Drawn angles: on (each eye goes out with the angles it was drawn with).
+[11:53:52.300] XRBridge: headset loading | frames submitted 0, empty 0, pictures uploaded 0, with own pose 0 | handed 0, not ready 0, failed 0, pairs dropped 0 | poses 0
+[11:53:52.300] XRBridge: two-eye mode on at start (stereo=1)
+[11:53:52.300] vr: HEAD TRACKING from OpenXR, not OpenVR. Scale 95.0 game units per metre. The first valid pose becomes the origin; NumPad5 re-centres; NumPad+ / NumPad- change the scale.
+[11:53:52.300] xr: runtime for this game only: D:\claude video game stuff\tools\OpenXR-Simulator\openxr_simulator-32.json
+[11:53:52.571] xr: controllers ON: grip and aim poses asked for every frame (5 of 5 controller families accepted, 5 with buttons and sticks)
+[11:53:52.571] xr: session created on the headset thread's own D3D11 device; waiting for the runtime to start it
+[11:53:52.613] xr: session running
+[11:53:52.632] XRBridge: readback made, 2 slots x 2 eyes of 1280x720 format 21
+[11:53:52.632] vr: first OpenXR pose - RE-CENTRED on it (origin 0.000,1.700,0.000 m)
+[11:53:52.755] xr: two 1280x720 eye swapchains, format 91
+[11:53:52.779] xr: 1 headset frames submitted
+[11:53:57.329] XRBridge: headset running | frames submitted 267, empty 8, pictures uploaded 69, with own pose 268 | handed 70, not ready 0, failed 0, pairs dropped 0 | poses 276
+[11:54:02.328] XRBridge: headset running | frames submitted 572, empty 8, pictures uploaded 141, with own pose 573 | handed 142, not ready 0, failed 0, pairs dropped 0 | poses 581
+[11:54:07.357] XRBridge: headset running | frames submitted 874, empty 8, pictures uploaded 210, with own pose 875 | handed 211, not ready 0, failed 0, pairs dropped 0 | poses 883
+[11:54:07.785] xr: 900 headset frames submitted
+[11:54:12.367] XRBridge: headset running | frames submitted 1176, empty 8, pictures uploaded 281, with own pose 1177 | handed 282, not ready 0, failed 0, pairs dropped 0 | poses 1185
+[11:54:17.374] XRBridge: headset running | frames submitted 1477, empty 8, pictures uploaded 352, with own pose 1478 | handed 353, not ready 0, failed 0, pairs dropped 0 | poses 1486
+[11:54:22.375] XRBridge: headset running | frames submitted 1777, empty 8, pictures uploaded 430, with own pose 1778 | handed 431, not ready 0, failed 0, pairs dropped 0 | poses 1786
+[11:54:22.755] xr: 1800 headset frames submitted
+[11:54:27.376] XRBridge: headset running | frames submitted 2077, empty 8, pictures uploaded 507, with own pose 2078 | handed 508, not ready 0, failed 0, pairs dropped 0 | poses 2086
+[11:54:34.058] XRBridge: headset running | frames submitted 2126, empty 8, pictures uploaded 518, with own pose 2127 | handed 519, not ready 0, failed 0, pairs dropped 0 | poses 2135
+[11:55:10.455] === alice-madness-returns-vr proxy d3d9.dll loaded, PID=23576 ===
+[11:55:18.085] CreateDevice: adapter=0 type=1 flags=0x142 windowed=1 1280x720
+[11:55:19.330] XRBridge: DISABLE_HAND_FREEZE_LAYER=1 for this process (its 64-bit layer stops 32-bit OpenXR)
+[11:55:19.330] xr: ON - headset thread started (own D3D11 device, projection layers, CPU handover)
+[11:55:19.330] XRBridge: OpenXR ON (ALICE_OPENXR=1 or enable=1 in alice_xr.ini): the head pose comes from the OpenXR headset thread, and each finished picture goes to the headset. Two-eye start: yes. Drawn angles: on (each eye goes out with the angles it was drawn with).
+[11:55:19.330] XRBridge: headset loading | frames submitted 0, empty 0, pictures uploaded 0, with own pose 0 | handed 0, not ready 0, failed 0, pairs dropped 0 | poses 0
+[11:55:19.330] XRBridge: two-eye mode on at start (stereo=1)
+[11:55:19.330] vr: HEAD TRACKING from OpenXR, not OpenVR. Scale 95.0 game units per metre. The first valid pose becomes the origin; NumPad5 re-centres; NumPad+ / NumPad- change the scale.
+[11:55:19.331] xr: runtime for this game only: D:\claude video game stuff\tools\OpenXR-Simulator\openxr_simulator-32.json
+[11:55:19.607] xr: controllers ON: grip and aim poses asked for every frame (5 of 5 controller families accepted, 5 with buttons and sticks)
+[11:55:19.607] xr: session created on the headset thread's own D3D11 device; waiting for the runtime to start it
+[11:55:19.649] xr: session running
+[11:55:19.663] XRBridge: readback made, 2 slots x 2 eyes of 1280x720 format 21
+[11:55:19.701] vr: first OpenXR pose - RE-CENTRED on it (origin 0.000,1.700,0.000 m)
+[11:55:19.741] xr: two 1280x720 eye swapchains, format 91
+[11:55:19.759] xr: 1 headset frames submitted
+[11:55:24.341] XRBridge: headset running | frames submitted 273, empty 5, pictures uploaded 70, with own pose 271 | handed 70, not ready 0, failed 0, pairs dropped 0 | poses 279
+[11:55:29.350] XRBridge: headset running | frames submitted 574, empty 5, pictures uploaded 143, with own pose 572 | handed 143, not ready 0, failed 0, pairs dropped 0 | poses 580
+[11:55:34.372] XRBridge: headset running | frames submitted 875, empty 5, pictures uploaded 213, with own pose 873 | handed 213, not ready 0, failed 0, pairs dropped 0 | poses 881
+[11:55:34.776] xr: 900 headset frames submitted
+[11:55:39.378] XRBridge: headset running | frames submitted 1176, empty 5, pictures uploaded 282, with own pose 1174 | handed 282, not ready 0, failed 0, pairs dropped 0 | poses 1182
+[11:55:44.385] XRBridge: headset running | frames submitted 1476, empty 5, pictures uploaded 354, with own pose 1474 | handed 354, not ready 0, failed 0, pairs dropped 0 | poses 1482
+[11:55:49.384] XRBridge: headset running | frames submitted 1776, empty 5, pictures uploaded 432, with own pose 1774 | handed 432, not ready 0, failed 0, pairs dropped 0 | poses 1782
+[11:55:49.776] xr: 1800 headset frames submitted
+[11:55:54.384] XRBridge: headset running | frames submitted 2076, empty 5, pictures uploaded 509, with own pose 2074 | handed 509, not ready 0, failed 0, pairs dropped 0 | poses 2082
+[11:55:59.380] XRBridge: headset running | frames submitted 2376, empty 5, pictures uploaded 586, with own pose 2374 | handed 586, not ready 0, failed 0, pairs dropped 0 | poses 2382
+[11:56:04.381] XRBridge: headset running | frames submitted 2676, empty 5, pictures uploaded 664, with own pose 2674 | handed 664, not ready 0, failed 0, pairs dropped 0 | poses 2682
+[11:56:04.776] xr: 2700 headset frames submitted
+[11:56:09.404] XRBridge: headset running | frames submitted 2977, empty 5, pictures uploaded 741, with own pose 2975 | handed 741, not ready 0, failed 0, pairs dropped 0 | poses 2983
+[11:56:14.405] XRBridge: headset running | frames submitted 3277, empty 5, pictures uploaded 819, with own pose 3275 | handed 819, not ready 0, failed 0, pairs dropped 0 | poses 3283
+[11:56:19.405] XRBridge: headset running | frames submitted 3577, empty 5, pictures uploaded 896, with own pose 3575 | handed 896, not ready 0, failed 0, pairs dropped 0 | poses 3583
+[11:56:19.776] xr: 3600 headset frames submitted
+[11:56:24.406] XRBridge: headset running | frames submitted 3879, empty 5, pictures uploaded 974, with own pose 3877 | handed 974, not ready 0, failed 0, pairs dropped 0 | poses 3885
+[11:56:29.406] XRBridge: headset running | frames submitted 4179, empty 5, pictures uploaded 1051, with own pose 4177 | handed 1051, not ready 0, failed 0, pairs dropped 0 | poses 4185
+[11:56:34.407] XRBridge: headset running | frames submitted 4479, empty 5, pictures uploaded 1129, with own pose 4477 | handed 1129, not ready 0, failed 0, pairs dropped 0 | poses 4485
+[11:56:34.744] xr: 4500 headset frames submitted
+[11:56:39.408] XRBridge: headset running | frames submitted 4779, empty 5, pictures uploaded 1206, with own pose 4777 | handed 1206, not ready 0, failed 0, pairs dropped 0 | poses 4785
+[11:56:44.407] XRBridge: headset running | frames submitted 5079, empty 5, pictures uploaded 1284, with own pose 5077 | handed 1284, not ready 0, failed 0, pairs dropped 0 | poses 5085
+[11:56:49.407] XRBridge: headset running | frames submitted 5379, empty 5, pictures uploaded 1361, with own pose 5377 | handed 1361, not ready 0, failed 0, pairs dropped 0 | poses 5385
+[11:56:49.743] xr: 5400 headset frames submitted
+[11:56:54.408] XRBridge: headset running | frames submitted 5679, empty 5, pictures uploaded 1439, with own pose 5677 | handed 1439, not ready 0, failed 0, pairs dropped 0 | poses 5685
+[11:56:59.408] XRBridge: headset running | frames submitted 5979, empty 5, pictures uploaded 1516, with own pose 5977 | handed 1516, not ready 0, failed 0, pairs dropped 0 | poses 5985
+[11:57:04.408] XRBridge: headset running | frames submitted 6279, empty 5, pictures uploaded 1594, with own pose 6277 | handed 1594, not ready 0, failed 0, pairs dropped 0 | poses 6285
+[11:57:04.743] xr: 6300 headset frames submitted
+[11:57:09.409] XRBridge: headset running | frames submitted 6579, empty 5, pictures uploaded 1671, with own pose 6577 | handed 1671, not ready 0, failed 0, pairs dropped 0 | poses 6585
+[11:57:14.409] XRBridge: headset running | frames submitted 6879, empty 5, pictures uploaded 1749, with own pose 6877 | handed 1749, not ready 0, failed 0, pairs dropped 0 | poses 6885
+[11:57:19.411] XRBridge: headset running | frames submitted 7180, empty 5, pictures uploaded 1826, with own pose 7178 | handed 1826, not ready 0, failed 0, pairs dropped 0 | poses 7186
+[11:57:19.744] xr: 7200 headset frames submitted
+[11:57:24.409] XRBridge: headset running | frames submitted 7479, empty 5, pictures uploaded 1904, with own pose 7477 | handed 1904, not ready 0, failed 0, pairs dropped 0 | poses 7485
+[11:57:29.410] XRBridge: headset running | frames submitted 7779, empty 5, pictures uploaded 1981, with own pose 7777 | handed 1981, not ready 0, failed 0, pairs dropped 0 | poses 7785
+[11:57:34.411] XRBridge: headset running | frames submitted 8080, empty 5, pictures uploaded 2059, with own pose 8078 | handed 2059, not ready 0, failed 0, pairs dropped 0 | poses 8086
+[11:57:34.744] xr: 8100 headset frames submitted
+[11:57:39.415] XRBridge: headset running | frames submitted 8380, empty 5, pictures uploaded 2136, with own pose 8378 | handed 2136, not ready 0, failed 0, pairs dropped 0 | poses 8386
+[11:57:44.414] XRBridge: headset running | frames submitted 8680, empty 5, pictures uploaded 2214, with own pose 8678 | handed 2214, not ready 0, failed 0, pairs dropped 0 | poses 8686
+[11:57:49.427] XRBridge: headset running | frames submitted 8980, empty 5, pictures uploaded 2291, with own pose 8978 | handed 2291, not ready 0, failed 0, pairs dropped 0 | poses 8986
+[11:57:49.744] xr: 9000 headset frames submitted
+[11:57:54.436] XRBridge: headset running | frames submitted 9281, empty 5, pictures uploaded 2368, with own pose 9279 | handed 2368, not ready 0, failed 0, pairs dropped 0 | poses 9287
+[11:57:59.547] XRBridge: headset running | frames submitted 9588, empty 5, pictures uploaded 2442, with own pose 9586 | handed 2442, not ready 0, failed 0, pairs dropped 0 | poses 9594
+[11:58:04.544] XRBridge: headset running | frames submitted 9887, empty 5, pictures uploaded 2516, with own pose 9885 | handed 2516, not ready 0, failed 0, pairs dropped 0 | poses 9893
+[11:58:04.746] xr: 9900 headset frames submitted
+[11:58:09.558] XRBridge: headset running | frames submitted 10186, empty 5, pictures uploaded 2591, with own pose 10184 | handed 2591, not ready 0, failed 0, pairs dropped 0 | poses 10192
+[11:58:14.559] XRBridge: headset running | frames submitted 10486, empty 5, pictures uploaded 2669, with own pose 10484 | handed 2669, not ready 0, failed 0, pairs dropped 0 | poses 10492
+[11:58:19.559] XRBridge: headset running | frames submitted 10786, empty 5, pictures uploaded 2746, with own pose 10784 | handed 2746, not ready 0, failed 0, pairs dropped 0 | poses 10792
+[11:58:19.781] xr: 10800 headset frames submitted
+[11:58:24.560] XRBridge: headset running | frames submitted 11088, empty 5, pictures uploaded 2824, with own pose 11086 | handed 2824, not ready 0, failed 0, pairs dropped 0 | poses 11094
+[11:58:29.559] XRBridge: headset running | frames submitted 11388, empty 5, pictures uploaded 2901, with own pose 11386 | handed 2901, not ready 0, failed 0, pairs dropped 0 | poses 11394
+[11:58:34.561] XRBridge: headset running | frames submitted 11688, empty 5, pictures uploaded 2979, with own pose 11686 | handed 2979, not ready 0, failed 0, pairs dropped 0 | poses 11694
+[11:58:34.748] xr: 11700 headset frames submitted
+[11:58:39.560] XRBridge: headset running | frames submitted 11988, empty 5, pictures uploaded 3056, with own pose 11986 | handed 3056, not ready 0, failed 0, pairs dropped 0 | poses 11994
+[11:58:44.561] XRBridge: headset running | frames submitted 12288, empty 5, pictures uploaded 3134, with own pose 12286 | handed 3134, not ready 0, failed 0, pairs dropped 0 | poses 12294
+[11:58:49.562] XRBridge: headset running | frames submitted 12588, empty 5, pictures uploaded 3211, with own pose 12586 | handed 3211, not ready 0, failed 0, pairs dropped 0 | poses 12594
+[11:58:49.748] xr: 12600 headset frames submitted
+[11:58:54.561] XRBridge: headset running | frames submitted 12888, empty 5, pictures uploaded 3289, with own pose 12886 | handed 3289, not ready 0, failed 0, pairs dropped 0 | poses 12894
+[11:58:59.562] XRBridge: headset running | frames submitted 13188, empty 5, pictures uploaded 3366, with own pose 13186 | handed 3366, not ready 0, failed 0, pairs dropped 0 | poses 13194
+[11:59:04.570] XRBridge: headset running | frames submitted 13489, empty 5, pictures uploaded 3444, with own pose 13487 | handed 3444, not ready 0, failed 0, pairs dropped 0 | poses 13495
+[11:59:04.748] xr: 13500 headset frames submitted
+[11:59:09.571] XRBridge: headset running | frames submitted 13789, empty 5, pictures uploaded 3521, with own pose 13787 | handed 3521, not ready 0, failed 0, pairs dropped 0 | poses 13795
+[11:59:14.571] XRBridge: headset running | frames submitted 14089, empty 5, pictures uploaded 3599, with own pose 14087 | handed 3599, not ready 0, failed 0, pairs dropped 0 | poses 14095
+[11:59:19.573] XRBridge: headset running | frames submitted 14389, empty 5, pictures uploaded 3676, with own pose 14387 | handed 3676, not ready 0, failed 0, pairs dropped 0 | poses 14395
+[11:59:19.748] xr: 14400 headset frames submitted
+[11:59:24.574] XRBridge: headset running | frames submitted 14689, empty 5, pictures uploaded 3754, with own pose 14687 | handed 3754, not ready 0, failed 0, pairs dropped 0 | poses 14695
+[11:59:29.573] XRBridge: headset running | frames submitted 14989, empty 5, pictures uploaded 3831, with own pose 14987 | handed 3831, not ready 0, failed 0, pairs dropped 0 | poses 14995
+[11:59:34.575] XRBridge: headset running | frames submitted 15289, empty 5, pictures uploaded 3909, with own pose 15287 | handed 3909, not ready 0, failed 0, pairs dropped 0 | poses 15295
+[11:59:34.748] xr: 15300 headset frames submitted
+[11:59:39.576] XRBridge: headset running | frames submitted 15589, empty 5, pictures uploaded 3986, with own pose 15587 | handed 3986, not ready 0, failed 0, pairs dropped 0 | poses 15595
+[11:59:44.577] XRBridge: headset running | frames submitted 15889, empty 5, pictures uploaded 4064, with own pose 15887 | handed 4064, not ready 0, failed 0, pairs dropped 0 | poses 15895
+[11:59:49.576] XRBridge: headset running | frames submitted 16189, empty 5, pictures uploaded 4141, with own pose 16187 | handed 4141, not ready 0, failed 0, pairs dropped 0 | poses 16195
+[11:59:49.748] xr: 16200 headset frames submitted
+[11:59:54.577] XRBridge: headset running | frames submitted 16489, empty 5, pictures uploaded 4219, with own pose 16487 | handed 4219, not ready 0, failed 0, pairs dropped 0 | poses 16495
+[11:59:59.577] XRBridge: headset running | frames submitted 16789, empty 5, pictures uploaded 4296, with own pose 16787 | handed 4296, not ready 0, failed 0, pairs dropped 0 | poses 16795
+[12:00:04.579] XRBridge: headset running | frames submitted 17089, empty 5, pictures uploaded 4374, with own pose 17087 | handed 4374, not ready 0, failed 0, pairs dropped 0 | poses 17095
+[12:00:04.748] xr: 17100 headset frames submitted
+[12:00:09.612] XRBridge: headset running | frames submitted 17392, empty 5, pictures uploaded 4452, with own pose 17390 | handed 4452, not ready 0, failed 0, pairs dropped 0 | poses 17398
+[12:00:14.612] XRBridge: headset running | frames submitted 17694, empty 5, pictures uploaded 4529, with own pose 17692 | handed 4529, not ready 0, failed 0, pairs dropped 0 | poses 17700
+[12:00:19.614] XRBridge: headset running | frames submitted 17995, empty 5, pictures uploaded 4607, with own pose 17993 | handed 4607, not ready 0, failed 0, pairs dropped 0 | poses 18001
+[12:00:19.689] xr: 18000 headset frames submitted
+[12:00:24.617] XRBridge: headset running | frames submitted 18297, empty 5, pictures uploaded 4684, with own pose 18295 | handed 4684, not ready 0, failed 0, pairs dropped 0 | poses 18303
+[12:00:29.618] XRBridge: headset running | frames submitted 18597, empty 5, pictures uploaded 4761, with own pose 18595 | handed 4761, not ready 0, failed 0, pairs dropped 0 | poses 18603
+[12:00:34.633] XRBridge: headset running | frames submitted 18898, empty 5, pictures uploaded 4839, with own pose 18896 | handed 4839, not ready 0, failed 0, pairs dropped 0 | poses 18904
+[12:00:34.658] xr: 18900 headset frames submitted
