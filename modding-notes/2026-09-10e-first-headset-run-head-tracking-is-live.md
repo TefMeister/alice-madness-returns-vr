@@ -1,6 +1,6 @@
 # 2026-09-10e — the first headset run: head tracking is live, position and rotation
 
-Home PC `RTX`, headset on (Quest 3 over Virtual Desktop, SteamVR), Tefa driving, one launch.
+Home PC, headset on (Quest 3 over Virtual Desktop, SteamVR), Tefa driving, one launch.
 Build `648a44e15b47` (727,040 B), rebuilt on this machine from `staging/` earlier the same
 evening and byte-identical to the dev PC's.
 
