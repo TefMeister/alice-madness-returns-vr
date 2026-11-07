@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-10-26 (estate sweep) — CHECK-IN.** Inbox empty; no other Alice VR mod found. For the VR-only screen-effects row: Unreal's ENGINEINI= switch could point the VR launch at its own engine ini; one topic, pointer sent to the dossier inbox.
+**Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check only (web and GitHub search): no Alice VR mod found, only flat fixes (MadnessPatch, a DRM fix). Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-10-26 (estate sweep) — CHECK-IN.** Inbox empty; no other Alice VR mod found. For the VR-only screen-effects row: Unreal's ENGINEINI= switch could point the VR launch at its own engine ini; one topic, pointer sent to the dossier inbox._
 
 _Previous: **Last `/gr` pass: 2026-10-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check only: no other Alice VR mod found. Nothing new._
 
